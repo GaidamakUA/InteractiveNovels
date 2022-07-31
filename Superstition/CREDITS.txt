@@ -1,0 +1,36 @@
+﻿© 2019 Bum Studios Productions | 13Leagues
+All rights reserved.
+
+All images are copyright by Bum Studios Productions. All audio is licensed under Bum Studios Productions and courtesy of AudioBlocks. Copyright infringement is punishable by law.
+
+A FEW THINGS ...
+
+If you can play it in a browser then just do that, downloading the file is purely for those that have really horrible internet. The download version will take you back to the browser but since the data is already downloaded and there, will allow the player not to have a working connection to play.
+
+SAVING AND LOADING
+
+The game has an autosave function and will automatically save at acts and at the end of each episode. So, if you end up ever forgetting to save it, then the game has your back. 
+
+You can also save the game to your files. To do this when you have the save widget up, go to  'save to disk.' It will automatically download and save to whatever folder you have that receives everything you downloaded (typically your downloads folder). To load the game up with a previously saved disk file, press 'load from disk', go to the folder that holds your saved game file and load it in.
+
+UPDATING - ONLY FOR DOWNLOADED FILES
+
+For those who download the files, whenenver there's an update, simply replace the index.html with the newer version. The save will not be effected. If you wish to be cautious regarding this, have a copy save of your game by downloading it to disk (See Saving and Loading).
+
+If you have any questions or issues please contact me @ 13leaguestories@gmail.com
+
+or go to my tumblr: 13leaguestories.tumblr.com
+
+CREDITS
+
+A special thanks to: 
+Sylveranty
+Rodney Roberts
+Roquelana
+
+Beta Testers:
+Kalani Mercer
+Tianna Wright
+Kanaya
+Ririsu
+Sinne
