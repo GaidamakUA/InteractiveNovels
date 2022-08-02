@@ -1,0 +1,1751 @@
+<!DOCTYPE html>
+<!--[if lte IE 8]><html class="lt-ie9"><![endif]-->
+<!--[if gt IE 8]><!-->
+<html><!--<![endif]--><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<title>The Writer Will Do Something</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--
+Made in Twine 1.4.2 (running on Darwin 14.4.0)
+Built on 19 Aug 2015 at 19:55:57, -0800
+
+Sugarcane is based on:
+
+TiddlyWiki 1.2.39 by Jeremy Ruston, (jeremy [at] osmosoft [dot] com)
+
+Published under a BSD open source license
+
+Copyright (c) Osmosoft Limited 2005
+
+Redistribution and use in source and binary forms, with or without modification,
+are permitted provided that the following conditions are met:
+
+Redistributions of source code must retain the above copyright notice, this
+list of conditions and the following disclaimer.
+
+Redistributions in binary form must reproduce the above copyright notice, this
+list of conditions and the following disclaimer in the documentation and/or other
+materials provided with the distribution.
+
+Neither the name of the Osmosoft Limited nor the names of its contributors may be
+used to endorse or promote products derived from this software without specific
+prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY
+EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
+OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
+SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR
+BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
+ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
+DAMAGE.
+-->
+<script title="engine">
+(function(){
+
+function clone(a){var constructor,b,proto;if(!a||typeof a!="object"){return a
+}constructor=a.constructor;if(constructor==Date||constructor==RegExp){b=new constructor(a)}else{if(constructor==Array){b=[]}else{if(a.nodeType&&typeof a.cloneNode=="function"){b=a.cloneNode(true)}else{proto=(typeof Object.getPrototypeOf=="function"?Object.getPrototypeOf(a):a.__proto__);b=proto?Object.create(proto):{}}}}for(var property in a){if(Object.prototype.hasOwnProperty.call(a,property)&&!isCyclic(a[property])){if(typeof a[property]=="object"){try{b[property]=clone(a[property]);continue}catch(e){}}b[property]=a[property]}}return b}function isCyclic(obj){var properties=[];return(function recurse(obj){var key,i,ownProps=[];if(obj&&typeof obj=="object"){if(properties.indexOf(obj)>-1){return true
+}properties.push(obj);for(key in obj){if(Object.prototype.hasOwnProperty.call(obj,key)&&recurse(obj[key])){return true
+}}}return false}(obj))}function insertElement(a,d,f,c,e){var b=document.createElement(d);if(f){b.id=f}if(c){b.className=c}if(e){insertText(b,e)}if(a){a.appendChild(b)}return b}function addClickHandler(el,fn){if(el.addEventListener){el.addEventListener("click",fn)}else{if(el.attachEvent){el.attachEvent("onclick",fn)}}}function insertText(a,b){return a.appendChild(document.createTextNode(b))}function removeChildren(a){while(a.hasChildNodes()){a.removeChild(a.firstChild)}}function findPassageParent(el){while(el&&el!=document.body&&!~el.className.indexOf("passage")){el=el.parentNode}return el==document.body?null:el}function setPageElement(c,b,a){var place;if(place=(typeof c=="string"?document.getElementById(c):c)){removeChildren(place);if(tale.has(b)){new Wikifier(place,tale.get(b).processText())}else{new Wikifier(place,a)}}}var scrollWindowInterval;function scrollWindowTo(e,margin){var d=window.scrollY?window.scrollY:document.documentElement.scrollTop,m=window.innerHeight?window.innerHeight:document.documentElement.clientHeight,g=k(e),j=(d>g)?-1:1,b=0,c=Math.abs(d-g);scrollWindowInterval&&window.clearInterval(scrollWindowInterval);if(c){scrollWindowInterval=window.setInterval(h,25)}function h(){b+=0.1;window.scrollTo(0,d+j*(c*Math.easeInOut(b)));if(b>=1){window.clearInterval(scrollWindowInterval)}}function k(o){var p=a(o),h=o.offsetHeight,n=d+m;p=Math.min(Math.max(p+(margin||0)*(p<d?-1:1),0),n);if(p<d){return p
+}else{if(p+h>n){if(h<m){return(p-(m-h)+20)}else{return p
+}}else{return p
+}}}function a(l){var m=0;while(l.offsetParent){m+=l.offsetTop;l=l.offsetParent}return m}}function delta(old,neu){var vars,ret={};if(old&&neu){for(vars in neu){if(neu[vars]!==old[vars]){ret[vars]=neu[vars]}}}return ret}function decompile(val){var i,ret;if((typeof val!="object"&&typeof val!="function")||!val){return val
+}else{if(val instanceof Passage){return{"[[Passage]]":val.id}}else{if(Array.isArray(val)){ret=[]}else{ret={}}}}for(i in val){if(Object.prototype.hasOwnProperty.call(val,i)&&!isCyclic(val[i])){ret[i]=decompile(val[i])}}if(typeof val=="function"||val instanceof RegExp){try{internalEval(val+"");ret["[[Call]]"]=val+""}catch(e){ret["[[Call]]"]="function(){}"}}return ret}function recompile(val){var i,ret=val;if(val&&typeof val=="object"){if(typeof val["[[Passage]]"]=="number"){return tale.get(val["[[Passage]]"])}if(typeof val["[[Call]]"]=="string"){try{ret=internalEval(val["[[Call]]"])}catch(e){}}for(i in val){if(Object.prototype.hasOwnProperty.call(val,i)){ret[i]=recompile(val[i])}}}return ret}function addStyle(b){if(document.createStyleSheet){document.getElementsByTagName("head")[0].insertAdjacentHTML("beforeEnd","&nbsp;<style>"+b+"</style>")}else{var a=document.createElement("style");a.appendChild(document.createTextNode(b));document.getElementsByTagName("head")[0].appendChild(a)}}function alterCSS(text){var temp="",imgPassages=tale.lookup("tags","Twine.image");text=text.replace(/\/\*(?:[^\*]|\*(?!\/))*\*\//g,"");text=text.replace(/:link/g,"[class*=Link]");text=text.replace(/:visited/g,".visitedLink");text=text.replace(/@import\s+(?:url\s*\(\s*['"]?|['"])[^"'\s]+(?:['"]?\s*\)|['"])\s*([\w\s\(\)\d\:,\-]*);/g,function(e){temp+=e;return""});text=temp+text;return text.replace(new RegExp(Wikifier.imageFormatter.lookahead,"gim"),function(m,p1,p2,p3,src){for(var i=0;i<imgPassages.length;i++){if(imgPassages[i].title==src){src=imgPassages[i].text;break}}return"url("+src+")"})}function setTransitionCSS(styleText){styleText=alterCSS(styleText);var style=document.getElementById("transitionCSS");style.styleSheet?(style.styleSheet.cssText=styleText):(style.innerHTML=styleText)}function throwError(a,b,tooltip){if(a){var elem=insertElement(a,"span",null,"marked",b);tooltip&&elem.setAttribute("title",tooltip)}else{alert("Regrettably, this "+tale.identity()+"'s code just ran into a problem:\n"+b+".\n"+softErrorMessage)}}Math.easeInOut=function(a){return(1-((Math.cos(a*Math.PI)+1)/2))};String.prototype.readMacroParams=function(keepquotes){var exec,re=/(?:\s*)(?:(?:"([^"]*)")|(?:'([^']*)')|(?:\[\[((?:[^\]]|\](?!\]))*)\]\])|([^"'\s]\S*))/mg,params=[];do{var val;exec=re.exec(this);if(exec){if(exec[1]){val=exec[1];keepquotes&&(val='"'+val+'"')}else{if(exec[2]){val=exec[2];keepquotes&&(val="'"+val+"'")}else{if(exec[3]){val=exec[3];keepquotes&&(val='"'+val.replace('"','\\"')+'"')}else{if(exec[4]){val=exec[4]}}}}val&&params.push(val)}}while(exec);return params};String.prototype.readBracketedList=function(){var c,b="\\[\\[([^\\]]+)\\]\\]",a="[^\\s$]+",e="(?:"+b+")|("+a+")",d=new RegExp(e,"mg"),f=[];do{c=d.exec(this);if(c){if(c[1]){f.push(c[1])}else{if(c[2]){f.push(c[2])}}}}while(c);return(f)};function rot13(s){return s.replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt()+13)?c:c-26)})}Object.create||(function(){var F=function(){};Object.create=function(o){if(typeof o!="object"){throw TypeError()}F.prototype=o;return new F()}})();String.prototype.trim||(String.prototype.trim=function(){return this.replace(/^\s\s*/,"").replace(/\s\s*$/,"")});Array.isArray||(Array.isArray=function(arg){return Object.prototype.toString.call(arg)==="[object Array]"});Array.prototype.indexOf||(Array.prototype.indexOf=function(b,d){d=(d==null)?0:d;var a=this.length;for(var c=d;c<a;c++){if(this[c]==b){return c
+}}return -1});Array.prototype.forEach||(Array.prototype.forEach=function(fun){if(this==null){throw TypeError()}var t=Object(this);var len=+t.length;if(typeof fun!="function"){throw TypeError()}var thisArg=arguments.length>=2?arguments[1]:void 0;for(var i=0;i<len;i++){if(i in t){fun.call(thisArg,t[i],i,t)}}});(function(){function t(t){this.message=t}var e=window,r="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";t.prototype=Error(),t.prototype.name="InvalidCharacterError",e.btoa||(e.btoa=function(e){for(var o,n,a=0,i=r,c="";e.charAt(0|a)||(i="=",a%1);c+=i.charAt(63&o>>8-8*(a%1))){if(n=e.charCodeAt(a+=0.75),n>255){throw new t()}o=o<<8|n}return c}),e.atob||(e.atob=function(e){if(e=e.replace(/=+$/,""),1==e.length%4){throw new t()}for(var o,n,a=0,i=0,c="";n=e.charAt(i++);~n&&(o=a%4?64*o+n:n,a++%4)?c+=String.fromCharCode(255&o>>(6&-2*a)):0){n=r.indexOf(n)}return c})})();var hasTransition="transition" in document.documentElement.style||"-webkit-transition" in document.documentElement.style;function fade(f,c){var h;var e=f.cloneNode(true);var g=(c.fade=="in")?1:-1;f.parentNode.replaceChild(e,f);if(c.fade=="in"){h=0;e.style.visibility="visible"}else{h=1
+}b(e,h);var a=window.setInterval(d,25);function d(){h+=0.05*g;b(e,Math.easeInOut(h));if(((g==1)&&(h>=1))||((g==-1)&&(h<=0))){f.style.visibility=(c.fade=="in")?"visible":"hidden";if(e.parentNode){e.parentNode.replaceChild(f,e)}window.clearInterval(a);if(c.onComplete){c.onComplete.call(f)}}}function b(k,j){var l=Math.floor(j*100);k.style.zoom=1;k.style.filter="alpha(opacity="+l+")";k.style.opacity=j}}function History(){this.history=[{passage:null,variables:{}}];this.id=new Date().getTime()+"";this.hash=""}History.prototype.encodeHistory=function(b,noVars){var ret=".",vars,type,hist=this.history[b],d=this.history[b+1]?delta(this.history[b+1].variables,hist.variables):hist.variables;function vtob(val){try{return window.btoa(unescape(encodeURIComponent(JSON.stringify(decompile(val)))))}catch(e){return"0"
+}}if(!hist.passage||hist.passage.id==null){return""
+}ret+=hist.passage.id.toString(36);if(noVars){return ret
+}for(vars in d){type=typeof d[vars];if(type!="undefined"){ret+="$"+vtob(vars)+","+vtob(d[vars])}}for(vars in hist.linkVars){type=typeof hist.linkVars[vars];if(type!="function"&&type!="undefined"){ret+="["+vtob(vars)+","+vtob(hist.linkVars[vars])}}return ret};History.decodeHistory=function(str,prev){var name,splits,variable,c,d,ret={variables:clone(prev.variables)||{}},match=/([a-z0-9]+)((?:\$[A-Za-z0-9\+\/=]+,[A-Za-z0-9\+\/=]+)*)((?:\[[A-Za-z0-9\+\/=]+,[A-Za-z0-9\+\/=]+)*)/g.exec(str);function btov(str){try{return recompile(JSON.parse(decodeURIComponent(escape(window.atob(str)))))}catch(e){return 0
+}}if(match){name=parseInt(match[1],36);if(!tale.has(name)){return false
+}if(match[2]){ret.variables||(ret.variables={});splits=match[2].split("$");for(c=0;c<splits.length;c++){variable=splits[c].split(",");d=btov(variable[0]);if(d){ret.variables[d]=btov(variable[1])}}}if(match[3]){ret.linkVars||(ret.linkVars={});splits=match[3].split("[");for(c=0;c<splits.length;c++){variable=splits[c].split(",");d=btov(variable[0]);if(d){ret.linkVars[d]=btov(variable[1])}}}ret.passage=tale.get(name);return ret}};History.prototype.save=function(){var hist,b,a="";for(b=this.history.length-1;b>=0;b--){hist=this.history[b];if(!hist){break
+}a+=this.encodeHistory(b)}return"#"+a};History.prototype.restore=function(){var a,b,c,vars;try{if(!window.location.hash||(window.location.hash=="#")){if(testplay){if(tale.has("StoryInit")){new Wikifier(insertElement(null,"span"),tale.get("StoryInit").text)}this.display(testplay,null,"quietly");return true}return false}if(window.location.hash.substr(0,2)=="#!"){c=window.location.hash.substr(2).split("_").join(" ");this.display(c,null,"quietly");return true}a=window.location.hash.replace("#","").split(".");for(b=0;b<a.length;b++){vars=History.decodeHistory(a[b],vars||{});if(vars){if(b==a.length-1){vars.variables=clone(this.history[0].variables);for(c in this.history[0].linkVars){vars.variables[c]=clone(this.history[0].linkVars[c])}this.history.unshift(vars);this.display(vars.passage.title,null,"back")}else{this.history.unshift(vars)}}}return true}catch(d){return false
+}};History.prototype.saveVariables=function(c,el,callback){if(typeof callback=="function"){callback.call(el)}this.history.unshift({passage:c,variables:clone(this.history[0].variables)})};var restart=History.prototype.restart=function(){if(typeof window.history.replaceState=="function"){(typeof this.pushState=="function")&&this.pushState(true,window.location.href.replace(/#.*$/,""));window.location.reload()}else{window.location.hash=""}};var version={major:4,minor:2,revision:0,date:new Date("2014"),extensions:{}};var testplay,tale,state,prerender={},postrender={},macros=window.macros={};version.extensions.displayMacro={major:2,minor:0,revision:0};macros.display={parameters:[],handler:function(place,macroName,params,parser){var t,j,output,oldDisplayParams,name=parser.fullArgs();if(macroName!="display"){output=macroName;params=parser.fullMatch().replace(/^\S*|>>$/g,"").readMacroParams(true);try{for(j=0;j<params.length;j++){params[j]=internalEval(Wikifier.parse(params[j]))}}catch(e){throwError(place,parser.fullMatch()+" bad argument: "+params[j],parser.fullMatch());return}}else{try{output=internalEval(name)}catch(e){}if(output==null){if(tale.has(name)){output=name
+}}}if(!output){throwError(place,"<<"+macroName+'>>: "'+name+'" did not evaluate to a passage name',parser.fullMatch())}else{if(!tale.has(output+"")){throwError(place,"<<"+macroName+'>>: The "'+output+'" passage does not exist',parser.fullMatch())}else{oldDisplayParams=this.parameters;this.parameters=params;t=tale.get(output+"");if(t.tags.indexOf("script")>-1){scriptEval(t)}else{new Wikifier(place,t.processText())}this.parameters=oldDisplayParams
+}}}};version.extensions.actionsMacro={major:1,minor:2,revision:0};macros.actions={handler:function(a,f,g){var v=state.history[0].variables,e=insertElement(a,"ul");if(!v["actions clicked"]){v["actions clicked"]={}}for(var b=0;b<g.length;b++){if(v["actions clicked"][g[b]]){continue
+}var d=insertElement(e,"li");var c=Wikifier.createInternalLink(d,g[b],(function(link){return function(){state.history[0].variables["actions clicked"][link]=true}}(g[b])));insertText(c,g[b])}}};version.extensions.printMacro={major:1,minor:1,revision:1};macros.print={handler:function(place,macroName,params,parser){var args=parser.fullArgs(macroName!="print"),output;try{output=internalEval(args);if(output!=null&&(typeof output!="number"||!isNaN(output))){new Wikifier(place,""+output)}}catch(e){throwError(place,"<<print>> bad expression: "+params.join(" "),parser.fullMatch())}}};version.extensions.setMacro={major:1,minor:1,revision:0};macros.set={handler:function(a,b,c,parser){macros.set.run(a,parser.fullArgs(),parser,c.join(" "))},run:function(a,expression,parser,original){try{return internalEval(expression)}catch(e){throwError(a,"bad expression: "+(original||expression),parser?parser.fullMatch():expression)}}};version.extensions.ifMacros={major:2,minor:0,revision:0};macros["if"]={handler:function(place,macroName,params,parser){var conditions=[],clauses=[],rawConds=[],srcOffset=parser.source.indexOf(">>",parser.matchStart)+2,src=parser.source.slice(srcOffset),endPos=-1,rawCond=params.join(" "),currentCond=parser.fullArgs(),currentClause="",t=0,nesting=0,i=0;for(;i<src.length;i++){if((src.substr(i,6)=="<<else")&&!nesting){rawConds.push(rawCond);conditions.push(currentCond.trim());clauses.push(currentClause);currentClause="";t=src.indexOf(">>",i+6);if(src.substr(i+6,4)==" if "||src.substr(i+6,3)=="if "){rawCond=src.slice(i+9,t);currentCond=Wikifier.parse(rawCond)}else{rawCond="";currentCond="true"}i=t+2}if(src.substr(i,5)=="<<if "){nesting++
+}if(src.substr(i,9)=="<<endif>>"){nesting--;if(nesting<0){endPos=srcOffset+i+9;rawConds.push(rawCond);conditions.push(currentCond.trim());clauses.push(currentClause);break}}currentClause+=src.charAt(i)}if(endPos!=-1){parser.nextMatch=endPos;try{for(i=0;i<clauses.length;i++){if(internalEval(conditions[i])){new Wikifier(place,clauses[i]);break}}}catch(e){throwError(place,"<<"+(i?"else ":"")+"if>> bad condition: "+rawConds[i],!i?parser.fullMatch():"<<else if "+rawConds[i]+">>")}}else{throwError(place,"I can't find a matching <<endif>>",parser.fullMatch())}}};macros["else"]=macros.elseif=macros.endif={handler:function(){}};version.extensions.rememberMacro={major:2,minor:0,revision:0};macros.remember={handler:function(place,macroName,params,parser){var variable,value,re,match,statement=params.join(" ");macros.set.run(place,parser.fullArgs(),null,params.join(" "));if(!window.localStorage){throwError(place,"<<remember>> can't be used "+(window.location.protocol=="file:"?" by local HTML files ":"")+" in this browser.",parser.fullMatch());return}re=new RegExp(Wikifier.textPrimitives.variable,"g");while(match=re.exec(statement)){variable=match[1];value=state.history[0].variables[variable];try{value=JSON.stringify(value)}catch(e){throwError(place,"can't <<remember>> the variable $"+variable+" ("+(typeof value)+")",parser.fullMatch());return}window.localStorage[this.prefix+variable]=value}},init:function(){var i,variable,value;if(tale.has("StoryTitle")){this.prefix="Twine."+tale.title+"."}else{this.prefix="Twine.Untitled Story."}for(i in window.localStorage){if(i.indexOf(this.prefix)==0){variable=i.substr(this.prefix.length);value=window.localStorage[i];try{value=JSON.parse(value);state.history[0].variables[variable]=value}catch(e){}}}},expire:null,prefix:null};version.extensions.forgetMacro={major:1,minor:0,revision:0};macros.forget={handler:function(place,macroName,params){var re,match,variable,statement=params.join(" ");re=new RegExp(Wikifier.textPrimitives.variable,"g");while(match=re.exec(statement)){variable=match[1]+"";delete state.history[0].variables[variable];delete window.localStorage[macros.remember.prefix+variable]}}};version.extensions.SilentlyMacro={major:1,minor:1,revision:0};macros.nobr=macros.silently={handler:function(place,macroName,f,parser){var i,h=insertElement(null,"div"),k=parser.source.indexOf(">>",parser.matchStart)+2,a=parser.source.slice(k),d=-1,c="",l=0;for(i=0;i<a.length;i++){if(a.substr(i,macroName.length+7)=="<<end"+macroName+">>"){if(l==0){d=k+i+macroName.length+7;break}else{l--
+}}else{if(a.substr(i,macroName.length+4)=="<<"+macroName+">>"){l++
+}}if(macroName=="nobr"&&a.charAt(i)=="\n"){c+="\u200c"}else{c+=a.charAt(i)}}if(d!=-1){new Wikifier(macroName=="nobr"?place:h,c);parser.nextMatch=d}else{throwError(place,"can't find matching <<end"+macroName+">>",parser.fullMatch())}}};macros.endsilently={handler:function(){}};version.extensions.choiceMacro={major:2,minor:0,revision:0};macros.choice={callback:function(){var i,other,passage=findPassageParent(this);if(passage){other=passage.querySelectorAll(".choice");for(i=0;i<other.length;i++){other[i].outerHTML="<span class=disabled>"+other[i].innerHTML+"</span>"}state.history[0].variables["choice clicked"][passage.id.replace(/\|[^\]]*$/,"")]=true}},handler:function(A,C,D,parser){var link,id,match,text=D[1]||D[0].split("|")[0],passage=findPassageParent(A);if(!passage){throwError(A,"<<"+C+">> can't be used here.",parser.fullMatch());return}id=(passage&&passage.id.replace(/\|[^\]]*$/,""));if(id&&(state.history[0].variables["choice clicked"]||(state.history[0].variables["choice clicked"]={}))[id]){insertElement(A,"span",null,"disabled",text)}else{match=new RegExp(Wikifier.linkFormatter.lookahead).exec(parser.fullMatch());if(match){link=Wikifier.linkFormatter.makeLink(A,match,this.callback)}else{link=Wikifier.linkFormatter.makeLink(A,[0,text,D[0]],this.callback)}link.className+=" "+C}}};version.extensions.backMacro={major:2,minor:0,revision:0};macros.back={labeltext:"&#171; back",handler:function(a,b,e,parser){var labelParam,c,el,labeltouse=this.labeltext,steps=1,stepsParam=e.indexOf("steps"),stepsParam2="";if(stepsParam>0){stepsParam2=e[stepsParam-1];if(stepsParam2[0]=="$"){try{stepsParam2=internalEval(Wikifier.parse(stepsParam2))}catch(r){throwError(a,parser.fullMatch()+" bad expression: "+r.message,parser.fullMatch());return}}steps=+stepsParam2;if(steps>=state.history.length-1){steps=state.history.length-2}e.splice(stepsParam-1,2)}labelParam=e.indexOf("label");if(labelParam>-1){if(!e[labelParam+1]){throwError(a,parser.fullMatch()+": "+e[labelParam]+" keyword needs an additional label parameter",parser.fullMatch());return}labeltouse=e[labelParam+1];e.splice(labelParam,2)}if(stepsParam<=0){if(e[0]){if(e[0].charAt(0)=="$"){try{e=internalEval(Wikifier.parse(e[0]))}catch(r){throwError(a,parser.fullMatch()+" bad expression: "+r.message,parser.fullMatch());return}}else{e=e[0]}if(!tale.has(e)){throwError(a,'The "'+e+'" passage does not exist',parser.fullMatch());return}for(c=0;c<state.history.length;c++){if(state.history[c].passage.title==e){steps=c;break}}}}el=document.createElement("a");el.className=b;addClickHandler(el,(function(b){return function(){return macros.back.onclick(b=="back",steps,el)}}(b)));el.innerHTML=labeltouse;a.appendChild(el)}};version.extensions.returnMacro={major:2,minor:0,revision:0};macros["return"]={labeltext:"&#171; return",handler:function(a,b,e){macros.back.handler.call(this,a,b,e)}};version.extensions.textInputMacro={major:2,minor:0,revision:0};macros.checkbox=macros.radio=macros.textinput={handler:function(A,C,D,parser){var match,class_=C.replace("input","Input"),q=A.querySelectorAll("input"),id=class_+"|"+((q&&q.length)||0);input=insertElement(null,"input",id,class_);input.name=D[0];input.type=C.replace("input","");A.appendChild(input);if(C=="textinput"&&D[1]){match=new RegExp(Wikifier.linkFormatter.lookahead).exec(parser.fullMatch());if(match){Wikifier.linkFormatter.makeLink(A,match,macros.button.callback,"button")}else{Wikifier.linkFormatter.makeLink(A,[0,(D[2]||D[1]),D[1]],macros.button.callback,"button")}}else{if((C=="radio"||C=="checkbox")&&D[1]){input.value=D[1];insertElement(A,"label","","",D[1]).setAttribute("for",id);if(D[2]){insertElement(A,"br");D.splice(1,1);macros[C].handler(A,C,D)}}}}};version.extensions.buttonMacro={major:1,minor:0,revision:0};macros.button={callback:function(){var el=findPassageParent(this);if(el){var inputs=el.querySelectorAll("input");for(i=0;i<inputs.length;i++){if(inputs[i].type!="checkbox"&&(inputs[i].type!="radio"||inputs[i].checked)){macros.set.run(null,Wikifier.parse(inputs[i].name+' = "'+inputs[i].value.replace(/"/g,'\\"')+'"'))}else{if(inputs[i].type=="checkbox"&&inputs[i].checked){macros.set.run(null,Wikifier.parse(inputs[i].name+" = [].concat("+inputs[i].name+" || []);"));macros.set.run(null,Wikifier.parse(inputs[i].name+'.push("'+inputs[i].value.replace(/"/g,'\\"')+'")'))}}}}},handler:function(A,C,D,parser){var link,match=new RegExp(Wikifier.linkFormatter.lookahead).exec(parser.fullMatch());if(match){Wikifier.linkFormatter.makeLink(A,match,this.callback,"button")}else{Wikifier.linkFormatter.makeLink(A,[0,D[1]||D[0],D[0]],this.callback,"button")}}};function Passage(c,b,a,ofunc){var t;if(!this||this.constructor!=Passage){throw new ReferenceError("passage() must be in lowercase")}this.title=c;ofunc=typeof ofunc=="function"&&ofunc;if(b){this.id=a;this.tags=b.getAttribute("tags");if(typeof this.tags=="string"){if(ofunc){this.tags=ofunc(this.tags)}this.tags=this.tags.readBracketedList()}else{this.tags=[]}t=b.firstChild?b.firstChild.nodeValue:"";if(ofunc&&!this.isImage()){this.text=ofunc(Passage.unescapeLineBreaks(t))}else{this.text=Passage.unescapeLineBreaks(t)}if(!this.isImage()){this.preloadImages()}if(/\.char\b|\[data\-char\b/.exec(this.text)&&Wikifier.charSpanFormatter){Wikifier.formatters.push(Wikifier.charSpanFormatter);delete Wikifier.charSpanFormatter}}else{this.text="@@This passage does not exist: "+c+"@@";this.tags=[]}}Passage.prototype.isImage=function(){return !!~(this.tags.indexOf("Twine.image"))};Passage.prototype.preloadImages=function(){var u="\\s*['\"]?([^\"'$]+\\.(jpe?g|a?png|gif|bmp|webp|svg))['\"]?\\s*",k=function(c,e){var i,d;do{d=c.exec(this.text);if(d){i=new Image();i.src=d[e]}}while(d);return k};k.call(this,new RegExp(Wikifier.imageFormatter.lookahead.replace("[^\\[\\]\\|]+",u),"mg"),4).call(this,new RegExp("url\\s*\\("+u+"\\)","mig"),1).call(this,new RegExp("src\\s*="+u,"mig"),1)};Passage.unescapeLineBreaks=function(a){if(a&&typeof a=="string"){return a.replace(/\\n/mg,"\n").replace(/\\t/mg,"\t").replace(/\\s/mg,"\\").replace(/\\/mg,"\\").replace(/\r/mg,"")}else{return""
+}};Passage.prototype.setTags=function(b){var t=this.tags!=null&&this.tags.length?this.tags.join(" "):"";if(t){b.setAttribute("data-tags",this.tags.join(" "))}document.body.setAttribute("data-tags",t)};Passage.prototype.processText=function(){var ret=this.text;if(~this.tags.indexOf("nobr")){ret=ret.replace(/\n/g,"\u200c")}if(this.isImage()){ret="[img["+ret+"]]"}return ret};function Tale(){var a,b,c,lines,i,kv,nsc,isImage,settings=this.storysettings={lookup:function(a,dfault){if(!(a in this)){return dfault
+}return(this[a]+"")!="off"}},tiddlerTitle="";window.tale=this;this.passages={};if(document.normalize){document.normalize()}a=document.getElementById("storeArea").children;for(b=0;b<a.length;b++){c=a[b];if(c.getAttribute&&c.getAttribute("tiddler")=="StorySettings"){lines=new Passage("StorySettings",c,0,null,null).text.split("\n");for(i in lines){if(typeof lines[i]=="string"&&lines[i].indexOf(":")>-1){kv=lines[i].toLowerCase().split(":");kv[0]=kv[0].replace(/^\s+|\s+$/g,"");kv[1]=kv[1].replace(/^\s+|\s+$/g,"");if(kv[0]!="lookup"){settings[kv[0]]=kv[1]}}}}}if(settings.obfuscate=="rot13"){for(b=0;b<a.length;b++){c=a[b];if(c.getAttribute&&(tiddlerTitle=c.getAttribute("tiddler"))){isImage=(c.getAttribute("tags")+"").indexOf("Twine.image")>-1;if(tiddlerTitle!="StorySettings"&&!isImage){tiddlerTitle=rot13(tiddlerTitle)}this.passages[tiddlerTitle]=new Passage(tiddlerTitle,c,b+1,!isImage&&rot13)
+}}}else{for(b=0;b<a.length;b++){c=a[b];if(c.getAttribute&&(tiddlerTitle=c.getAttribute("tiddler"))){this.passages[tiddlerTitle]=new Passage(tiddlerTitle,c,b,null,null)}}}}Tale.prototype.has=function(a){if(typeof a=="string"){return(this.passages[a]!=null)}else{for(var i in this.passages){if(this.passages[i].id==a){return true
+}}return false}};Tale.prototype.get=function(a){if(typeof a=="string"){return this.passages[a]||new Passage(a)}else{for(var i in this.passages){if(this.passages[i].id==a){return this.passages[i]}}}};Tale.prototype.lookup=function(h,g,a){var d=[];for(var c in this.passages){var f=this.passages[c];for(var b=0;b<f[h].length;b++){if(f[h][b]==g){d.push(f)}}}if(!a){a="title"
+}d.sort(function(k,j){if(k[a]==j[a]){return(0)}else{return(k[a]<j[a])?-1:+1}});return d};Tale.prototype.canUndo=function(){return this.storysettings.lookup("undo",true)};Tale.prototype.identity=function(){var meta=document.querySelector("meta[name='identity']"),identity=meta?meta.getAttribute("content"):"story";return(Tale.prototype.identity=function(){return identity
+})()};Tale.prototype.forEachStylesheet=function(tags,callback){var passage,i;tags=tags||[];if(typeof callback!="function"){return
+}for(passage in this.passages){passage=tale.passages[passage];if(passage&&~passage.tags.indexOf("stylesheet")){for(i=0;i<tags.length;i++){if(~passage.tags.indexOf(tags[i])){callback(passage);break}}}}};Tale.prototype.setPageElements=function(){var storyTitle,defaultTitle="TWWDS";setPageElement("storyTitle","StoryTitle",defaultTitle);storyTitle=document.getElementById("storyTitle");document.title=this.title=(storyTitle&&(storyTitle.textContent||storyTitle.innerText))||defaultTitle;setPageElement("storySubtitle","StorySubtitle","");if(tale.has("StoryAuthor")){setPageElement("titleSeparator",null,"\n");setPageElement("storyAuthor","StoryAuthor","")}if(tale.has("StoryMenu")){document.getElementById("storyMenu").setAttribute("style","");setPageElement("storyMenu","StoryMenu","")}};function Wikifier(place,source){this.source=source;this.output=place;this.nextMatch=0;this.assembleFormatterMatches(Wikifier.formatters);this.subWikify(this.output)}Wikifier.textPrimitives={upperLetter:"[A-Z\u00c0-\u00de\u0150\u0170]",lowerLetter:"[a-z\u00df-\u00ff_0-9\\-\u0151\u0171]",anyLetter:"[A-Za-z\u00c0-\u00de\u00df-\u00ff_0-9\\-\u0150\u0170\u0151\u0171]"};Wikifier.textPrimitives.variable="\\$((?:"+Wikifier.textPrimitives.anyLetter.replace("\\-","")+"*"+Wikifier.textPrimitives.anyLetter.replace("0-9\\-","")+"+"+Wikifier.textPrimitives.anyLetter.replace("\\-","")+"*)+)";Wikifier.textPrimitives.unquoted="(?=(?:[^\"'\\\\]*(?:\\\\.|'(?:[^'\\\\]*\\\\.)*[^'\\\\]*'|\"(?:[^\"\\\\]*\\\\.)*[^\"\\\\]*\"))*[^'\"]*$)";Wikifier.prototype.assembleFormatterMatches=function(formatters){this.formatters=[];var pattern=[];for(var n=0;n<formatters.length;n++){pattern.push("("+formatters[n].match+")");this.formatters.push(formatters[n])}this.formatterRegExp=new RegExp(pattern.join("|"),"mg")};Wikifier.prototype.subWikify=function(output,terminator){var terminatorMatch,formatterMatch,oldOutput=this.output;this.output=output;var terminatorRegExp=terminator?new RegExp("("+terminator+")","mg"):null;do{this.formatterRegExp.lastIndex=this.nextMatch;if(terminatorRegExp){terminatorRegExp.lastIndex=this.nextMatch}formatterMatch=this.formatterRegExp.exec(this.source);terminatorMatch=terminatorRegExp?terminatorRegExp.exec(this.source):null;if(terminatorMatch&&(!formatterMatch||terminatorMatch.index<=formatterMatch.index)){if(terminatorMatch.index>this.nextMatch){this.outputText(this.output,this.nextMatch,terminatorMatch.index)}this.matchStart=terminatorMatch.index;this.matchLength=terminatorMatch[1].length;this.matchText=terminatorMatch[1];this.nextMatch=terminatorMatch.index+terminatorMatch[1].length;this.output=oldOutput;return}else{if(formatterMatch){if(formatterMatch.index>this.nextMatch){this.outputText(this.output,this.nextMatch,formatterMatch.index)}this.matchStart=formatterMatch.index;this.matchLength=formatterMatch[0].length;this.matchText=formatterMatch[0];this.nextMatch=this.formatterRegExp.lastIndex;var matchingFormatter=-1;for(var t=1;t<formatterMatch.length;t++){if(formatterMatch[t]){matchingFormatter=t-1;break}}if(matchingFormatter!=-1){this.formatters[matchingFormatter].handler(this)}}}}while(terminatorMatch||formatterMatch);if(this.nextMatch<this.source.length){this.outputText(this.output,this.nextMatch,this.source.length);this.nextMatch=this.source.length}this.output=oldOutput};Wikifier.prototype.outputText=function(place,startPos,endPos){if(place){insertText(place,this.source.substring(startPos,endPos))}};Wikifier.prototype.fullMatch=function(){return this.source.slice(this.matchStart,this.source.indexOf(">>",this.matchStart)+2)};Wikifier.prototype.fullArgs=function(includeName){var source=this.source.replace(/\u200c/g," "),endPos=this.nextMatch-2,startPos=source.indexOf(includeName?"<<":" ",this.matchStart);if(!~startPos||!~endPos||endPos<=startPos){return""
+}return Wikifier.parse(source.slice(startPos+(includeName?2:1),endPos).trim())};Wikifier.parse=function(input){var m,re,b=input,found=[],g=Wikifier.textPrimitives.unquoted;function alter(from,to){b=b.replace(new RegExp(from+g,"gim"),to);return alter}re=new RegExp(Wikifier.textPrimitives.variable+g,"gi");while(m=re.exec(input)){if(!~found.indexOf(m[0])){b=m[0]+" == null && ("+m[0]+" = 0);"+b;found.push(m[0])}}alter(Wikifier.textPrimitives.variable,"state.history[0].variables.$1")("\\beq\\b"," == ")("\\bneq\\b"," != ")("\\bgt\\b"," > ")("\\bgte\\b"," >= ")("\\blt\\b"," < ")("\\blte\\b"," <= ")("\\band\\b"," && ")("\\bor\\b"," || ")("\\bnot\\b"," ! ")("\\bis\\b"," == ")("\\bto\\b"," = ");return b};Wikifier.formatHelpers={charFormatHelper:function(a){var b=insertElement(a.output,this.element);a.subWikify(b,this.terminator)},inlineCssHelper:function(w){var s,v,lookaheadMatch,gotMatch,styles=[],lookahead=Wikifier.styleByCharFormatter.lookahead,lookaheadRegExp=new RegExp(lookahead,"mg"),hadStyle=false,unDash=function(str){var s=str.split("-");if(s.length>1){for(var t=1;t<s.length;t++){s[t]=s[t].substr(0,1).toUpperCase()+s[t].substr(1)}}return s.join("")};styles.className="";do{lookaheadRegExp.lastIndex=w.nextMatch;lookaheadMatch=lookaheadRegExp.exec(w.source);gotMatch=lookaheadMatch&&lookaheadMatch.index==w.nextMatch;if(gotMatch){hadStyle=true;if(lookaheadMatch[5]){styles.className+=lookaheadMatch[5].replace(/\./g," ")+" "}else{if(lookaheadMatch[1]){s=unDash(lookaheadMatch[1]);v=lookaheadMatch[2]}else{s=unDash(lookaheadMatch[3]);v=lookaheadMatch[4]}}switch(s){case"bgcolor":s="backgroundColor";break;case"float":s="cssFloat";break}styles.push({style:s,value:v});w.nextMatch=lookaheadMatch.index+lookaheadMatch[0].length}}while(gotMatch);return styles},monospacedByLineHelper:function(w){var lookaheadRegExp=new RegExp(this.lookahead,"mg");lookaheadRegExp.lastIndex=w.matchStart;var lookaheadMatch=lookaheadRegExp.exec(w.source);if(lookaheadMatch&&lookaheadMatch.index==w.matchStart){insertElement(w.output,"pre",null,null,lookaheadMatch[1]);w.nextMatch=lookaheadMatch.index+lookaheadMatch[0].length}}};Wikifier.formatters=[{name:"table",match:"^\\|(?:[^\\n]*)\\|(?:[fhc]?)$",lookahead:"^\\|([^\\n]*)\\|([fhc]?)$",rowTerminator:"\\|(?:[fhc]?)$\\n?",cellPattern:"(?:\\|([^\\n\\|]*)\\|)|(\\|[fhc]?$\\n?)",cellTerminator:"(?:\\x20*)\\|",rowTypes:{"c":"caption","h":"thead","":"tbody","f":"tfoot"},handler:function(w){var rowContainer,rowElement,lookaheadMatch,matched,table=insertElement(w.output,"table"),lookaheadRegExp=new RegExp(this.lookahead,"mg"),currRowType=null,nextRowType,prevColumns=[],rowCount=0;w.nextMatch=w.matchStart;do{lookaheadRegExp.lastIndex=w.nextMatch;lookaheadMatch=lookaheadRegExp.exec(w.source),matched=lookaheadMatch&&lookaheadMatch.index==w.nextMatch;if(matched){nextRowType=lookaheadMatch[2];if(nextRowType!=currRowType){rowContainer=insertElement(table,this.rowTypes[nextRowType])}currRowType=nextRowType;if(currRowType=="c"){if(rowCount==0){rowContainer.setAttribute("align","top")}else{rowContainer.setAttribute("align","bottom")}w.nextMatch=w.nextMatch+1;w.subWikify(rowContainer,this.rowTerminator)}else{rowElement=insertElement(rowContainer,"tr");this.rowHandler(w,rowElement,prevColumns)}rowCount++}}while(matched)},rowHandler:function(w,e,prevColumns){var cellMatch,matched,col=0,currColCount=1,cellRegExp=new RegExp(this.cellPattern,"mg");do{cellRegExp.lastIndex=w.nextMatch;cellMatch=cellRegExp.exec(w.source);matched=cellMatch&&cellMatch.index==w.nextMatch;if(matched){if(cellMatch[1]=="~"){var last=prevColumns[col];if(last){last.rowCount++;last.element.setAttribute("rowSpan",last.rowCount);last.element.setAttribute("rowspan",last.rowCount);last.element.valign="center"}w.nextMatch=cellMatch.index+cellMatch[0].length-1}else{if(cellMatch[1]==">"){currColCount++;w.nextMatch=cellMatch.index+cellMatch[0].length-1}else{if(cellMatch[2]){w.nextMatch=cellMatch.index+cellMatch[0].length;break}else{var spaceLeft=false,spaceRight=false,lastColCount,lastColElement,styles,cell,t;w.nextMatch++;styles=Wikifier.formatHelpers.inlineCssHelper(w);while(w.source.substr(w.nextMatch,1)==" "){spaceLeft=true;w.nextMatch++}if(w.source.substr(w.nextMatch,1)=="!"){cell=insertElement(e,"th");w.nextMatch++}else{cell=insertElement(e,"td")}prevColumns[col]={rowCount:1,element:cell};lastColCount=1;lastColElement=cell;if(currColCount>1){cell.setAttribute("colSpan",currColCount);cell.setAttribute("colspan",currColCount);currColCount=1}for(t=0;t<styles.length;t++){cell.style[styles[t].style]=styles[t].value}w.subWikify(cell,this.cellTerminator);if(w.matchText.substr(w.matchText.length-2,1)==" "){spaceRight=true
+}if(spaceLeft&&spaceRight){cell.align="center"}else{if(spaceLeft){cell.align="right"}else{if(spaceRight){cell.align="left"}}}w.nextMatch=w.nextMatch-1}}}col++}}while(matched)}},{name:"rule",match:"^----$\\n?",handler:function(w){insertElement(w.output,"hr")}},{name:"emdash",match:"--",becomes:String.fromCharCode(8212),handler:function(a){insertElement(a.output,"span",null,"char",this.becomes).setAttribute("data-char","emdash")}},{name:"heading",match:"^!{1,5}",terminator:"\\n",handler:function(w){var e=insertElement(w.output,"h"+w.matchLength);w.subWikify(e,this.terminator)}},{name:"monospacedByLine",match:"^\\{\\{\\{\\n",lookahead:"^\\{\\{\\{\\n((?:^[^\\n]*\\n)+?)(^\\}\\}\\}$\\n?)",handler:Wikifier.formatHelpers.monospacedByLineHelper},{name:"quoteByBlock",match:"^<<<\\n",terminator:"^<<<\\n",handler:function(w){var e=insertElement(w.output,"blockquote");w.subWikify(e,this.terminator)}},{name:"list",match:"^(?:(?:\\*+)|(?:#+))",lookahead:"^(?:(\\*+)|(#+))",terminator:"\\n",handler:function(w){var newType,newLevel,t,len,bulletType,lookaheadMatch,matched,lookaheadRegExp=new RegExp(this.lookahead,"mg"),placeStack=[w.output],currType=null,currLevel=0;w.nextMatch=w.matchStart;do{lookaheadRegExp.lastIndex=w.nextMatch;lookaheadMatch=lookaheadRegExp.exec(w.source);matched=lookaheadMatch&&lookaheadMatch.index==w.nextMatch;if(matched){newLevel=lookaheadMatch[0].length;if(lookaheadMatch[1]){bulletType=lookaheadMatch[1].slice(-1);newType="ul"}else{if(lookaheadMatch[2]){newType="ol"
+}}w.nextMatch+=newLevel;if(newLevel>currLevel){for(t=currLevel;t<newLevel;t++){placeStack.push(insertElement(placeStack[placeStack.length-1],newType))}}else{if(newLevel<currLevel){for(t=currLevel;t>newLevel;t--){placeStack.pop()}}else{if(newLevel==currLevel&&newType!=currType){placeStack.pop();placeStack.push(insertElement(placeStack[placeStack.length-1],newType))}}}currLevel=newLevel;currType=newType;t=insertElement(placeStack[placeStack.length-1],"li");if(bulletType&&bulletType!="*"){t.setAttribute("data-bullet",bulletType)}w.subWikify(t,this.terminator)}}while(matched)}},(Wikifier.urlFormatter={name:"urlLink",match:"(?:https?|mailto|javascript|ftp|data):[^\\s'\"]+(?:/|\\b)",handler:function(w){var e=Wikifier.createExternalLink(w.output,w.matchText);w.outputText(e,w.matchStart,w.nextMatch)}}),(Wikifier.linkFormatter={name:"prettyLink",match:"\\[\\[",lookahead:"\\[\\[([^\\|]*?)(?:\\|(.*?))?\\](?:\\[(.*?)])?\\]",makeInternalOrExternal:function(out,title,callback,type){if(title&&!tale.has(title)&&(title.match(Wikifier.urlFormatter.match,"g")||~title.search(/[\.\\\/#]/))){return Wikifier.createExternalLink(out,title,callback,type)
+}else{return Wikifier.createInternalLink(out,title,callback,type)}},makeCallback:function(code,callback){return function(){macros.set.run(null,Wikifier.parse(code),null,code);typeof callback=="function"&&callback.call(this)}},makeLink:function(out,match,callback2,type){var link,title,callback;if(match[3]){callback=this.makeCallback(match[3],callback2)}else{typeof callback2=="function"&&(callback=callback2)}title=Wikifier.parsePassageTitle(match[2]||match[1]);link=this.makeInternalOrExternal(out,title,callback,type);setPageElement(link,null,match[2]?match[1]:title);return link},handler:function(w){var lookaheadRegExp=new RegExp(this.lookahead,"mg");lookaheadRegExp.lastIndex=w.matchStart;var lookaheadMatch=lookaheadRegExp.exec(w.source);if(lookaheadMatch&&lookaheadMatch.index==w.matchStart){this.makeLink(w.output,lookaheadMatch);w.nextMatch=lookaheadMatch.index+lookaheadMatch[0].length}}}),(Wikifier.imageFormatter={name:"image",match:"\\[(?:[<]{0,1})(?:[>]{0,1})[Ii][Mm][Gg]\\[",lookahead:"\\[([<]?)(>?)img\\[(?:([^\\|\\]]+)\\|)?([^\\[\\]\\|]+)\\](?:\\[([^\\]]*)\\]?)?(\\])",importedImage:function(img,passageName){var imgPassages,imgname;try{imgname=internalEval(Wikifier.parse(passageName))}catch(e){}if(!imgname){imgname=passageName
+}imgPassages=tale.lookup("tags","Twine.image");for(j=0;j<imgPassages.length;j++){if(imgPassages[j].title==imgname){img.src=imgPassages[j].text;break}}},handler:function(w){var e,img,j,lookaheadMatch,lookaheadRegExp=new RegExp(this.lookahead,"mig");lookaheadRegExp.lastIndex=w.matchStart;lookaheadMatch=lookaheadRegExp.exec(w.source);if(lookaheadMatch&&lookaheadMatch.index==w.matchStart){e=w.output,title=Wikifier.parsePassageTitle(lookaheadMatch[5]);if(title){e=Wikifier.linkFormatter.makeInternalOrExternal(w.output,title)}img=insertElement(e,"img");if(lookaheadMatch[1]){img.align="left"}else{if(lookaheadMatch[2]){img.align="right"}}if(lookaheadMatch[3]){img.title=lookaheadMatch[3]}this.importedImage(img,lookaheadMatch[4]);w.nextMatch=lookaheadMatch.index+lookaheadMatch[0].length}}}),{name:"macro",match:"<<",lookahead:/<<([^>\s]+)(?:\s*)((?:\\.|'(?:[^'\\]*\\.)*[^'\\]*'|"(?:[^"\\]*\\.)*[^"\\]*"|[^'"\\>]|>(?!>))*)>>/mg,handler:function(w){var lookaheadRegExp=new RegExp(this.lookahead);lookaheadRegExp.lastIndex=w.matchStart;var lookaheadMatch=lookaheadRegExp.exec(w.source.replace(/\u200c/g,"\n"));if(lookaheadMatch&&lookaheadMatch.index==w.matchStart&&lookaheadMatch[1]){var params=lookaheadMatch[2].readMacroParams();w.nextMatch=lookaheadMatch.index+lookaheadMatch[0].length;var name=lookaheadMatch[1];try{var macro=macros[name];if(macro&&typeof macro=="object"&&macro.handler){macro.handler(w.output,name,params,w)}else{if(name[0]=="$"){macros.print.handler(w.output,name,[name].concat(params),w)}else{if(tale.has(name)){macros.display.handler(w.output,name,[name].concat(params),w)}else{throwError(w.output,'No macro or passage called "'+name+'"',w.fullMatch())}}}}catch(e){throwError(w.output,"Error executing macro "+name+": "+e.toString(),w.fullMatch())}}}},{name:"html",match:"<html>",lookahead:"<html>((?:.|\\n)*?)</html>",handler:function(w){var lookaheadRegExp=new RegExp(this.lookahead,"mg");lookaheadRegExp.lastIndex=w.matchStart;var lookaheadMatch=lookaheadRegExp.exec(w.source);if(lookaheadMatch&&lookaheadMatch.index==w.matchStart){var e=insertElement(w.output,"span");e.innerHTML=lookaheadMatch[1];w.nextMatch=lookaheadMatch.index+lookaheadMatch[0].length}}},{name:"commentByBlock",match:"/%",lookahead:"/%((?:.|\\n)*?)%/",handler:function(w){var lookaheadRegExp=new RegExp(this.lookahead,"mg");lookaheadRegExp.lastIndex=w.matchStart;var lookaheadMatch=lookaheadRegExp.exec(w.source);if(lookaheadMatch&&lookaheadMatch.index==w.matchStart){w.nextMatch=lookaheadMatch.index+lookaheadMatch[0].length}}},{name:"boldByChar",match:"''",terminator:"''",element:"strong",handler:Wikifier.formatHelpers.charFormatHelper},{name:"strikeByChar",match:"==",terminator:"==",element:"strike",handler:Wikifier.formatHelpers.charFormatHelper},{name:"underlineByChar",match:"__",terminator:"__",element:"u",handler:Wikifier.formatHelpers.charFormatHelper},{name:"italicByChar",match:"//",terminator:"//",element:"em",handler:Wikifier.formatHelpers.charFormatHelper},{name:"subscriptByChar",match:"~~",terminator:"~~",element:"sub",handler:Wikifier.formatHelpers.charFormatHelper},{name:"superscriptByChar",match:"\\^\\^",terminator:"\\^\\^",element:"sup",handler:Wikifier.formatHelpers.charFormatHelper},{name:"monospacedByChar",match:"\\{\\{\\{",lookahead:"\\{\\{\\{((?:.|\\n)*?)\\}\\}\\}",handler:function(w){var lookaheadRegExp=new RegExp(this.lookahead,"mg");lookaheadRegExp.lastIndex=w.matchStart;var lookaheadMatch=lookaheadRegExp.exec(w.source);if(lookaheadMatch&&lookaheadMatch.index==w.matchStart){var e=insertElement(w.output,"code",null,null,lookaheadMatch[1]);w.nextMatch=lookaheadMatch.index+lookaheadMatch[0].length}}},(Wikifier.styleByCharFormatter={name:"styleByChar",match:"@@",terminator:"@@",lookahead:"(?:([^\\(@]+)\\(([^\\)\\|\\n]+)(?:\\):))|(?:([^\\.:@]+):([^;\\|\\n]+);)|(?:\\.([^;\\|\\n]+);)",handler:function(w){var e=insertElement(w.output,"span",null,null,null);var styles=Wikifier.formatHelpers.inlineCssHelper(w);if(styles.length==0){e.className="marked"}else{for(var t=0;t<styles.length;t++){e.style[styles[t].style]=styles[t].value}if(typeof styles.className=="string"){e.className=styles.className}}w.subWikify(e,this.terminator)}}),{name:"lineBreak",match:"\\n",handler:function(w){insertElement(w.output,"br")}},{name:"continuedLine",match:"\\\\\\s*?\\n",handler:function(a){a.nextMatch=a.matchStart+2}},{name:"htmlCharacterReference",match:"(?:(?:&#?[a-zA-Z0-9]{2,8};|.)(?:&#?(?:x0*(?:3[0-6][0-9a-fA-F]|1D[c-fC-F][0-9a-fA-F]|20[d-fD-F][0-9a-fA-F]|FE2[0-9a-fA-F])|0*(?:76[89]|7[7-9][0-9]|8[0-7][0-9]|761[6-9]|76[2-7][0-9]|84[0-3][0-9]|844[0-7]|6505[6-9]|6506[0-9]|6507[0-1]));)+|&#?[a-zA-Z0-9]{2,8};)",handler:function(w){var el=document.createElement("div");el.innerHTML=w.matchText;insertText(w.output,el.textContent)}},{name:"htmltag",match:"<(?:\\/?[\\w\\-]+|[\\w\\-]+(?:(?:\\s+[\\w\\-]+(?:\\s*=\\s*(?:\\\".*?\\\"|'.*?'|[^'\\\">\\s]+))?)+\\s*|\\s*)\\/?)>",tagname:"<(\\w+)",voids:["area","base","br","col","embed","hr","img","input","link","meta","param","source","track","wbr"],tableElems:["table","thead","tbody","tfoot","th","tr","td","colgroup","col","caption","figcaption"],cleanupTables:function(e){var i,name,elems=[].slice.call(e.children);for(i=0;i<elems.length;i++){if(elems[i].tagName){name=elems[i].tagName.toLowerCase();if(this.tableElems.indexOf(name)==-1){elems[i].outerHTML=""}else{if(["col","caption","figcaption","td","th"].indexOf(name)==-1){this.cleanupTables.call(this,elems[i])}}}}},handler:function(a){var tmp,passage,setter,e,isvoid,isstyle,lookaheadRegExp,lookaheadMatch,lookahead,re=new RegExp(this.tagname).exec(a.matchText),tn=re&&re[1]&&re[1].toLowerCase();if(tn&&tn!="html"){lookahead="<\\/\\s*"+tn+"\\s*>";isvoid=(this.voids.indexOf(tn)!=-1);isstyle=tn=="style"||tn=="script";lookaheadRegExp=new RegExp(lookahead,"mg");lookaheadRegExp.lastIndex=a.matchStart;lookaheadMatch=lookaheadRegExp.exec(a.source);if(lookaheadMatch||isvoid){if(isstyle){e=document.createElement(tn);e.type="text/css";tmp=a.source.slice(a.nextMatch,lookaheadMatch.index);e.styleSheet?(e.styleSheet.cssText=tmp):(e.innerHTML=tmp);a.nextMatch=lookaheadMatch.index+lookaheadMatch[0].length}else{e=document.createElement(a.output.tagName);e.innerHTML=a.matchText;while(e.firstChild){e=e.firstChild}if(!isvoid){a.subWikify(e,lookahead)}}if(e.tagName.toLowerCase()=="table"){this.cleanupTables.call(this,e)}if(setter=e.getAttribute("data-setter")){setter=Wikifier.linkFormatter.makeCallback(setter)}if(passage=e.getAttribute("data-passage")){if(tn!="img"){addClickHandler(e,Wikifier.linkFunction(Wikifier.parsePassageTitle(passage),e,setter));if(tn=="area"||tn=="a"){e.setAttribute("href","javascript:;")}}else{Wikifier.imageFormatter.importedImage(e,passage)}}a.output.appendChild(e)}else{throwError(a.output,"HTML tag '"+tn+"' wasn't closed.",a.matchText)}}}}];Wikifier.charSpanFormatter={name:"char",match:"[^\n]",handler:function(a){insertElement(a.output,"span",null,"char",a.matchText).setAttribute("data-char",a.matchText==" "?"space":a.matchText=="\t"?"tab":a.matchText)}};Wikifier.parsePassageTitle=function(title){if(title&&!tale.has(title)){try{title=(internalEval(this.parse(title))||title)+""}catch(e){}}return title};Wikifier.linkFunction=function(title,el,callback){return function(){if(state.rewindTo){var passage=findPassageParent(el);if(passage&&passage.parentNode.lastChild!=passage){state.rewindTo(passage,true)}}state.display(title,el,null,callback)}};Wikifier.createInternalLink=function(place,title,callback,type){var tag=(type=="button"?"button":"a"),suffix=(type=="button"?"Button":"Link"),el=insertElement(place,tag);if(tale.has(title)){el.className="internal"+suffix;if(visited(title)){el.className+=" visited"+suffix}}else{el.className="broken"+suffix}addClickHandler(el,Wikifier.linkFunction(title,el,callback));if(place){place.appendChild(el)}return el};Wikifier.createExternalLink=function(place,url,callback,type){var tag=(type=="button"?"button":"a"),el=insertElement(place,tag);el.href=url;el.className="external"+(type=="button"?"Button":"Link");el.target="_blank";if(typeof callback=="function"){addClickHandler(el,callback)}if(place){place.appendChild(el)}return el};function visited(e){var ret=0,i=0;if(!state){return 0
+}e=e||state.history[0].passage.title;if(arguments.length>1){for(ret=state.history.length;i<arguments.length;i++){ret=Math.min(ret,visited(arguments[i]))}}else{for(;i<state.history.length&&state.history[i].passage;i++){if(e==state.history[i].passage.title){ret++
+}}}return ret}function visitedTag(){var i,j,sh,ret=0,tags=Array.prototype.slice.call(arguments);if(tags.length==1&&typeof tags[0]=="string"){tags=tags.split(" ")}if(!state){return 0
+}sh=state.history;for(i=0;i<sh.length&&sh[i].passage;i++){for(j=0;j<tags.length||void ret++;j++){if(sh[i].passage.tags.indexOf(tags[j])==-1){break
+}}}return ret}var visitedTags=visitedTag;function turns(){return state.history.length-1}function passage(){return state.history[0].passage.title}function tags(e){var ret=[],i=0;if(!state){return 0
+}e=e||state.history[0].passage.title;if(arguments.length>1){for(i=arguments.length-1;i>=1;i--){ret=ret.concat(tags(arguments[i]))}}ret=ret.concat(tale.get(e).tags);return ret}function previous(){if(state&&state.history[1]){for(var d=1;d<state.history.length&&state.history[d].passage;d++){if(state.history[d].passage.title!=state.history[0].passage.title){return state.history[d].passage.title}}}return""}function random(a,b){var from,to;if(!b){from=0;to=a}else{from=Math.min(a,b);to=Math.max(a,b)}to+=1;return ~~((Math.random()*(to-from)))+from}function either(){if(Array.isArray(arguments[0])&&arguments.length==1){return either.apply(this,arguments[0])}return arguments[~~(Math.random()*arguments.length)]}function parameter(n){n=n||0;if(macros.display.parameters[n]){return macros.display.parameters[n]}return 0}function bookmark(){return state.hash||"#"}function internalEval(s){return eval("0,"+s)}function scriptEval(s){try{eval(s.text)}catch(e){alert("There is a technical problem with this "+tale.identity()+" ("+s.title+": "+e.message+")."+softErrorMessage)}}window.onbeforeunload=function(){if(tale&&tale.storysettings.lookup("exitprompt",false)&&state&&state.history.length>1){return"You are about to end this "+tale.identity()+"."}};var oldOnError=window.onerror||null,softErrorMessage="You may be able to continue playing, but some parts may not work properly.";window.onerror=function(msg,a,b,c,error){var s=(error&&(".\n\n"+error.stack.replace(/\([^\)]+\)/g,"")+"\n\n"))||(" ("+msg+").\n");alert("Sorry to interrupt, but this "+((tale&&tale.identity&&tale.identity())||"page")+"'s code has got itself in a mess"+s+softErrorMessage.slice(1));window.onerror=oldOnError;if(typeof window.onerror=="function"){window.onerror(msg,a,b,c,error)}};var $;function main(){$=window.$||function(a){return(typeof a=="string"?document.getElementById(a):a)
+};var imgs,scripts,macro,style,i,styleText="",passages=document.getElementById("passages");function sanityCheck(thing){var i,j,s="NOTE: The "+thing,checks={prerender:prerender,postrender:postrender,macros:macros};for(i in checks){if(Object.prototype.hasOwnProperty.call(checks,i)&&!sanityCheck[i]){if(!checks[i]||typeof checks[i]!="object"){alert(s+" seems to have corrupted the "+i+" object."+softErrorMessage);sanityCheck[i]=true;continue}if(i!="macros"){for(j in checks[i]){if(Object.prototype.hasOwnProperty.call(checks[i],j)&&typeof checks[i][j]!="function"){alert(s+" added a property '"+j+"' to "+i+", "+"which is a "+typeof checks[i][j]+", not a function."+softErrorMessage);sanityCheck[i]=true;break}}}}}if(!sanityCheck.display){if(History.prototype.display.length<4&&!~History.prototype.display.toString().indexOf("arguments")){alert(s+" contains a function that patches History.prototype.display, but takes the wrong number of arguments."+softErrorMessage)}sanityCheck.display=true}}if(!window.JSON||!document.querySelector){return(passages.innerHTML="This "+tale.identity()+" requires a newer web browser. Sorry.")}else{passages.innerHTML=""}tale=window.tale=new Tale();if(~document.documentElement.className.indexOf("lt-ie9")){imgs=tale.lookup("tags","Twine.image");for(i=0;i<imgs.length;i++){if(imgs[i].text.length>=32768){alert("NOTE: This "+tale.identity()+"'s HTML file contains embedded images that may be too large for this browser to display."+softErrorMessage);break}}}scripts=tale.lookup("tags","script");for(i=0;i<scripts.length;i++){scriptEval(scripts[i]);sanityCheck('script passage "'+scripts[i].title+'"')}state=window.state=new History();for(i in macros){macro=macros[i];if(typeof macro.init=="function"){macro.init();sanityCheck('init() of the custom macro "'+i+'"')}}style=document.getElementById("storyCSS");for(i in tale.passages){i=tale.passages[i];if(i.tags.indexOf("stylesheet")==-1){continue
+}if(i.tags+""=="stylesheet"){styleText+=i.text}else{if(i.tags.length==2&&i.tags.indexOf("transition")>-1){setTransitionCSS(i.text)}}}styleText=alterCSS(styleText);style.styleSheet?(style.styleSheet.cssText=styleText):(style.innerHTML=styleText);state.init()}setTimeout(function f(){var size,bar=document.getElementById("loadingbar"),store=document.getElementById("storeArea");if(!bar){return
+}if(store){size=store.getAttribute("data-size");if(store.children.length<=size&&!tale){bar.style.width=~~((store.children.length+1)/size*100)+"%"}else{bar.outerHTML="";return}}setTimeout(f,5)},5);
+
+var hasPushState=!!window.history&&(typeof window.history.pushState=="function")&&(function(a){try{a.setItem("test","1");a.removeItem("test");return true}catch(e){return false
+}}(window.sessionStorage));Tale.prototype.canBookmark=function(){return this.canUndo()&&!this.storysettings.lookup("hash")&&(this.storysettings.lookup("bookmark",true)||!hasPushState)};History.prototype.init=function(){var a=this;if(!this.restore()){if(tale.has("StoryInit")){new Wikifier(insertElement(null,"span"),tale.get("StoryInit").text)}this.display("Start",null)}if(!hasPushState){this.hash=window.location.hash;this.interval=window.setInterval(function(){a.watchHash()},250)}};hasPushState&&(History.prototype.pushState=function(replace,uri){window.history[replace?"replaceState":"pushState"]({id:this.id,length:this.history.length},document.title,uri)});History.prototype.display=function(title,source,type,callback){var i,e,q,bookmark,hash,c=tale.get(title),p=document.getElementById("passages");if(c==null){return
+}if(type!="back"){this.saveVariables(c,source,callback);hash=(tale.storysettings.lookup("hash")&&this.save())||"";if(hasPushState&&tale.canUndo()){try{sessionStorage.setItem("Twine.History"+this.id,JSON.stringify(decompile(this.history)));this.pushState(this.history.length<=2&&window.history.state=="",hash)}catch(e){alert("Your browser couldn't save the state of the "+tale.identity()+".\n"+"You may continue playing, but it will no longer be possible to undo moves from here on in.");tale.storysettings.undo="off"}}}this.hash=hash||this.save();e=c.render();if(type!="quietly"){if(hasTransition){for(i=0;i<p.childNodes.length;i+=1){q=p.childNodes[i];q.classList.add("transition-out");setTimeout((function(a){return function(){if(a.parentNode){a.parentNode.removeChild(a)}}}(q)),1000)}e.classList.add("transition-in");setTimeout(function(){e.classList.remove("transition-in")},1);e.style.visibility="visible";p.appendChild(e)}else{removeChildren(p);p.appendChild(e);fade(e,{fade:"in"
+})}}else{p.appendChild(e);e.style.visibility="visible"}tale.setPageElements();if(tale.canUndo()){if(!hasPushState&&type!="back"){window.location.hash=this.hash}else{if(tale.canBookmark()){bookmark=document.getElementById("bookmark");bookmark&&(bookmark.href=this.hash)}}}window.scroll(0,0);return e};History.prototype.watchHash=function(){if(window.location.hash!=this.hash){if(window.location.hash&&(window.location.hash!="#")){this.history=[{passage:null,variables:{}}];removeChildren(document.getElementById("passages"));if(!this.restore()){alert("The passage you had previously visited could not be found.")}}else{window.location.reload()}this.hash=window.location.hash}};History.prototype.loadLinkVars=function(){for(var c in this.history[0].linkVars){this.history[0].variables[c]=clone(this.history[0].linkVars[c])}};Passage.prototype.render=function(){var b=insertElement(null,"div","passage"+this.title,"passage");b.style.visibility="hidden";this.setTags(b);this.setCSS();insertElement(b,"div","","header");var a=insertElement(b,"div","","body content");for(var i in prerender){(typeof prerender[i]=="function")&&prerender[i].call(this,a)}new Wikifier(a,this.processText());insertElement(b,"div","","footer");for(i in postrender){(typeof postrender[i]=="function")&&postrender[i].call(this,a)}return b};Passage.prototype.excerpt=function(){var b=this.text.replace(/<<.*?>>/g,"");b=b.replace(/!.*?\n/g,"");b=b.replace(/[\[\]\/]/g,"");var a=b.split("\n");while(a.length&&a[0].length==0){a.shift()}var c="";if(a.length==0||a[0].length==0){c=this.title}else{c=a[0].substr(0,30)+"..."}return c};Passage.transitionCache="";Passage.prototype.setCSS=function(){var trans=false,text="",tags=this.tags||[],c=document.getElementById("tagCSS"),c2=document.getElementById("transitionCSS");if(c&&c.getAttribute("data-tags")!=tags.join(" ")){tale.forEachStylesheet(tags,function(passage){if(~passage.tags.indexOf("transition")){if(!Passage.transitionCache&&c2){Passage.transitionCache=c2.innerHTML}setTransitionCSS(passage.text);trans=true}else{text+=alterCSS(passage.text)}});if(!trans&&Passage.transitionCache&&c2){setTransitionCSS(Passage.transitionCache);trans=false;Passage.transitionCache=""}c.styleSheet?(c.styleSheet.cssText=text):(c.innerHTML=text);c.setAttribute("data-tags",tags.join(" "))}};var Interface={init:function(){var snapback=document.getElementById("snapback"),restart=document.getElementById("restart"),bookmark=document.getElementById("bookmark");main();if(!tale){return
+}if(snapback){if(!tale.lookup("tags","bookmark").length){snapback.parentNode.removeChild(snapback)}else{addClickHandler(snapback,Interface.showSnapback)}}if(bookmark&&(!tale.canBookmark()||!hasPushState)){bookmark.parentNode.removeChild(bookmark)}restart&&addClickHandler(restart,Interface.restart)},restart:function(){if(confirm("Are you sure you want to restart this "+tale.identity()+"?")){state.restart()}},showSnapback:function(a){Interface.hideAllMenus();Interface.buildSnapback();Interface.showMenu(a,document.getElementById("snapbackMenu"))},buildSnapback:function(){var b,c=false,menuelem=document.getElementById("snapbackMenu");while(menuelem.hasChildNodes()){menuelem.removeChild(menuelem.firstChild)}for(var a=state.history.length-1;a>=0;a--){if(state.history[a].passage&&state.history[a].passage.tags.indexOf("bookmark")!=-1){b=document.createElement("div");b.pos=a;addClickHandler(b,function(){return macros.back.onclick(true,this.pos)});b.innerHTML=state.history[a].passage.excerpt();menuelem.appendChild(b);c=true}}b=null;if(!c){b=document.createElement("div");b.innerHTML="<i>No passages available</i>";document.getElementById("snapbackMenu").appendChild(b)}},hideAllMenus:function(){document.getElementById("snapbackMenu").style.display="none"},showMenu:function(b,a){if(!b){b=window.event}var c={x:0,y:0};if(b.pageX||b.pageY){c.x=b.pageX;c.y=b.pageY}else{if(b.clientX||b.clientY){c.x=b.clientX+document.body.scrollLeft+document.documentElement.scrollLeft;c.y=b.clientY+document.body.scrollTop+document.documentElement.scrollTop}}a.style.top=c.y+"px";a.style.left=c.x+"px";a.style.display="block";addClickHandler(document,Interface.hideAllMenus);b.cancelBubble=true;if(b.stopPropagation){b.stopPropagation()}}};window.onload=Interface.init;macros.back.onclick=function(back,steps){var title;if(back){if(tale.canUndo()){window.history.go(-steps);return}while(steps-->=0&&state.history.length>1){title=state.history[0].passage.title;state.history.shift()}state.loadLinkVars();state.saveVariables(tale.get(title));state.display(title,null,"back")}else{state.display(state.history[steps].passage.title)}};window.onpopstate=function(e){var title,hist,steps,i,s=e&&e.state;if(s&&s.id&&s.length!=null){hist=recompile(JSON.parse(sessionStorage.getItem("Twine.History"+s.id)));if(hist){steps=hist.length-s.length}}if(steps!=null){state.history=hist;while(steps-->=0&&state.history.length>1){title=state.history[0].passage.title;state.history.shift()}state.loadLinkVars();state.saveVariables(tale.get(title));state.display(title,null,"back")}};
+
+testplay = "";
+
+}());
+</script>
+<script title="modules">
+
+
+</script>
+<style id="baseCSS">
+/* Sidebar */
+#sidebar {
+	position: fixed;
+	list-style: none;
+	width: 12em;
+}
+#sidebar #title, #sidebar #credits  {
+	cursor: auto;
+}
+#sidebar #storySubtitle, #sidebar #storyMenu {
+	display: block;
+}
+.menu {
+	position: absolute;
+	display: none;
+	z-index: 5;
+}
+/* Passages container */
+#passages {
+	margin-left: 18.2em;
+	position:relative;
+}
+/* Links */
+.passage a {
+	color: #4d6ad8;
+}
+a.internalLink, a.externalLink, a.back, a.return, [data-passage], .menu div {
+	cursor: pointer;
+}
+a.brokenLink {
+	background-color: red;
+	color: #000;
+}
+.marked {
+	background-color: #f66;
+	color: #000;
+}
+.marked[title] {
+	cursor: help;
+}
+.passage li[data-bullet] {
+	list-style-type: none;
+}
+.passage li[data-bullet]:before {
+	content: attr(data-bullet);
+	position: relative;
+	left: -1em;
+}
+#storeArea {
+	display: none;
+}
+#noscript {
+	margin-left: 18.2em;
+	font-size: 1.2em;
+	font-weight: bold;
+}
+/* HTML4 compatibility */
+img {
+	vertical-align:bottom;
+}
+@media screen and (max-width: 640px) {
+	#sidebar {
+		position: static;
+		margin: 0 auto;
+		padding: 0;
+	}
+	body #sidebar li  {
+		text-align: center;
+	}
+	#passages {
+		min-height: 100vh;
+		margin-left: 0em;
+	}
+}
+#loadingbar {
+	position:fixed;
+	top:0;
+	left:0;
+	border-top: solid #4d6ad8 6px;
+	transition: width 0.5s;
+}
+</style>
+<style id="defaultCSS">
+body {
+	background-color: #000;
+	color: #fff;
+	font-family: Verdana,sans-serif;
+	font-size: 62.5%;
+	margin: 4em 15% 5% 5em;
+}
+#sidebar {
+	left: 7.5em;
+	margin: 0;
+	padding: 0 1em 0 0;
+	font: bold 1.1em Verdana,sans-serif;
+}
+#sidebar ul {
+	padding: 0;
+}
+#sidebar li {
+	color: #333;
+	text-align: right;
+	background-repeat: no-repeat;
+	margin-bottom: 1em;
+	line-height: 1.4em;
+	list-style: none;
+}
+#sidebar li a {
+	color: #333;
+	text-decoration: none;
+}
+#sidebar li a:hover, #sidebar #title a:hover, #snapback:hover, #restart:hover {
+	color: #fff;
+	cursor: pointer;
+	text-decoration: none;
+}
+#sidebar #title {
+	font-size: 150%;
+}
+#sidebar #title, #sidebar #title:hover, #sidebar #title a {
+	color: #999;
+}
+#sidebar #storySubtitle {
+	font-size: 75%;
+}
+#storyAuthor {
+	font-size: 50%;
+}
+#sidebar #storyMenu {
+	line-height: 2.5em;
+	margin-bottom: .5em;
+	color: #999;
+	cursor: auto;
+}
+#sidebar #credits {
+	padding-top: 2em;
+	font-weight: normal;
+	font-size: 80%;
+}
+#sidebar #credits:hover {
+	color: #333;
+}
+#sidebar #credits a {
+	text-decoration: none;
+}
+#passages {
+	border-left: 1px solid #333;
+	padding-left: 1.5em;
+}
+.menu {
+	background-color: #343434;
+	color: #fff;
+	opacity: .9;
+	border: 1px solid #fff;
+	text-align: left;
+	font: 1.1em Verdana;
+	line-height: 2em;
+}
+.menu div {
+	padding: 0 .4em;
+}
+.menu div:hover {
+	cursor: pointer;
+	background-color: #fff;
+	color: #343434;
+}
+.passage {
+	font-size: 1.2em;
+	line-height: 175%;
+	margin-bottom: 2em;
+	text-align: left;
+}
+.passage a {
+	font-weight: bold;
+	text-decoration: none;
+}
+.passage a:hover {
+	color: #8ea6ff;
+	text-decoration: underline;
+}
+.content > ul {
+	padding-top: 1.3em;
+}
+.passage ul, .passage ol {
+	margin-left: .5em;
+	padding-left: 1.5em;
+}
+.passage li {
+	margin-right: 6em;
+}
+.passage table {
+	border-collapse: collapse;
+	font-size: 100%;
+	margin: .8em 1.0em;
+}
+.passage th,.passage td,.passage tr,.passage caption {
+	padding: 3px;
+}
+.passage hr {
+	height: 1px;
+}
+.passage center {
+	max-width:50%;
+	margin:auto;
+}
+.marked {
+	margin-right: 12px;
+	padding: 3px;
+}
+.disabled {
+	font-weight: bold;
+	color: #333;
+}
+@media screen and (max-width: 640px) {
+	body {
+		margin: 5%;
+	}
+	#sidebar {
+		width:100%;
+		margin: 0;
+		border-bottom: 1px solid #333;
+	}
+	#passages {
+		padding-top: 2em;
+		border-left: 0;
+	}
+}
+</style>
+<style id="transitionCSS">
+.transition-in {
+	opacity:0;
+	position:absolute;
+}
+.passage:not(.transition-out) {
+	transition: 1s;
+	-webkit-transition: 1s;
+}
+.transition-out {
+	opacity:0 !important;
+	position:absolute;
+}
+</style>
+<style id="storyCSS">@import url(http://fonts.googleapis.com/css?family=Lato:400,400italic);
+
+.revision-span-in {
+	opacity: 0;
+}
+.revision-span:not(.revision-span-out) {
+	transition: 1s; -webkit-transition: 1s;
+}
+.revision-span-out {
+	position:absolute;
+	opacity: 0;
+}
+
+blink {
+  -webkit-animation: blink 400ms steps(5, start) infinite;
+  -moz-animation:    blink 400ms steps(5, start) infinite;
+  -o-animation:      blink 400ms steps(5, start) infinite; 
+  animation:         blink 400ms steps(5, start) infinite;
+}
+
+@-webkit-keyframes blink {
+  to { visibility: hidden; }
+}
+@-moz-keyframes blink {
+  to { visibility: hidden; }
+}
+@-o-keyframes blink {
+  to { visibility: hidden; }
+}
+@keyframes blink {
+  to { visibility: hidden; }
+}
+
+blinkslow {
+  -webkit-animation: blink 800ms steps(5, start) infinite;
+  -moz-animation:    blink 800ms steps(5, start) infinite;
+  -o-animation:      blink 800ms steps(5, start) infinite; 
+  animation:         blink 800ms steps(5, start) infinite;
+}
+
+@-webkit-keyframes blink {
+  to { visibility: hidden; }
+}
+@-moz-keyframes blink {
+  to { visibility: hidden; }
+}
+@-o-keyframes blink {
+  to { visibility: hidden; }
+}
+@keyframes blink {
+  to { visibility: hidden; }
+}</style>
+<style id="tagCSS" data-tags="titlestyle">
+
+
+
+body {
+	
+
+	
+	color: black;
+	background-color: white;
+	
+	background-repeat:no-repeat;
+	margin: 0;
+}
+
+#sidebar {
+	
+
+	
+	display: none; 
+}
+
+#passages { 
+	
+
+	
+	border: 0;
+
+	
+	margin: 0;
+
+	
+	padding-bottom: 5%;
+	padding-left: 0;
+	padding-right: 0;
+	padding-top: 5%;
+}
+
+.passage {
+	
+
+	
+	width: 640px;
+
+	
+	height: auto;
+
+	
+	margin-left: auto;
+	margin-right: auto;
+
+	
+	padding-top:25px;
+	padding-bottom:25px;
+	padding-right:50px;
+	padding-left:50px;
+
+	
+	font-style: normal;
+	font-variant: normal;
+	font-weight: normal;
+	font-stretch: normal;
+	letter-spacing:-1.8pt;
+	word-spacing:2pt;
+	font-size: 40px;
+	line-height: normal;
+	font-family: 'Lato', sans-serif;
+	-webkit-font-smoothing: antialiased;
+
+	
+	background: white;
+}
+
+.passage a {
+	
+
+
+	font-weight: normal;
+	color: black;
+	text-decoration: none;
+}
+
+.passage a:hover {
+	
+
+	color: black;
+	text-decoration: none;
+}</style>
+</head>
+<body data-tags="titlestyle">
+
+<ul id="sidebar">
+<li id="title" class="storyElement"><span id="storyTitle" class="storyElement">The Writer Will Do Something</span><span id="storySubtitle" class="storyElement"></span><span id="titleSeparator"><br></span><span id="storyAuthor" class="storyElement">Matthew S. Burns</span></li>
+<li id="storyMenu" class="storyElement" style="display:none"></li>
+<li></li>
+<li><a href="javascript:;" id="restart">Restart</a></li>
+<li><a id="bookmark" title="Permanent link to this passage" href="#.d.k.17.1d">Bookmark</a></li>
+<li id="credits">
+This story was created with <a href="http://twinery.org/">Twine</a> and is powered by <a href="http://tiddlywiki.com/">TiddlyWiki</a>
+</li>
+</ul>
+<div id="snapbackMenu" class="menu"></div>
+<div id="passages"><div id="passageDate Card" class="passage" style="visibility: visible;" data-tags="titlestyle"><div class="header"></div><div class="body content"><center><span class="timedreplace" data-flavour="replace"><span class="revision-span initial" data-enabled="true" style="display: inline;"><br></span><span class="revision-span gains" data-enabled="true" style="display: inline;"><br></span><span class="revision-span gains" data-enabled="true" style="display: inline;">April 26, 2012<br></span><span class="revision-span gains" data-enabled="false" style="display: none;"></span></span><br></center><br></div><div class="footer"></div></div></div>
+<div id="storeArea" data-size="63" hidden=""><div tiddler="CSS 3 - Replace" tags="stylesheet" created="201407022013" modifier="twee" twine-position="150,150">@import
+ 
+url(http://fonts.googleapis.com/css?family=Lato:400,400italic);\n\n.revision-span-in
+ {\n\topacity: 0;\n}\n.revision-span:not(.revision-span-out) 
+{\n\ttransition: 1s; -webkit-transition: 1s;\n}\n.revision-span-out 
+{\n\tposition:absolute;\n\topacity: 0;\n}\n\n</div><div tiddler="S C Choice" tags="bodystyle" created="201410251702" modifier="twee" twine-position="570,290">&lt;&lt;timedreplace
+ 500ms&gt;&gt;“What happened to that? We have six minutes of cinematics 
+right up top. Why’d we frontload all this other crap into our 
+game?”\n&lt;&lt;gains&gt;&gt;\n&lt;&lt;gains&gt;&gt; - [[You tell the 
+truth, and remind Josh that the big gabby opening cinematic was 
+something he and Drew asked you to write.|S C 
+1]]\n&lt;&lt;gains&gt;&gt;\n&lt;&lt;gains&gt;&gt; - [[You tell the 
+truth, and admit that the opening cinematic is not your best stuff.|S C 
+2]]\n&lt;&lt;gains&gt;&gt;\n&lt;&lt;gains&gt;&gt; - [[You tell the 
+truth, and bring up the fact that the cold open was tried, implemented, 
+and ultimately rejected as too abrupt after several playtests.|S C 
+3]]\n&lt;&lt;endtimedreplace&gt;&gt;</div><div tiddler="S I 1 Title" tags="titlestyle" created="201410251725" modifier="twee" twine-position="430,1270">&lt;center&gt;&lt;&lt;timedreplace
+ 
+500ms&gt;&gt;&lt;&lt;gains&gt;&gt;&lt;&lt;gains&gt;&gt;\n&lt;&lt;gains&gt;&gt;\n&lt;&lt;gains&gt;&gt;Three
+ Years Later&lt;&lt;playsound 
+"sounds/datecard.mp3"&gt;&gt;\n&lt;&lt;gains&gt;&gt;\n&lt;&lt;endtimedreplace&gt;&gt;\n&lt;/center&gt;\n&lt;&lt;timedgoto
+ "S I 1" 8s&gt;&gt;</div><div tiddler="Script 1 - Replace" tags="script" created="201410242047" modifier="twee" twine-position="10,430">(function(){version.extensions.replaceMacrosCombined={major:1,minor:1,revision:4};var
+ nullobj={handler:function(){}};function 
+showVer(n,notrans){if(!n){return\n}n.innerHTML="";new 
+Wikifier(n,n.tweecode);n.setAttribute("data-enabled","true");n.style.display="inline";n.classList.remove("revision-span-out");\nif(!notrans){n.classList.add("revision-span-in");if(n.timeout){clearTimeout(n.timeout)}n.timeout=setTimeout(function(){n.classList.remove("revision-span-in");\nn=null},1)}}function
+ 
+hideVer(n,notrans){if(!n){return}n.setAttribute("data-enabled","false");n.classList.remove("revision-span-in");\nif(n.timeout){clearTimeout(n.timeout)}if(!notrans){n.classList.add("revision-span-out");n.timeout=setTimeout(function(){if(n.getAttribute("data-enabled")=="false"){n.classList.remove("revision-span-out");\nn.style.display="none";n.innerHTML=""}n=null},1000)}else{n.style.display="none";n.innerHTML="";n=null}}function
+ tagcontents(b,starttags,desttags,endtags,k){var 
+l=0,c="",tg,a,i;\nfunction tagfound(i,e){for(var 
+j=0;j&lt;e.length;j++){if(a.indexOf("&lt;&lt;"+e[j],i)==i){return 
+e[j]}}}a=b.source.slice(k);for(i=0;\ni&lt;a.length;i++){if(tg=tagfound(i,starttags)){l++}else{if((tg=tagfound(i,desttags))&amp;&amp;l==0){b.nextMatch=k+i+tg.length+4;return[c,tg]\n}else{if(tg=tagfound(i,endtags)){l--;if(l&lt;0){return
+ null}}}}c+=a.charAt(i)}return null}var begintags=[];var 
+endtags=[];function revisionSpanHandler(g,e,f,b){var 
+k=b.source.indexOf("&gt;&gt;",b.matchStart)+2,vsns=[],vtype=e,flen=f.length,becomes,c,cn,m,h,vsn;\nfunction
+ mkspan(vtype){h=insertElement(m,"span",null,"revision-span 
+"+vtype);h.setAttribute("data-enabled",false);h.style.display="none";\nh.tweecode="";return
+ 
+h}if(this.shorthand&amp;&amp;flen){while(f.length&gt;0){vsns.push([f.shift(),(this.flavour=="insert"?"gains":"becomes")])\n}}else{if(this.flavour=="insert"||(this.flavour=="continue"&amp;&amp;this.trigger=="time")){vsns.push(["","becomes"])}}if(this.flavour=="continue"&amp;&amp;flen){b.nextMatch=k+b.source.slice(k).length;\nvsns.push([b.source.slice(k),vtype])}else{becomes=["becomes","gains"];c=tagcontents(b,begintags,becomes.concat(endtags),endtags,k);\nif(c&amp;&amp;endtags.indexOf(c[1])==-1){while(c){vsns.push(c);c=tagcontents(b,begintags,becomes,endtags,b.nextMatch)}c=tagcontents(b,begintags,["end"+e],endtags,b.nextMatch)\n}if(!c){throwError(g,"can't
+ find matching 
+end"+e);return}vsns.push(c);if(this.flavour=="continue"){k=b.nextMatch;b.nextMatch=k+b.source.slice(k).length;\nvsns.push([b.source.slice(k),""])}}if(this.flavour=="remove"){vsns.push(["","becomes"])}cn=0;m=insertElement(g,"span",null,e);\nm.setAttribute("data-flavour",this.flavour);h=mkspan("initial");vsn=vsns.shift();h.tweecode=vsn[0];showVer(h,true);while(vsns.length&gt;0){if(vsn){vtype=vsn[1]\n}vsn=vsns.shift();h=mkspan(vtype);h.tweecode=vsn[0]}if(typeof
+ this.setup=="function"){this.setup(m,g,f)}}function 
+quantity(m){return(m.children.length-1)+(m.getAttribute("data-flavour")=="remove")\n}function
+ revisionSetup(m,g,f){m.className+=" "+f[0].replace(" ","_")}function 
+keySetup(m,g,f){var key=f[0];m.setEventListener("keydown",function 
+l(e){var 
+done=!revise("revise",m);\nif(done){m.removeEventListener("keydown",l)}})}function
+ timeSetup(m,g,f){function cssTimeUnit(s){if(typeof 
+s=="string"){if(s.slice(-2).toLowerCase()=="ms"){return 
+Number(s.slice(0,-2))||0\n}else{if(s.slice(-1).toLowerCase()=="s"){return
+ Number(s.slice(0,-1))*1000||0}}}throwError(g,s+" isn't a CSS time 
+unit");\nreturn 0}var tm=cssTimeUnit(f[0]);setTimeout(function 
+timefn(){var 
+done=!revise("revise",m);if(!done){setTimeout(timefn,tm)\n}},tm)}function
+ hoverSetup(m){var 
+fn,noMouseEnter=(document.head.onmouseenter!==null),m1=m.children[0],m2=m.children[1];if(!m1||!m2){return\n}m1.onmouseenter=function(e){if(this.getAttribute("data-enabled")!="false"){revise("revise",this.parentNode)}};m2.onmouseleave=function(e){if(this.getAttribute("data-enabled")!="false"){revise("revert",this.parentNode)\n}};if(noMouseEnter){fn=function(n){return
+ 
+function(e){if(!event.relatedTarget||(event.relatedTarget!=this&amp;&amp;!(this.compareDocumentPosition(event.relatedTarget)&amp;Node.DOCUMENT_POSITION_CONTAINED_BY))){this[n]()\n}}};m1.onmouseover=fn("onmouseenter");m2.onmouseout=fn("onmouseleave")}m=null}function
+ mouseSetup(m){var 
+evt=(document.head.onmouseenter===null?"onmouseenter":"onmouseover");\nm[evt]=function(){var
+ done=!revise("revise",this);if(done){this[evt]=null}};m=null}function 
+linkSetup(m,g,f){var 
+l=Wikifier.createInternalLink(),p=m.parentNode;\nl.className="internalLink
+ 
+replaceLink";p.insertBefore(l,m);l.insertBefore(m,null);l.onclick=function(){var
+ 
+p,done=false;if(m&amp;&amp;m.parentNode==this){done=!revise("revise",m);\nscrollWindowTo(m)}if(done){this.parentNode.insertBefore(m,this);this.parentNode.removeChild(this)}};l=null}function
+ visitedSetup(m,g,f){var i,done,shv=state.history[0].variables,os="once 
+seen",d=(m.firstChild&amp;&amp;(this.flavour=="insert"?m.firstChild.nextSibling:m.firstChild).tweecode);\nshv[os]=shv[os]||{};if(d&amp;&amp;!shv[os].hasOwnProperty(d)){shv[os][d]=1}else{for(i=shv[os][d];i&gt;0&amp;&amp;!done;i--){done=!revise("revise",m,true)\n}if(shv[os].hasOwnProperty(d)){shv[os][d]+=1}}}[{name:"insert",flavour:"insert",trigger:"link",setup:linkSetup},{name:"timedinsert",flavour:"insert",trigger:"time",setup:timeSetup},{name:"insertion",flavour:"insert",trigger:"revisemacro",setup:revisionSetup},{name:"later",flavour:"insert",trigger:"visited",setup:visitedSetup},{name:"keyinsert",flavour:"insert",trigger:"key",setup:keySetup},{name:"replace",flavour:"replace",trigger:"link",setup:linkSetup},{name:"timedreplace",flavour:"replace",trigger:"time",setup:timeSetup},{name:"mousereplace",flavour:"replace",trigger:"mouse",setup:mouseSetup},{name:"hoverreplace",flavour:"replace",trigger:"hover",setup:hoverSetup},{name:"revision",flavour:"replace",trigger:"revisemacro",setup:revisionSetup},{name:"keyreplace",flavour:"replace",trigger:"key",setup:keySetup},{name:"timedremove",flavour:"remove",trigger:"time",setup:timeSetup},{name:"mouseremove",flavour:"remove",trigger:"mouse",setup:mouseSetup},{name:"hoverremove",flavour:"remove",trigger:"hover",setup:hoverSetup},{name:"removal",flavour:"remove",trigger:"revisemacro",setup:revisionSetup},{name:"once",flavour:"remove",trigger:"visited",setup:visitedSetup},{name:"keyremove",flavour:"remove",trigger:"key",setup:keySetup},{name:"continue",flavour:"continue",trigger:"link",setup:linkSetup},{name:"timedcontinue",flavour:"continue",trigger:"time",setup:timeSetup},{name:"mousecontinue",flavour:"continue",trigger:"mouse",setup:mouseSetup},{name:"keycontinue",flavour:"continue",trigger:"key",setup:keySetup},{name:"cycle",flavour:"cycle",trigger:"revisemacro",setup:revisionSetup},{name:"mousecycle",flavour:"cycle",trigger:"mouse",setup:mouseSetup},{name:"timedcycle",flavour:"cycle",trigger:"time",setup:timeSetup},{name:"keycycle",flavour:"replace",trigger:"key",setup:keySetup}].forEach(function(e){e.handler=revisionSpanHandler;\ne.shorthand=(["link","mouse","hover"].indexOf(e.trigger)&gt;-1);macros[e.name]=e;macros["end"+e.name]=nullobj;begintags.push(e.name);\nendtags.push("end"+e.name)});function
+ insideDepartingSpan(elem){var 
+r=elem.parentNode;while(!r.classList.contains("passage")){if(r.classList.contains("revision-span-out")){return
+ true\n}r=r.parentNode}}function reviseAll(rt,rname){var 
+rall=document.querySelectorAll(".passage 
+[data-flavour]."+rname),ret=false;\nfor(var 
+i=0;i&lt;rall.length;i++){if(!insideDepartingSpan(rall[i])){ret=revise(rt,rall[i])||ret}}return
+ ret}function revise(rt,r,notrans){var 
+ind2,curr,next,ind=-1,rev=(rt=="revert"),rnd=(rt.indexOf("random")&gt;-1),fl=r.getAttribute("data-flavour"),rc=r.childNodes,cyc=(fl=="cycle"),rcl=rc.length-1;\nfunction
+ doToGainerSpans(n,fn){for(var 
+k=n-1;k&gt;=0;k--){if(rc[k+1].classList.contains("gains")){fn(rc[k],notrans)}else{break\n}}}for(var
+ 
+k=0;k&lt;=rcl;k++){if(rc[k].getAttribute("data-enabled")=="true"){ind=k}}if(rev){ind-=1}curr=(ind&gt;=0?rc[ind]:(cyc?rc[rcl]:null));\nind2=ind;if(rnd){ind2=(ind+(Math.floor(Math.random()*rcl)))%rcl}next=((ind2&lt;rcl)?rc[ind2+1]:(cyc?rc[0]:null));var
+ docurr=(rev?showVer:hideVer);\nvar donext=(rev?hideVer:showVer);var 
+currfn=function(){if(!(next&amp;&amp;next.classList.contains("gains"))||rnd){docurr(curr,notrans);\ndoToGainerSpans(ind,docurr,notrans)}};var
+ 
+nextfn=function(){donext(next,notrans);if(rnd){doToGainerSpans(ind2+1,donext,notrans)\n}};if(!rev){currfn();nextfn()}else{nextfn();currfn()}return(cyc?true:(rev?(ind&gt;0):(ind2&lt;rcl-1)))}macros.revert=macros.revise=macros.randomise=macros.randomize={handler:function(a,b,c){var
+ l,rev,rname;\nfunction disableLink(l){l.style.display="none"}function 
+enableLink(l){l.style.display="inline"}function 
+updateLink(l){if(l.className.indexOf("random")&gt;-1){enableLink(l);\nreturn}var
+ rall=document.querySelectorAll(".passage 
+[data-flavour]."+rname),cannext,canprev,i,ind,r,fl;for(i=0;i&lt;rall.length;\ni++){r=rall[i],fl=r.getAttribute("data-flavour");if(insideDepartingSpan(r)){continue}if(fl=="cycle"){cannext=canprev=true\n}else{if(r.firstChild.getAttribute("data-enabled")==!1+""){canprev=true}if(r.lastChild.getAttribute("data-enabled")==!1+""){cannext=true\n}}}var
+ 
+can=(l.classList.contains("revert")?canprev:cannext);(can?enableLink:disableLink)(l)}function
+ 
+toggleText(w){w.classList.toggle(rl+"Enabled");\nw.classList.toggle(rl+"Disabled");w.style.display=((w.style.display=="none")?"inline":"none")}var
+ rl="reviseLink";if(c.length&lt;2){throwError(a,b+" macro needs 2 
+parameters");\nreturn}rname=c.shift().replace(" 
+","_");l=Wikifier.createInternalLink(a,null);l.className="internalLink 
+"+rl+" "+rl+"_"+rname+" "+b;\nvar v="";var end=false;var 
+out=false;if(c.length&gt;1&amp;&amp;c[0][0]=="$"){v=c[0].slice(1);c.shift()}switch(c[c.length-1]){case"end":end=true;\nc.pop();break;case"out":out=true;c.pop();break}var
+ h=state.history[0].variables;for(var i=0;i&lt;c.length;i++){var 
+on=(i==Math.max(c.indexOf(h[v]),0));\nvar 
+d=insertElement(null,"span",null,rl+((on)?"En":"Dis")+"abled");if(on){h[v]=c[i];l.setAttribute("data-cycle",i)}else{d.style.display="none"\n}insertText(d,c[i]);l.appendChild(d)}l.onclick=function(){reviseAll(b,rname);var
+ 
+t=this.childNodes,u=this.getAttribute("data-cycle")-0,m=t.length,n,lall,i;\nif((end||out)&amp;&amp;u==m-(end?2:1)){if(end){n=this.removeChild(t[u+1]);n.className=rl+"End";n.style.display="inline";this.parentNode.replaceChild(n,this)\n}else{this.parentNode.removeChild(this);return}}else{toggleText(t[u]);u=(u+1)%m;if(v){h[v]=c[u]}toggleText(t[u]);this.setAttribute("data-cycle",u)\n}lall=document.getElementsByClassName(rl+"_"+rname);for(i=0;i&lt;lall.length;i++){updateLink(lall[i])}};l=null}};macros.mouserevise=macros.hoverrevise={handler:function(a,b,c,d){var
+ 
+endtags=["end"+b],evt=(window.onmouseenter===null?"onmouseenter":"onmouseover"),t=tagcontents(d,[b],endtags,endtags,d.source.indexOf("&gt;&gt;",d.matchStart)+2);\nif(t){var
+ rname=c[0].replace(" ","_"),h=insertElement(a,"span",null,"hoverrevise 
+hoverrevise_"+rname),f=function(){var 
+done=!reviseAll("revise",rname);\nif(b!="hoverrevise"&amp;&amp;done){this[evt]=null}};new
+ 
+Wikifier(h,t[0]);if(b=="hoverrevise"){h.onmouseover=f;h.onmouseout=function(){reviseAll("revert",rname)\n}}else{h[evt]=f}h=null}}};macros.instantrevise={handler:function(a,b,c,d){reviseAll("revise",c[0].replace("
+ 
+","_"))}};macros.endmouserevise=nullobj;\nmacros.endhoverrevise=nullobj}());</div><div tiddler="S I 3" tags="bodystyle" created="201410242133" modifier="twee" twine-position="710,1410">&lt;&lt;replace&gt;&gt;You’re
+ the lead creative on your firm’s RC Cola account, which is undergoing a
+ major rebrand in order to connect with the soda drinkers of a new 
+generation. &lt;&lt;becomes&gt;&gt;The campaign is supposed to start 
+online at the end of the month. &lt;&lt;becomes&gt;&gt;Late last week, 
+you received your first bits of feedback from randomly selected 
+consumers in the target market, which were unambiguously catastrophic. 
+&lt;&lt;becomes&gt;&gt;You’re in a meeting room with your boss and your 
+manager. &lt;&lt;becomes&gt;&gt;It is Monday, 9:30 a.m. 
+&lt;&lt;gains&gt;&gt;You feel tired but okay. 
+&lt;&lt;becomes&gt;&gt;[[You were up late the night before playing video
+ games.|Pause Before End]]&lt;&lt;endreplace&gt;&gt;\n</div><div tiddler="S I 2" tags="bodystyle" created="201410242133" modifier="twee" twine-position="570,1410">&lt;&lt;replace&gt;&gt;You’re
+ the lead writer on &lt;i&gt;Like a Thief in the Night&lt;/i&gt;, a 
+combat-free exploration-based indie game. &lt;&lt;gains&gt;&gt;LATITN is
+ supposed to be one month away from shipping.&lt;&lt;becomes&gt;&gt;Late
+ last week, the team received its first reactions from your “friends and
+ family” beta test, which were unambiguously 
+catastrophic.&lt;&lt;becomes&gt;&gt;You’re in a coffee shop with your 
+four other team members -- everyone who works at the company, in other 
+words.&lt;&lt;becomes&gt;&gt;It is Monday, 9:30 a.m. 
+&lt;&lt;gains&gt;&gt;A heavy, damp-towel smell lingers. You and everyone
+ else here worked through the weekend.\n&lt;&lt;becomes&gt;&gt;Maybe 
+it’s the five Red Bulls you’ve consumed in the last eight hours, but you
+ feel compelled to start the discussion.\n&lt;&lt;becomes&gt;&gt;[[“Let 
+me guess,” you say. “They didn’t like the writing.”|Pause Before 
+End]]&lt;&lt;endreplace&gt;&gt;</div><div tiddler="S I 1" tags="bodystyle" created="201410242132" modifier="twee" twine-position="430,1410">&lt;&lt;replace&gt;&gt;You’re
+ the lead writer on &lt;i&gt;ShatterGate: Online&lt;/i&gt;, the 
+franchise’s first attempt to reconcile its story with a massively 
+multiplayer game world. &lt;&lt;gains&gt;&gt;SG:O, as it’s been 
+christened, is twelve months from shipping.&lt;&lt;becomes&gt;&gt;Late 
+last week, the team received its first reactions from paid outside 
+consultants, which were unambiguously 
+catastrophic.&lt;&lt;becomes&gt;&gt;You’re in a meeting room with 
+several others, most of them leads. &lt;&lt;becomes&gt;&gt;It is Monday,
+ 9:30 a.m. &lt;&lt;gains&gt;&gt;A heavy, damp-towel smell lingers. You 
+and everyone else here worked through the 
+weekend.\n&lt;&lt;becomes&gt;&gt;[[Shawn rubs the grit from his eyes. 
+“Everyone knows why we’re here,” he begins.|Pause Before 
+End]]&lt;&lt;endreplace&gt;&gt;</div><div tiddler="S B Choice" tags="bodystyle" created="201410251645" modifier="twee" twine-position="570,150">&lt;&lt;timedreplace
+ 1s&gt;&gt;There are a few ways you could answer 
+Josh:\n&lt;&lt;gains&gt;&gt;\n - [[Play it safe. Start with the playtest
+ report the consultants delivered, stick to the facts, and try not to 
+place blame.|S B 1]]\n&lt;&lt;gains&gt;&gt;\n - [[Go for a conciliatory 
+approach, noting that as the writer you share some responsibility for 
+the game’s poor showing.|S B 2]]\n&lt;&lt;gains&gt;&gt;\n - [[Be brave 
+and say what’s really on your mind: This project has lacked clear 
+direction for years, which is why it’s a mess now.|S B 
+3]]\n&lt;&lt;endtimedreplace&gt;&gt;</div><div tiddler="CSS 4 Tinybodystyle" tags="stylesheet tinybodystyle" created="201410251733" modifier="twee" twine-position="150,570">/*
+ Your story will use the CSS in this passage to style the page.\nGive 
+this passage more tags, and it will only affect passages with those 
+tags. */\n\n/* Plain Sugarcane Stylesheet version 1.03 by Richard D. 
+Sharpe, Dec. 30, 2013 */\n\nbody {\n\t/* This affects the entire page. 
+*/\n\n\t/* Remove default styles */\n\tcolor: 
+black;\n\tbackground-color: white;\n\t/* 
+background-image:url('data/choice_bkngd.png'); 
+*/\n\tbackground-repeat:no-repeat;\n\tmargin: 0;\n}\n\n#sidebar {\n\t/* 
+This affects the Sugarcane sidebar */\n\n\t/* Removes the Sugarcane 
+sidebar */\n\tdisplay: none; \n}\n\n#passages { \n\t/* This is a 
+container for all passages displayed on the page */\n\n\t/* Removes the 
+vertical line to the left of Sugarcane passages */\n\tborder: 0;\n\n\t/*
+ Removes the space left from removing the Sugarcane sidebar 
+*/\n\tmargin: 0;\n\n\t/* Creates space between the passage and the top 
+and bottom of the page */\n\tpadding-bottom: 5%;\n\tpadding-left: 
+0;\n\tpadding-right: 0;\n\tpadding-top: 5%;\n}\n\n.passage {\n\t/* This 
+only affects passages */\n\n\t/* Passage width */\n\twidth: 
+800px;\n\n\t/* Passage height */\n\theight: auto;\n\n\t/* Centers the 
+passage horizontally */\n\tmargin-left: auto;\n\tmargin-right: 
+auto;\n\n\t/* Padding 
+*/\n\tpadding-top:25px;\n\tpadding-bottom:25px;\n\tpadding-right:25px;\n\tpadding-left:25px;\n\n\t/*
+ Text formatting */\n\tfont-style: normal;\n\tfont-variant: 
+normal;\n\tfont-weight: normal;\n\tfont-stretch: 
+normal;\n\tletter-spacing:0pt;\n\tword-spacing:2pt;\n\tfont-size: 
+18px;\n\tline-height: 90%;\n\tfont-family: 'Lato', 
+sans-serif;\n\t-webkit-font-smoothing: antialiased;\n\n\t/* Sets the 
+passage background color */\n\tbackground: white;\n}\n\n.passage a 
+{\n\t/* This affects passage links */\n\n\n\tfont-weight: 
+normal;\n\tcolor: black;\n\ttext-decoration: none;\n}\n\n.passage 
+a:hover {\n\t/* This affects links while the cursor is over them 
+*/\n\n\tcolor: black;\n\ttext-decoration: none;\n}</div><div tiddler="Josh" tags="bodystyle" created="201407022037" modifier="twee" twine-position="710,10">[[Six
+ years ago Josh made &lt;i&gt;Dying Gasp&lt;/i&gt; (Metacritic: 91), an 
+innovative and highly influential first-person adventure game with 
+minimal combat and poor sales. He cheerfully admits he dreamed up 
+&lt;i&gt;ShatterGate&lt;/i&gt; to make money. Of course, it’s not his IP
+ -- it’s the company’s. Nevertheless, he drives a Lexus IS250. He tried 
+to leave the &lt;i&gt;ShatterGate&lt;/i&gt; franchise after the 
+&lt;i&gt;ShatterGate Strike: Scoured Lands&lt;/i&gt; debacle 
+(Metacritic: 65), later admitting that he’d failed to push back against 
+the absurd time and production constraints he and the team had clapped 
+upon them. But some lingering attachment to the world he’d helped create
+ proved impossible to resist. Josh likes to remind team members how much
+ &lt;i&gt;ShatterGate: Future Perfect&lt;/i&gt; is costing the company 
+-- the first time he mentioned the number to you, you had to go lie down
+ -- but whenever he does mention this astronomical sum, it feels to you 
+vaguely like a self-appraisal.|S A Choice]]</div><div tiddler="S H 3" tags="bodystyle" created="201410242132" modifier="twee" twine-position="710,990">&lt;&lt;replace&gt;&gt;Just
+ as the words leave your mouth, the door to the conference room drifts 
+open. Mallory, the audio AP, is standing in the doorjamb, her face all 
+pinched and traumatized. She’s breathing hard; her face is red. 
+&lt;&lt;gains&gt;&gt;She must have run here from Greenland, which is 
+what everyone calls the audio department. Why? Because it’s a distant, 
+harsh land that nobody ever thinks about unless prompted. She’s 
+balancing an open laptop upon her left 
+hand.\n&lt;&lt;becomes&gt;&gt;&lt;&lt;timedreplace 3s&gt;&gt;“I heard 
+you guys are talking about changing lines again? 
+&lt;i&gt;Again&lt;/i&gt;? What the fuck? Dude, I told you” -- she’s 
+looking at Troy now -- “to keep the audio team in the loop on this shit!
+ We’re overscoped as it is without another recording 
+session!”\n\n&lt;&lt;gains&gt;&gt;Josh stands to make peace. “Mallory, 
+we’re just 
+--”\n&lt;&lt;endtimedreplace&gt;&gt;\n&lt;&lt;becomes&gt;&gt;Mallory, 
+still looking at Troy, talks right over her ostensible boss Josh. “Well 
+guess what? It’s too late. Grant’s in Germany shooting with Wes 
+Anderson; we’re not getting him back for at least three months. Remember
+ when I told you all that? Remember when I told you what we needed to 
+have locked and why? But none of you assholes listen to 
+me.”\n\n&lt;&lt;gains&gt;&gt;“He’s shooting a Wes Anderson movie?” Shawn
+ says. “Ugh.”\n&lt;&lt;becomes&gt;&gt;“Why don’t we just recast him?” 
+Troy asks the room, his Producer Tone so reasonable, so seductive. 
+“Honestly, a lot of his takes are pretty rough.”\n\n“Hiring movie stars 
+for games is a waste of money, anyway,” Mike 
+says.\n\n&lt;&lt;becomes&gt;&gt;“Not if you do it right,” Erika, who had
+ a lot to do with Grant’s casting, says. “How it’s 
+&lt;i&gt;supposed&lt;/i&gt; to work is you get what you need and you cut
+ it. You don’t call one of the world’s busiest movie stars back into the
+ booth every three weeks for pick ups because you don’t know what you 
+want.”\n\n&lt;&lt;becomes&gt;&gt;Mallory hasn’t actually stopped 
+talking. “And anyway, recasting? Fucking &lt;i&gt;recasting&lt;/i&gt; 
+discussions at this stage? Look, audio kinda has to be invited to 
+meetings about things that affect 
+audio!”\n\n&lt;&lt;gains&gt;&gt;&lt;&lt;timedreplace 1s&gt;&gt;Josh is 
+looking at the ceiling. “I didn’t invite you because I was trying to let
+ you guys work.” His eyes lower to meet hers. “You know, because you’re 
+so &lt;i&gt;behind&lt;/i&gt;.”\n\n&lt;&lt;gains&gt;&gt;“Fuck you, 
+Josh.”\n&lt;&lt;endtimedreplace&gt;&gt;\n&lt;&lt;becomes&gt;&gt;“Okay,” 
+Troy says. “Please, can we calm down? We’re making mass entertainment 
+here, people.”\n\n&lt;&lt;becomes&gt;&gt;Mallory is walking deeper into 
+the room, toward Troy. “Know why we’re behind? Because you keep making 
+more work for us! It’s like our whole team is just fucking 
+&lt;i&gt;invisible&lt;/i&gt; to you!”\n&lt;&lt;becomes&gt;&gt;Everyone 
+starts shouting at once. Except for Shawn, who’s laughing. Your 
+colleagues’ voices are big and dense and forceful, like waves. 
+&lt;&lt;gains&gt;&gt;They’re around you, beneath you, on top of you, 
+hitting you, pushing you. You let the waves drive you away. Your eyes 
+are closed. &lt;&lt;becomes&gt;&gt;[[Soon you’re no longer there but in 
+some happier place, on some other, better project, in some other, better
+ future...|S H 3 Pause]]&lt;&lt;endreplace&gt;&gt;</div><div tiddler="S H 1" tags="bodystyle" created="201410242132" modifier="twee" twine-position="430,990">&lt;&lt;replace&gt;&gt;Just
+ as the words leave your mouth, the door to the conference room drifts 
+open. Mallory, the audio AP, is standing in the doorjamb, her face all 
+pinched and traumatized. She’s breathing hard; her face is red. 
+&lt;&lt;gains&gt;&gt;She must have run here from Greenland, which is 
+what everyone calls the audio department. Why? Because it’s a distant, 
+harsh land that nobody ever thinks about unless prompted. She’s 
+balancing an open laptop upon her left 
+hand.\n&lt;&lt;becomes&gt;&gt;&lt;&lt;timedreplace 3s&gt;&gt;“I heard 
+you guys are talking about changing lines again? 
+&lt;i&gt;Again&lt;/i&gt;? What the fuck? Dude, I told you” -- she’s 
+looking at Troy now -- “to keep the audio team in the loop on this shit!
+ We’re overscoped as it is without another recording 
+session!”\n\n&lt;&lt;gains&gt;&gt;Josh stands to make peace. “Mallory, 
+we’re just 
+--”\n&lt;&lt;endtimedreplace&gt;&gt;\n&lt;&lt;becomes&gt;&gt;Mallory, 
+still looking at Troy, talks right over her ostensible boss Josh. “Well 
+guess what? It’s too late. Grant’s in Germany shooting with Wes 
+Anderson; we’re not getting him back for at least three months. Remember
+ when I told you all that? Remember when I told you what we needed to 
+have locked and why? But none of you assholes listen to 
+me.”\n\n&lt;&lt;gains&gt;&gt;“He’s shooting a Wes Anderson movie?” Shawn
+ says. “Ugh.”\n&lt;&lt;becomes&gt;&gt;“Why don’t we just recast him?” 
+Troy asks the room, his Producer Tone so reasonable, so seductive. 
+“Honestly, a lot of his takes are pretty rough.”\n\n“Hiring movie stars 
+for games is a waste of money, anyway,” Mike 
+says.\n\n&lt;&lt;becomes&gt;&gt;“Not if you do it right,” Erika, who had
+ a lot to do with Grant’s casting, says. “How it’s 
+&lt;i&gt;supposed&lt;/i&gt; to work is you get what you need and you cut
+ it. You don’t call one of the world’s busiest movie stars back into the
+ booth every three weeks for pick ups because you don’t know what you 
+want.”\n\n&lt;&lt;becomes&gt;&gt;Mallory hasn’t actually stopped 
+talking. “And anyway, recasting? Fucking &lt;i&gt;recasting&lt;/i&gt; 
+discussions at this stage? Look, audio kinda has to be invited to 
+meetings about things that affect 
+audio!”\n\n&lt;&lt;gains&gt;&gt;&lt;&lt;timedreplace 1s&gt;&gt;Josh is 
+looking at the ceiling. “I didn’t invite you because I was trying to let
+ you guys work.” His eyes lower to meet hers. “You know, because you’re 
+so &lt;i&gt;behind&lt;/i&gt;.”\n\n&lt;&lt;gains&gt;&gt;“Fuck you, 
+Josh.”\n&lt;&lt;endtimedreplace&gt;&gt;\n&lt;&lt;becomes&gt;&gt;“Okay,” 
+Troy says. “Please, can we calm down? We’re making mass entertainment 
+here, people.”\n\n&lt;&lt;becomes&gt;&gt;Mallory is walking deeper into 
+the room, toward Troy. “Know why we’re behind? Because you keep making 
+more work for us! It’s like our whole team is just fucking 
+&lt;i&gt;invisible&lt;/i&gt; to you!”\n&lt;&lt;becomes&gt;&gt;Everyone 
+starts shouting at once. Except for Shawn, who’s laughing. Your 
+colleagues’ voices are big and dense and forceful, like waves. 
+&lt;&lt;gains&gt;&gt;They’re around you, beneath you, on top of you, 
+hitting you, pushing you. You let the waves drive you away. Your eyes 
+are closed. &lt;&lt;becomes&gt;&gt;[[Soon you’re no longer there but in 
+some happier place, on some other, better project, in some other, better
+ future...|S H 1 Pause]]&lt;&lt;endreplace&gt;&gt;</div><div tiddler="S H 3 Pause" tags="bodystyle" created="201503281055" modifier="twee" twine-position="710,1130">&lt;&lt;timedreplace
+ 
+500ms&gt;&gt;.&lt;&lt;gains&gt;&gt;.&lt;&lt;gains&gt;&gt;.&lt;&lt;gains&gt;&gt;.&lt;&lt;gains&gt;&gt;.&lt;&lt;gains&gt;&gt;.&lt;&lt;endtimedreplace&gt;&gt;&lt;&lt;timedgoto
+ "S I 3 Title" 2s&gt;&gt;</div><div tiddler="Start" tags="bodystyle" created="201410161828" modifier="twee" twine-position="150,10">Setting up...\n\n&lt;&lt;timedgoto "Warnings" 700ms &gt;&gt;</div><div tiddler="S H 2 Pause" tags="bodystyle" created="201503281055" modifier="twee" twine-position="570,1130">&lt;&lt;timedreplace
+ 
+500ms&gt;&gt;.&lt;&lt;gains&gt;&gt;.&lt;&lt;gains&gt;&gt;.&lt;&lt;gains&gt;&gt;.&lt;&lt;gains&gt;&gt;.&lt;&lt;gains&gt;&gt;.&lt;&lt;endtimedreplace&gt;&gt;&lt;&lt;timedgoto
+ "S I 2 Title" 2s&gt;&gt;</div><div tiddler="S E Choice" tags="bodystyle" created="201410251704" modifier="twee" twine-position="570,570">&lt;&lt;timedreplace
+ 500ms&gt;&gt;Josh is still talking, but you decide, probably unwisely, 
+to interrupt:\n&lt;&lt;gains&gt;&gt;\n&lt;&lt;gains&gt;&gt;- [[“Josh, 
+hold up. Our primary weapon is called a Gunsword. We have an execution 
+animation that allows you to decapitate an enemy and skeet-shoot his 
+head out of the air for bonus XP.”|S E 
+1]]\n&lt;&lt;gains&gt;&gt;\n&lt;&lt;gains&gt;&gt;- [[“Josh, excuse me. 
+You said Rix was supposed to be this interplanetary Casanova, with an 
+alien girlfriend in every location.”|S E 
+2]]\n&lt;&lt;gains&gt;&gt;\n&lt;&lt;gains&gt;&gt;- [[“Josh, hang on 
+here. We’re still fighting Drew’s ‘input’ that the enemy aliens use an 
+‘Arabic-sounding’ language.”|S E 3]]&lt;&lt;endtimedreplace&gt;&gt;</div><div tiddler="S A Choice" tags="bodystyle" created="201410251230" modifier="twee" twine-position="570,10">&lt;&lt;timedreplace
+ 400ms&gt;&gt;The meeting’s attendees 
+are:\n&lt;&lt;gains&gt;&gt;\n&lt;&lt;gains&gt;&gt;- [[Josh, Creative 
+Director|Josh]]\n&lt;&lt;gains&gt;&gt;- [[Mike, Lead 
+Designer|Mike]]\n&lt;&lt;gains&gt;&gt;- [[Troy, Lead 
+Producer|Troy]]\n&lt;&lt;gains&gt;&gt;- [[Shawn, Level 
+Designer|Shawn]]\n&lt;&lt;gains&gt;&gt;- [[Erika, Art 
+Director|Erika]]\n&lt;&lt;gains&gt;&gt;\n&lt;&lt;gains&gt;&gt;[[You’re 
+done looking.|S B]]\n&lt;&lt;endtimedreplace&gt;&gt;</div><div tiddler="The End" tags="titlestyle" created="201410242133" modifier="twee" twine-position="430,1690">&lt;&lt;playsound
+ "sounds/theend.mp3"&gt;&gt;&lt;center&gt;\n\nThe 
+End\n\n&lt;/center&gt;\n&lt;&lt;timedgoto "Credits" 4s&gt;&gt;</div><div tiddler="Mike" tags="bodystyle" created="201407022037" modifier="twee" twine-position="850,10">&lt;&lt;replace&gt;&gt;Mike
+ is a systems guy. You know this because that’s how he described himself
+ to you the first time you met him: “Hey, I’m Mike. I’m a systems guy.” 
+You wondered if that was his way of being brusque or passively combative
+ with you -- the unspoken implication being that, as a representative of
+ the Holy Order of Narrative, you and he were destined to gallop toward 
+each other in battle. But over the last several months your interactions
+ with Mike have been much less frequent than you once supposed they 
+would be. You chalk this up to the fact that, of all the duties one 
+might expect a video game’s Lead Designer to perform, Mike seems chiefly
+ invested in defeating his co-workers in multiplayer matches and 
+Tweeting gnomic in-jokes about the game at his 1,400 followers. (“Today 
+we talked weapons balance like it’s the most important thing ever. It 
+is.”) Every afternoon at four o’clock sharp his fist-pounding, 
+controller-throwing antics peal across the studio from the playtest 
+room. &lt;&lt;becomes&gt;&gt;[[A couple days ago he told you that he’d 
+never watched an in-game cinematic from start to finish willingly.|S A 
+Choice]]&lt;&lt;endreplace&gt;&gt;</div><div tiddler="S D Choice" tags="tinybodystyle" created="201410251703" modifier="twee" twine-position="990,430">&lt;&lt;timedgoto
+ "S E" 15s&gt;&gt;[[&lt;&lt;timedreplace 150ms&gt;&gt; - You could say, 
+“Let’s go for the cold open,”&lt;&lt;gains&gt;&gt; if only because the 
+cold open has several advantages. &lt;&lt;gains&gt;&gt;It's easier to 
+make, for one thing &lt;&lt;gains&gt;&gt;-- just come in from black and 
+drop the player straight into combat. &lt;&lt;gains&gt;&gt;But it’s also
+ confusing,&lt;&lt;gains&gt;&gt; and the cinematics team never quite 
+figured out how to not make it look cheap. &lt;&lt;gains&gt;&gt;The cold
+ open was additionally too vulnerable to critics who’d claim 
+&lt;&lt;gains&gt;&gt;(with exquisitely false authority) 
+&lt;&lt;gains&gt;&gt;that it was done that way only because the team 
+couldn’t think of anything better. 
+\n&lt;&lt;gains&gt;&gt;\n&lt;&lt;gains&gt;&gt;- Or you could say, “Let’s
+ do the cinematic open.”&lt;&lt;gains&gt;&gt; You accept that the 
+cinematic open,&lt;&lt;gains&gt;&gt; as it exists right 
+now,&lt;&lt;gains&gt;&gt; is ponderous, stilted,&lt;&lt;gains&gt;&gt; 
+and top-heavy with lore. &lt;&lt;gains&gt;&gt;But at least this version 
+of the open sets up the central conflict of the 
+game,&lt;&lt;gains&gt;&gt; lets players know what they’re trying to 
+accomplish,&lt;&lt;gains&gt;&gt; and introduces the main characters. 
+&lt;&lt;gains&gt;&gt;Rix, in particular. &lt;&lt;gains&gt;&gt;You feel 
+strongly that Rix needs to be a character the player portrays rather 
+than inhabits,&lt;&lt;gains&gt;&gt; because it’s interesting to 
+you,&lt;&lt;gains&gt;&gt; as a writer,&lt;&lt;gains&gt;&gt; to script a 
+character that does and says things the player doesn’t necessarily want 
+him to do or say,&lt;&lt;gains&gt;&gt; even though he or she is also 
+controlling the character. &lt;&lt;gains&gt;&gt;That’s all where all the
+ meat on the video-game-writing bone comes from, after 
+all&lt;&lt;gains&gt;&gt; -- the narrative weirdness that is this 
+medium’s centrally unprecedented quirk. &lt;&lt;gains&gt;&gt;But you’d 
+want to go this route only if you were guaranteed lots of pickup 
+recording time&lt;&lt;gains&gt;&gt; -- were the actors even available 
+anymore?&lt;&lt;gains&gt;&gt; -- and a prominent seat at the recording 
+sessions. &lt;&lt;gains&gt;&gt;It was the only way for you to see what 
+worked,&lt;&lt;gains&gt;&gt; and it would go a long way toward ensuring 
+the dialogue&lt;&lt;gains&gt;&gt; didn’t wind up in a similarly goofy 
+place.\n&lt;&lt;gains&gt;&gt;\n&lt;&lt;gains&gt;&gt;- 
+&lt;i&gt;Or&lt;/i&gt;, you could say “I don’t 
+know,”&lt;&lt;gains&gt;&gt; because that’s actually the truest answer 
+you can give.&lt;&lt;gains&gt;&gt; You really don’t know. 
+&lt;&lt;gains&gt;&gt;Once you had very firm opinions on what good and 
+bad video-game storytelling was. &lt;&lt;gains&gt;&gt;Once you thought 
+you understood how to write a video game. &lt;&lt;gains&gt;&gt;You’ve 
+been at this for eight years.&lt;&lt;gains&gt;&gt; Video games are the 
+only thing you’ve ever written&lt;&lt;gains&gt;&gt; or wanted to write. 
+&lt;&lt;gains&gt;&gt;You’ve shipped four titles now, yet the more you do
+ this,&lt;&lt;gains&gt;&gt; the less you feel you know. 
+&lt;&lt;gains&gt;&gt;Nothing ever works the way you think it’s going 
+to,&lt;&lt;gains&gt;&gt; everything always sounds 
+weird,&lt;&lt;gains&gt;&gt; actors always disappoint 
+you,&lt;&lt;gains&gt;&gt; and you’ve realized you feel utterly defeated 
+by the &lt;i&gt;changefulness&lt;/i&gt; of game 
+development&lt;&lt;gains&gt;&gt; -- the way one simple layout alteration
+ confounds whatever it is you’re trying to do. &lt;&lt;gains&gt;&gt;You 
+feel increasingly like a fraud. &lt;&lt;gains&gt;&gt;And maybe you are. 
+&lt;&lt;gains&gt;&gt;Maybe everyone here is. &lt;&lt;gains&gt;&gt;No one
+ else sitting at this table seems notably good at his or her job. 
+&lt;&lt;gains&gt;&gt;Sometimes you look around the studio and imagine 
+everyone as imbeciles fumbling around in the dark,&lt;&lt;gains&gt;&gt; 
+all of them chasing the same squealing,&lt;&lt;gains&gt;&gt; uncatchable
+ animal. &lt;&lt;gains&gt;&gt;You’re all striving to communicate and 
+express yourselves&lt;&lt;gains&gt;&gt; through the dark veil of the 
+most complicatedly collaborative art form&lt;&lt;gains&gt;&gt; the world
+ has ever known. &lt;&lt;gains&gt;&gt;Why did you ever want to make 
+video games anyway? &lt;&lt;gains&gt;&gt;What adult would ever choose 
+this life for herself?&lt;&lt;endtimedreplace&gt;&gt;|S E]]\n</div><div tiddler="Warnings" tags="bodystyle" created="201410242045" modifier="twee" twine-position="290,10">\n\n\n[[&gt; Start|Title Page]]</div><div tiddler="Shawn" tags="bodystyle" created="201407022037" modifier="twee" twine-position="1130,10">&lt;&lt;replace&gt;&gt;Shawn
+ is the level designer in charge of several important chunks of the 
+game, including the opening sequence, which the outside consultants had 
+crapped upon with vein-popping vigor. Truth be told, it was Shawn’s idea
+ that the open feature minimal tutorialization: 
+“&lt;i&gt;ShatterGate&lt;/i&gt; players are gonna have basic literacy 
+with fundamental ludic concepts.” He graduated from the NYU Game Center 
+four years ago, after which he and three friends successfully 
+Kickstarted $75,000 in order to commercialize his thesis, &lt;i&gt;Golem
+ Girl&lt;/i&gt;, a retro platformer about a Jewish girl made of 
+reanimated skin and her adventures through various levels inspired by 
+Eastern European fairytales. In interviews leading up to &lt;i&gt;Golem 
+Girl&lt;/i&gt;’s release, Shawn scoffed at what he called “didactic 
+interactivity,” which he regarded as a betrayal of the “language games 
+are intended to speak.” (It took you a while to realize he meant any 
+video game that told you how to play it, or essentially every commercial
+ video game ever made.) Shawn also once told an interviewer that his 
+personal idea of hell would be working for a big AAA developer. After a 
+tortuous, extended development process, &lt;i&gt;Golem Girl&lt;/i&gt; 
+finally went out to its backers. &lt;&lt;becomes&gt;&gt;[[Josh told you 
+once that it sold under a thousand copies.|S A 
+Choice]]&lt;&lt;endreplace&gt;&gt;</div><div tiddler="S I 3 Title" tags="titlestyle" created="201410251725" modifier="twee" twine-position="710,1270">&lt;center&gt;&lt;&lt;timedreplace
+ 
+500ms&gt;&gt;&lt;&lt;gains&gt;&gt;&lt;&lt;gains&gt;&gt;\n&lt;&lt;gains&gt;&gt;\n&lt;&lt;gains&gt;&gt;Six
+ Months Later&lt;&lt;playsound 
+"sounds/datecard.mp3"&gt;&gt;\n&lt;&lt;gains&gt;&gt;\n&lt;&lt;endtimedreplace&gt;&gt;\n&lt;/center&gt;\n&lt;&lt;timedgoto
+ "S I 3" 8s&gt;&gt;</div><div tiddler="S G Choice" tags="bodystyle" created="201410251705" modifier="twee" twine-position="570,850">&lt;&lt;timedreplace
+ 500ms&gt;&gt;Suddenly, Josh looks over at you. “You know the part I’m 
+talking about, right?”\n&lt;&lt;gains&gt;&gt;\n&lt;&lt;gains&gt;&gt;- 
+[[You should probably try to keep your job, which really is fun, despite
+ it all. You say, “Yeah. Oh, yeah. That was really good stuff.”|S H 
+1]]\n&lt;&lt;gains&gt;&gt;\n&lt;&lt;gains&gt;&gt;- [[You’ve decided you 
+don’t care anymore about this game, about any of these people. You say, 
+“Wanna hear something funny? I never played &lt;i&gt;Scoured 
+Lands&lt;/i&gt;. Not even a little.”|S H 
+2]]\n&lt;&lt;gains&gt;&gt;\n&lt;&lt;gains&gt;&gt;- [[You realize, with 
+painful clarity, that writing for games is a terrible idea and that 
+nobody should ever do it, ever, for any reason. You say, “I think I 
+quit.”|S H 3]]\n&lt;&lt;endtimedreplace&gt;&gt;</div><div tiddler="Credits" tags="bodystyle" created="201410242133" modifier="twee" twine-position="570,1690">&lt;&lt;playsound
+ "sounds/twwds.mp3"&gt;&gt;&lt;&lt;playsound 
+"sounds/typing.mp3"&gt;&gt;&lt;&lt;timedreplace 
+170ms&gt;&gt;\n&lt;&lt;gains&gt;&gt;The &lt;&lt;gains&gt;&gt;Writer 
+&lt;&lt;gains&gt;&gt;Will &lt;&lt;gains&gt;&gt;Do 
+&lt;&lt;gains&gt;&gt;Some&lt;&lt;gains&gt;&gt;thing\n&lt;&lt;gains&gt;&gt;\n&lt;&lt;gains&gt;&gt;\n&lt;&lt;gains&gt;&gt;by\n&lt;&lt;gains&gt;&gt;\n&lt;&lt;gains&gt;&gt;Tom
+ 
+&lt;&lt;gains&gt;&gt;Biss&lt;&lt;gains&gt;&gt;ell&lt;&lt;gains&gt;&gt;\n&lt;&lt;gains&gt;&gt;Matt&lt;&lt;gains&gt;&gt;hew
+ &lt;&lt;gains&gt;&gt;S. 
+&lt;&lt;gains&gt;&gt;Burns\n&lt;&lt;gains&gt;&gt;\n&lt;&lt;gains&gt;&gt;\n&lt;&lt;gains&gt;&gt;\n&lt;&lt;gains&gt;&gt;Created
+ &lt;&lt;gains&gt;&gt;with\n&lt;&lt;gains&gt;&gt;Twine 
+&lt;&lt;gains&gt;&gt;1.4.2\n&lt;&lt;gains&gt;&gt;\n&lt;&lt;gains&gt;&gt;\n&lt;&lt;gains&gt;&gt;\n&lt;&lt;gains&gt;&gt;\n&lt;&lt;gains&gt;&gt;©
+ 2015&lt;&lt;gains&gt;&gt;.\n&lt;&lt;endtimedreplace&gt;&gt;|</div><div tiddler="S I 2 Title" tags="titlestyle" created="201410251725" modifier="twee" twine-position="570,1270">&lt;center&gt;&lt;&lt;timedreplace
+ 
+500ms&gt;&gt;&lt;&lt;gains&gt;&gt;&lt;&lt;gains&gt;&gt;\n&lt;&lt;gains&gt;&gt;\n&lt;&lt;gains&gt;&gt;One
+ Year Later&lt;&lt;playsound 
+"sounds/datecard.mp3"&gt;&gt;\n&lt;&lt;gains&gt;&gt;\n&lt;&lt;endtimedreplace&gt;&gt;\n&lt;/center&gt;\n&lt;&lt;timedgoto
+ "S I 2" 8s&gt;&gt;</div><div tiddler="StoryTitle" tags="" created="201410161828" modifier="twee" twine-position="10,10">The Writer Will Do Something</div><div tiddler="S C 2" tags="bodystyle" created="201410242128" modifier="twee" twine-position="850,290">&lt;&lt;replace&gt;&gt;You
+ say, “The opening cinematic isn’t great. But it kinda got dropped on me
+ at the last minute and I didn’t have a lot of time to write it. I 
+barely even knew what I was writing. On top of that, I was getting notes
+ from every department about stuff to include. Maybe I should have 
+pushed back, but the situation didn’t exactly feel push-back-able.” 
+&lt;&lt;gains&gt;&gt;Translation: You’re a contractor here. Everyone 
+else is a full employee. &lt;&lt;becomes&gt;&gt;“It’s just this... 
+avalanche of lore,” Mike says. “Literally within the first minute we’re 
+hearing about the Galactic Commons, Rix’s backstory, the cause of the 
+Schism, the ShatterGates themselves. I mean, Jesus Christ -- pick one 
+thing to talk about, and do it right.”&lt;&lt;becomes&gt;&gt;“I had to 
+incorporate a lot of asks,” you say. “You have no idea how many people 
+had buy-in on that sequence.”&lt;&lt;becomes&gt;&gt;Troy puts up his 
+hand. “I can probably make some room in the budget if we want to shitcan
+ the open and start again.”&lt;&lt;becomes&gt;&gt;“Oh sweet Christ,” 
+Erika says. “Do you have any idea how much work that creates for me? 
+Tell me we’re not doing that.”&lt;&lt;becomes&gt;&gt;“It’s on the 
+table,” Troy says, shrugging in a vaguely sinister way. “This is the 
+most important thing to fix, right? In order to do that, everything 
+needs to be open for discussion.”&lt;&lt;becomes&gt;&gt;[[Erika tosses 
+her notebook on the table. “For fuck’s sake.”|S 
+D]]&lt;&lt;endreplace&gt;&gt;</div><div tiddler="Title for Screenshot" tags="titlestyle" created="201503281352" modifier="twee" twine-position="10,990">\n\n\n\n\n\nThe Writer Will Do Something\n</div><div tiddler="Script 3 - sound" tags="script" created="201407041227" modifier="twee" twine-position="10,710">(function
+ () {\n  "use strict";\n  version.extensions['soundMacros'] = {\n    
+major: 1,\n    minor: 1,\n    revision: 2\n  };\n  var p = 
+macros['playsound'] = {\n    soundtracks: {},\n    handler: function (a,
+ b, c, d) {\n      var loop = function (m) {\n          if (m.loop == 
+undefined) {\n            m.loopfn = function () {\n              
+this.play();\n            };\n            m.addEventListener('ended', 
+m.loopfn, 0);\n          } else m.loop = true;\n          m.play();\n   
+       };\n      var s = eval(d.fullArgs());\n      if (s) {\n        s =
+ s.toString();\n        var m = this.soundtracks[s.slice(0, 
+s.lastIndexOf("."))];\n        if (m) {\n          if (b == "playsound")
+ {\n            m.play();\n          } else if (b == "loopsound") {\n   
+         loop(m);\n          } else if (b == "pausesound") {\n          
+  m.pause();\n          } else if (b == "unloopsound") {\n            if
+ (m.loop != undefined) {\n              m.loop = false;\n            } 
+else if (m.loopfn) {\n              m.removeEventListener('ended', 
+m.loopfn);\n              delete m.loopfn;\n            }\n          } 
+else if (b == "stopsound") {\n            m.pause();\n            
+m.currentTime = 0;\n          } else if (b == "fadeoutsound" || b == 
+"fadeinsound") {\n            if (m.interval) 
+clearInterval(m.interval);\n            if (b == "fadeinsound") {\n     
+         if (m.currentTime&gt;0) return;\n              m.volume = 0;\n 
+             loop(m);\n            } else {\n              if 
+(!m.currentTime) return;\n              m.play();\n            }\n      
+      var v = m.volume;\n            m.interval = setInterval(function 
+() {\n              v = Math.min(1, Math.max(0, v + 0.005 * (b == 
+"fadeinsound" ? 1 : -1)));\n              m.volume = 
+Math.easeInOut(v);\n              if (v == 0 || v == 1) 
+clearInterval(m.interval);\n              if (v == 0) {\n               
+ m.pause();\n                m.currentTime = 0;\n                
+m.volume = 1;\n              }\n            }, 10);\n          }\n      
+  }\n      }\n    }\n  }\n  macros['fadeinsound'] = p;\n  
+macros['fadeoutsound'] = p;\n  macros['unloopsound'] = p;\n  
+macros['loopsound'] = p;\n  macros['pausesound'] = p;\n  
+macros['stopsound'] = p;\n  macros['stopallsound'] = {\n    handler: 
+function () {\n      var s = macros.playsound.soundtracks;\n      for 
+(var j in s) {\n\t\tif (s.hasOwnProperty(j)) {\n          
+s[j].pause();\n          if (s[j].currentTime) {\n\t\t    
+s[j].currentTime = 0;\n\t\t  }\n\t\t}\n      }\n    }\n  }\n  var div = 
+document.getElementById("storeArea").firstChild;\n  var fe = ["ogg", 
+"mp3", "wav", "webm"];\n  while (div) {\n    var b = 
+String.fromCharCode(92);\n    var q = '"';\n    var re = "['" + q + 
+"]([^" + q + "']*?)" + b + ".(ogg|mp3|wav|webm)['" + q + "]";\n    k(new
+ RegExp(re, "gi"));\n    div = div.nextSibling;\n  }\n\n  function k(c, 
+e) {\n    do {\n      var d = c.exec(div.innerHTML);\n      if (d) {\n  
+      var a = new Audio();\n        if (a.canPlayType) {\n          for 
+(var i = -1; i &lt; fe.length; i += 1) {\n            if (i &gt;= 0) 
+d[2] = fe[i];\n            if (a.canPlayType("audio/" + d[2])) break;\n 
+         }\n          if (i &lt; fe.length) {\n            
+a.setAttribute("src", d[1] + "." + d[2]);\n            a.interval = 
+null;\n            macros.playsound.soundtracks[d[1]] = a;\n          } 
+else console.log("Browser can't play '" + d[1] + "'");\n        }\n     
+ }\n    } while (d);\n  }\n}());</div><div tiddler="S B 1" tags="bodystyle" created="201410242127" modifier="twee" twine-position="710,150">&lt;&lt;replace&gt;&gt;You
+ say, “The playtesters had a lot of problems with the controls and the 
+lack of tutorials. There was lot of confusion around the Gunsword, 
+especially.”&lt;&lt;becomes&gt;&gt;“No, no,” Shawn says, looking up from
+ his smartphone, obviously irritated. &lt;&lt;gains&gt;&gt;“Slash is the
+ square button. Nanopower is circle. Shoot is right trigger. You learn 
+that right away. &lt;&lt;gains&gt;&gt;Jesus Christ, press a couple 
+buttons! I intentionally put some non-directed space right after the 
+opening in-game cutscene. &lt;&lt;gains&gt;&gt;It’s there for players to
+ discover the affordances we’re giving them. Did any of those consultant
+ turdfucks even try that?”&lt;&lt;becomes&gt;&gt;“I’ll check,” Troy says
+ instantly, and makes a note.&lt;&lt;becomes&gt;&gt;Josh, after staring 
+at Shawn for a moment, rubs his eyes. “Okay. ‘Affordances’ and 
+‘non-directed space,’ while interesting to talk about” -- Shawn’s head 
+pumps affirmatively -- “aren’t really at issue here. Let’s get beyond 
+that.”&lt;&lt;becomes&gt;&gt;Josh is still rubbing his eyes -- it looks 
+as though he’s afraid they might fall out of his head otherwise. 
+&lt;&lt;gains&gt;&gt;“The playtesters, I think, felt confused and 
+aimless because they didn’t get any sense of purpose. There’s no 
+urgency. At all. &lt;&lt;gains&gt;&gt;So, that’s -- that’s -- 
+&lt;i&gt;that&lt;/i&gt;’s what we need to create.” He looks around the 
+room, his eyes redder and more shrimp-boiled than before. “We need to 
+give our players a non-bullshit, non-gamey problem to solve. Right off 
+the bat. We do this, they’ll try to find the tools to do 
+it.”&lt;&lt;becomes&gt;&gt;For some reason Shawn is smiling. “Dude, we 
+do give them a problem to solve -- the pirate 
+counterattack.”&lt;&lt;becomes&gt;&gt;“That’s not enough. That’s just us
+ throwing enemies at the player. There’s nothing at stake. Pirates? The 
+player doesn’t even know why he should give a shit yet about 
+pirates.”&lt;&lt;becomes&gt;&gt;[[Mike ponders this, head down. He looks
+ up. “Stronger pirates. We should put the player under the gun right 
+away.”\n\n“No,” Josh says. “No!”|S C]]&lt;&lt;endreplace&gt;&gt;</div><div tiddler="S B 2" tags="bodystyle" created="201410242127" modifier="twee" twine-position="850,150">&lt;&lt;replace&gt;&gt;You
+ say, “The narrative isn’t working. Some of it’s my fault. Maybe a lot 
+of it is. We’re trying to explain too many things at once. Right away 
+we’re ladling on this narrative goop that takes way too long to add up 
+to anything.”&lt;&lt;becomes&gt;&gt;“Actually I agree with that,” Mike 
+says. “I always thought going down this route was a bad idea. 
+&lt;i&gt;ShatterGate&lt;/i&gt; is fundamentally about the player’s 
+experience in combat. It’s not about a bunch of backstory. 
+&lt;&lt;gains&gt;&gt;It’s not about the gameworld, even. I don’t know 
+how we got to a point where every time you turn a corner in our game an 
+encyclopedia hits you on the head. When we were doing the O.G. 
+&lt;i&gt;ShatterGate&lt;/i&gt;, we made stuff up. 
+&lt;&lt;gains&gt;&gt;We didn’t worry about it. Need some big space 
+monster? Boom, here’s a Hydra.”\n&lt;&lt;becomes&gt;&gt;“That stuff’s 
+there,” Josh says, “because the fans dig 
+it.”\n\n&lt;&lt;gains&gt;&gt;Mike makes a low, displeased, lawnmowerish 
+sound.\n&lt;&lt;becomes&gt;&gt;[[Josh zeroes in on him. “Mike, listen to
+ me -- the fans like it. Okay? They demonstrably like it. Plus it has 
+all these transmedia applications we might need later down the line. All
+ that bullshit makes our world a richer place.”|S 
+C]]&lt;&lt;endreplace&gt;&gt;</div><div tiddler="S B 3" tags="bodystyle" created="201410242127" modifier="twee" twine-position="990,150">&lt;&lt;replace&gt;&gt;You
+ say, “The consultants, I think, can’t figure out what kind of game 
+we’re making because &lt;i&gt;we&lt;/i&gt; don’t know what kind of game 
+we’re making. &lt;&lt;gains&gt;&gt;I’ve been here for fourteen months 
+and I still don’t know whether we’re making a cinematic game or an 
+emergent combat-driven game. Which impacts me in a million ways. 
+&lt;&lt;gains&gt;&gt;Is our player character someone the player’s 
+supposed to inhabit or someone he’s supposed to portray? There’s a huge 
+difference story-wise.” \n&lt;&lt;becomes&gt;&gt;Josh puts his hands on 
+the surface of the conference table, as though to steady himself. “It’s 
+both.” &lt;&lt;gains&gt;&gt;He’s angry now, you can tell, but doing his 
+best not to give away just how angry. &lt;&lt;gains&gt;&gt;“You know 
+what? Every goddamn month you and I have the same conversation. And I 
+always tell you the same thing. &lt;&lt;gains&gt;&gt;We’re giving 
+players the freedom to choose how they approach our world. And it’s 
+kinda your job -- our job -- to build characters and situations around 
+that experience that they’ll never 
+forget.”\n&lt;&lt;becomes&gt;&gt;Troy, possibly coming to your aid, 
+says, “When I think of the canonical &lt;i&gt;ShatterGate&lt;/i&gt; 
+experience, I always come back to the Hydra fight in S1. It’s big but 
+controlled. It’s got choices, but it doesn’t feel 
+aimless.”\n&lt;&lt;becomes&gt;&gt;Josh nods. “I loved that fight.” For a
+ brief, terrifying moment, it looks like he might actually cry. 
+&lt;&lt;becomes&gt;&gt;[[“But look -- this all goes to my point. We do 
+know what kind of game we’re making. By and large, we’ve made the game 
+we intended to make. But somehow this isn’t getting across to players. 
+How to communicate our intentions better -- &lt;i&gt;that’s&lt;/i&gt; 
+why we’re here.”|S C]]&lt;&lt;endreplace&gt;&gt;</div><div tiddler="S A" tags="bodystyle" created="201407022037" modifier="twee" twine-position="430,10">&lt;&lt;replace&gt;&gt;You’re
+ the lead writer on &lt;i&gt;ShatterGate: Future Perfect&lt;/i&gt;, the 
+third entry in a once-beloved franchise. &lt;&lt;becomes&gt;&gt;You 
+never finished the original &lt;i&gt;ShatterGate&lt;/i&gt; and somehow 
+didn’t play &lt;i&gt;ShatterGate Strike: Scoured Lands&lt;/i&gt;, even 
+though both games, still glisteningly shrink-wrapped, occupy the same 
+space on your coffee table that they have for the last fourteen 
+months.&lt;&lt;becomes&gt;&gt;It’s not really important how you wound up
+ as the lead writer on &lt;i&gt;ShatterGate&lt;/i&gt;. 
+&lt;&lt;gains&gt;&gt;You did. &lt;&lt;becomes&gt;&gt;The game is six 
+months from shipping.&lt;&lt;becomes&gt;&gt;Late last week, the team 
+received its first reactions from paid outside consultants, which were 
+unambiguously catastrophic.&lt;&lt;becomes&gt;&gt;You’re in a meeting 
+room with several others, most of them leads. You’re fairly certain none
+ of them knows you never finished &lt;i&gt;ShatterGate&lt;/i&gt;, never 
+played &lt;i&gt;Scoured Lands&lt;/i&gt;. &lt;&lt;becomes&gt;&gt;It is 
+Monday, 9:30 a.m. &lt;&lt;gains&gt;&gt;A heavy, damp-towel smell 
+lingers; you and everyone else here worked through the weekend. 
+\n&lt;&lt;becomes&gt;&gt;[[You look around.|S A 
+Choice]]\n&lt;&lt;endreplace&gt;&gt;</div><div tiddler="S B" tags="bodystyle" created="201410242126" modifier="twee" twine-position="430,150">&lt;&lt;replace&gt;&gt;“Everyone
+ knows why we’re here.” This is Josh. &lt;&lt;becomes&gt;&gt;His eyes 
+are red and his shirt hasn’t been ironed in probably 
+weeks.&lt;&lt;becomes&gt;&gt;You’ve heard rumors that his wife has been 
+upset about the amount of time Josh has been away from home. 
+&lt;&lt;gains&gt;&gt;His son, you know, turned two last week -- and Josh
+ missed his party.&lt;&lt;becomes&gt;&gt;“The consultants didn’t like 
+our game. Not only that, they had no idea what kind of game we’re 
+making. We’re here to fix this. We need to fix this. So let’s go around 
+the room. I want you all to tell me what you think is the main 
+problem.”&lt;&lt;becomes&gt;&gt;[[Unfortunately, you’re sitting next to 
+Josh, so you have to answer first. With unnervingly android 
+simultaneity, all five heads around the table turn and lock onto you.|S B
+ Choice]]\n&lt;&lt;endreplace&gt;&gt;</div><div tiddler="S C" tags="bodystyle" created="201410242127" modifier="twee" twine-position="430,290">&lt;&lt;replace&gt;&gt;&lt;&lt;timedreplace
+ 1s&gt;&gt;“Actually,” Shawn says, “they do something really clever with
+ that in &lt;i&gt;Dark Souls&lt;/i&gt; 
+--”\n\n&lt;&lt;gains&gt;&gt;“Goddammit!” Josh says, his head lolling 
+back. “I’ve told you. Again and again. That particular game’s example is
+ just not fucking &lt;i&gt;relevant&lt;/i&gt; 
+here.”&lt;&lt;endtimedreplace&gt;&gt;\n&lt;&lt;becomes&gt;&gt;Troy is 
+staring out the window, his face fixed in a smile. He’s a fan of 
+&lt;i&gt;Dark Souls&lt;/i&gt;. &lt;&lt;gains&gt;&gt;So is Shawn. So are 
+you. &lt;&lt;gains&gt;&gt;Even Josh has played a fair amount of 
+&lt;i&gt;Dark Souls&lt;/i&gt;. You know this from the amount of trophies
+ he’s racked up. (You’re nothing if not a careful spy of your 
+colleagues’ online profiles.)&lt;&lt;becomes&gt;&gt;But you know Josh 
+has also been forced to clamp down on any aspirational attempts to mimic
+ it, because Josh’s boss -- &lt;i&gt;everyone&lt;/i&gt;’s boss -- Drew, 
+the GM of the studio, despises &lt;i&gt;Dark 
+Souls&lt;/i&gt;.&lt;&lt;becomes&gt;&gt;According to the stacks of market
+ research studies that apparently spontaneously generate on Drew’s desk,
+ &lt;i&gt;Dark Souls&lt;/i&gt; doesn’t represent what typical consumers 
+want from their games. &lt;&lt;gains&gt;&gt;It does well with the 
+“core,” he concedes, but when you’re spending 
+&lt;i&gt;ShatterGate&lt;/i&gt; money, &lt;i&gt;Dark Souls&lt;/i&gt; 
+becomes “commercially unviable.” &lt;&lt;gains&gt;&gt;Rumor has it that 
+anyone who even mentions the game in an aspirational context within 
+earshot of Drew is at instant risk of being 
+terminated.\n&lt;&lt;becomes&gt;&gt;The room is quiet for several 
+seconds. Josh leans back in his chair. You’re pretty sure everyone’s 
+thinking about &lt;i&gt;Dark Souls&lt;/i&gt;. 
+&lt;&lt;becomes&gt;&gt;Finally Josh says, “It sounds like, more than 
+anything, we’ve got a writing problem on our hands.” Without looking at 
+you he gets to his feet and heads for the dry-erase board. There he 
+grabs his beloved blue marker; glyphs and boxes begin to form under his 
+swiping, circling hand. &lt;&lt;gains&gt;&gt;“Let’s walk through the 
+intro level -- all of it. Step by step. I wanna put all the dialogue 
+under the microscope, all the objective strings. We’ll adjust timings, 
+maybe retool some environments to improve the 
+flow.”\n&lt;&lt;becomes&gt;&gt;&lt;&lt;timedreplace 
+500ms&gt;&gt;“Environment is content complete,” Erika 
+says.\n\n&lt;&lt;gains&gt;&gt;His back to the room, Josh breathes in, 
+breathes out. “Yes. I know.”\n\n&lt;&lt;gains&gt;&gt;“Just making sure 
+you know.”\n&lt;&lt;endtimedreplace&gt;&gt;\n&lt;&lt;becomes&gt;&gt;“I 
+&lt;i&gt;know&lt;/i&gt;.” Josh’s white-board scribbling turns squeakily 
+ferocious. “This is important. We don’t have a choice. We need to get 
+this right. If the first ninety seconds of our game don’t melt people’s 
+faces or make them Tweet ‘&lt;i&gt;ShatterGate&lt;/i&gt; is back, 
+motherfuckers!’ -- then guess what? We’ve lost them. We’ve lost them to 
+&lt;i&gt;Gears&lt;/i&gt;, to &lt;i&gt;CoD&lt;/i&gt;, to 
+&lt;i&gt;Minecraft&lt;/i&gt;.”\n\n&lt;&lt;gains&gt;&gt;“&lt;i&gt;Minecraft&lt;/i&gt;’s
+ awesome,” Mike says, as though he were just 
+arriving.\n&lt;&lt;becomes&gt;&gt;Josh turns back to the room. Behind 
+him is what you vaguely recognize as Shawn’s opening-level layout. 
+&lt;&lt;gains&gt;&gt;“Guys, anyone here remember our design document? 
+Remember how we were gonna set the table story-wise? A super that says, 
+‘G.C.A. 1009. Five years before the Schism,’ then 
+&lt;i&gt;bam&lt;/i&gt;, we drop you right into the action.” 
+&lt;&lt;becomes&gt;&gt;[[He puts his hands out, suddenly looking like a 
+frat-boy beggar in a rumpled button-down shirt.|S C 
+Choice]]&lt;&lt;endreplace&gt;&gt;</div><div tiddler="S D" tags="bodystyle" created="201410242129" modifier="twee" twine-position="430,430">&lt;&lt;replace&gt;&gt;“We’re
+ not gonna get anywhere if all we do is point fingers,” Troy says, using
+ his Producer Tone, a higher-pitched, suspiciously reasonable-sounding 
+voice nevertheless devoid of all collegiality and emotion. 
+&lt;&lt;becomes&gt;&gt;“Now, based on what I’m hearing, we have two 
+options. &lt;&lt;gains&gt;&gt;First option is we stick to our guns and 
+go with the cinematic open that explains our lore, maybe with some new 
+V.O. -- if we think that’ll smooth things over. 
+&lt;&lt;gains&gt;&gt;Option two: we go back to the cold open. 
+&lt;&lt;gains&gt;&gt;I really don’t care what you guys choose. What I 
+care about is that we make this decision right now, right here in this 
+room, and stick to that decision. Really stick to it. 
+&lt;&lt;gains&gt;&gt;I don’t want to hear ‘Yes, I agree’ now and then 
+learn you’re all talking shit about our decision later to your 
+departments. Because guess what? After today, this ship has sailed.” 
+&lt;&lt;becomes&gt;&gt;Throughout this entire speech Troy has been 
+mashing the surface of the conference table with his index finger, as 
+though killing ants. &lt;&lt;becomes&gt;&gt;He turns to you, another 
+ant. &lt;&lt;gains&gt;&gt;“Since you’re the one that’s gonna have to 
+write it, what do you think?”&lt;&lt;becomes&gt;&gt;Your mind is a 
+bright, glittery cascade of thoughts. Unfortunately, you’re not able to 
+isolate or hold any single one of them. Everything in your head is 
+water. &lt;&lt;gains&gt;&gt;Making a decision right now, in this room, 
+has too many implications. &lt;&lt;becomes&gt;&gt;[[It will determine 
+the tone of the rest of the game. It will determine the rest of your 
+day, your week, your month. Part of you wants to ask the room if there’s
+ an example of another game out there that has done a cold open 
+particularly well, but you’re worried Shawn will start talking about 
+&lt;i&gt;Dark Souls&lt;/i&gt; again.|S D 
+Choice]]&lt;&lt;endreplace&gt;&gt;</div><div tiddler="S E" tags="bodystyle" created="201410242129" modifier="twee" twine-position="430,570">&lt;&lt;replace&gt;&gt;&lt;&lt;timedreplace
+ 1s&gt;&gt;“I vote cold open,” says Shawn, before you can 
+speak.\n\n&lt;&lt;gains&gt;&gt;Mike nods. “Yep. Agreed. Cold 
+open.”\n\n&lt;&lt;gains&gt;&gt;Troy says, “Okay, done. Cold open. Next 
+issue?”\n\n&lt;&lt;gains&gt;&gt;Josh looks around in a panic. “Uh. Can 
+we hang on here a 
+sec?”\n&lt;&lt;endtimedreplace&gt;&gt;&lt;&lt;becomes&gt;&gt;Troy smiles
+ at him in a sad, condescending way. “We have to get through the rest of
+ the level. We’re already twenty minutes into this 
+meeting.”&lt;&lt;becomes&gt;&gt;“Yeah, sorry” -- obviously Josh isn’t 
+sorry -- “but I don’t think the cold open will work. We have a lot of 
+really important context to establish. Critics eat that shit up. So, 
+what I think -- I think we keep the opening cinematic but rewrite the 
+dialogue.”&lt;&lt;becomes&gt;&gt;“It’s way too expositional,” Shawn 
+says. “So maybe we should go with a more &lt;i&gt;in medias 
+res&lt;/i&gt;-type thing. I kinda like the part where Rix talks about 
+the planets dying.” &lt;&lt;becomes&gt;&gt;Here Mike breaks in: “No no 
+no. I hate that part. It’s just random bullshit about some planet the 
+player’s never heard of. Why should he 
+care?”&lt;&lt;becomes&gt;&gt;“Because,” Shawn says, “the planet’s dying.
+ It’s all very sad, Mike.”&lt;&lt;becomes&gt;&gt;Mike goes dead-eyed. 
+“The player needs to feel that loss in 
+&lt;i&gt;gameplay&lt;/i&gt;.”&lt;&lt;becomes&gt;&gt;Shawn nods at him 
+indulgently. “Sure. Yeah. I look forward to the system you devise to 
+communicate the entirety of planetary 
+loss.”&lt;&lt;becomes&gt;&gt;“Wait,” Troy says, “isn’t that why we put 
+all the effort into ‘building emotional connections’” -- he’s quoting 
+one of Josh’s development mantras here with riskily obvious dubiousness 
+-- “through Rix’s companions?” &lt;&lt;gains&gt;&gt;But nobody seems to 
+have heard him. That, or nobody chose to have heard 
+him.&lt;&lt;becomes&gt;&gt;“Rix is a been-there, done-that kind of guy,”
+ Shawn goes on. “Right? What if he’s just like” -- Shawn does his best, 
+which is to say wildly unsuccessful, posh British accent -- “‘Our 
+galaxy’s never been a pleasant place to be, but now entire 
+&lt;i&gt;planets&lt;/i&gt; are dying.’”&lt;&lt;becomes&gt;&gt;Josh finds
+ this all very amusing. “Ship that shit.”\n\n&lt;&lt;gains&gt;&gt;Troy 
+agrees. “Ship it!”\n\n&lt;&lt;gains&gt;&gt;You note that this is the 
+first time anyone has smiled since the meeting 
+began.\n&lt;&lt;becomes&gt;&gt;But Shawn is undaunted. “Hell -- it’s no 
+worse than some of the lines that are in the game right now. Look, all 
+I’m trying to do is --”\n&lt;&lt;becomes&gt;&gt;Josh jumps up out of his
+ chair again. “Wait, wait. Just shut up. How about this -- what if we 
+cut the in-game chatter and went with straight-up voiceover? You know, 
+‘The world has changed’ Galadriel-type 
+shit.”\n&lt;&lt;becomes&gt;&gt;Erika’s mouth drops open. “You want to 
+cut all the in-game dialogue? &lt;i&gt;That&lt;/i&gt;’s supposed to fix 
+the problem?”\n&lt;&lt;becomes&gt;&gt;“No, no. I’m thinking like... 
+images. Something simple.” He looks at Erika so intently you are 
+half-fearing a marriage proposal. “We use our kick-ass visual art team, 
+led by you, to make like a really beautiful visual 
+quilt.”\n&lt;&lt;becomes&gt;&gt;Josh’s flattery does not make its 
+intended inroad with Erika. “A visual quilt.” Erika says this phrase as 
+though turning it over in her mouth, outlining it with her tongue. “And 
+what exactly will this ‘visual quilt’ of yours look 
+like?”\n\n&lt;&lt;gains&gt;&gt;“Spaceships. 
+Planets.”\n&lt;&lt;becomes&gt;&gt;You’ve noticed that when confronted 
+with something she doesn’t want to do, Erika often says, “Okay. Thinking
+ about it,” before quickly dismissing the 
+idea.\n\n&lt;&lt;becomes&gt;&gt;“Okay,” she says. “Thinking about it.” 
+&lt;&lt;becomes&gt;&gt;Then she makes a face. “And no, underlined in 
+fire. For the open of our entire game you want to pan-and-scan over a 
+planet floating through space and stick some voiceover under it? Did it 
+become 1958 in here or something?”&lt;&lt;becomes&gt;&gt;“Yeah,” Mike 
+says. “Sorry, dude, but I’m with Erika here. That scrolling text shit 
+reminds me of low-budget JRPGs. Not the biggest game of the 
+year.”\n&lt;&lt;becomes&gt;&gt;Josh’s hurt face -- which cruelly makes 
+him look a decade younger -- metronomes from Erika to Mike. When he 
+begins to speak, you sense him minding his words. 
+&lt;&lt;gains&gt;&gt;“Okay. I’m sorry. Maybe I missed something here. 
+But doesn’t every &lt;i&gt;Star Wars&lt;/i&gt; movie start with 
+scrolling text?” &lt;&lt;gains&gt;&gt;With that, though, he is no longer
+ minding his words; his eyes fill with the madness of an unheeded 
+prophet. &lt;&lt;gains&gt;&gt;“Doesn’t what is &lt;i&gt;literally the 
+most popular movie franchise of all time&lt;/i&gt; introduce itself by 
+taking a giant lore &lt;i&gt;shit&lt;/i&gt; on your entire 
+&lt;i&gt;face&lt;/i&gt;?”\n&lt;&lt;becomes&gt;&gt;The room is silent for
+ several seconds. &lt;&lt;gains&gt;&gt;Then, Erika: “Yeah, but it’s 
+really the exception to the rule.”&lt;&lt;becomes&gt;&gt;Josh throws his
+ blue marker onto the floor, where it bounces at a severe angle and 
+smacks into the glass separating the room from the rest of the studio 
+with a sharp crack. &lt;&lt;becomes&gt;&gt;Out on the floor several 
+heads turn toward the meeting room. Josh is already pulling down the 
+room’s blinds. &lt;&lt;becomes&gt;&gt;“We have a writer,” he says 
+quietly, as the white slats of the blinds clackily unfurl. 
+&lt;&lt;gains&gt;&gt;He gestures toward you. &lt;&lt;becomes&gt;&gt;“Our
+ writer will do something.”&lt;&lt;becomes&gt;&gt;Troy takes a deep 
+breath. “So another pass at dialogue for the 
+open.”&lt;&lt;becomes&gt;&gt;“Yeah. And if that doesn’t work, we go with
+ the cold open.”&lt;&lt;becomes&gt;&gt;Erika and Mike look at each 
+other, the table, each other. Josh, still staring at Troy, pretends not 
+to have noticed their subtly mutinous 
+consultation.\n\n&lt;&lt;gains&gt;&gt;Troy starts taking a note, but 
+then, with a small, infuriated slash, crosses it out. “You know what? 
+Fine. That’s not what we -- but fine. Moving on. What’s 
+next?”\n&lt;&lt;becomes&gt;&gt;Shawn begins to stretch in his chair like
+ a giant cat making itself at home. He’s complained before about Troy’s 
+unreasonable habit of scheduling meetings before 11 a.m. 
+&lt;&lt;gains&gt;&gt;The first twenty-five percent of what Shawn 
+proceeds to say is mostly yawn: “Hey can we next maybe talk about the 
+pirate attack or the space battle -- or whatever the fuck we’re calling 
+it now?”\n&lt;&lt;becomes&gt;&gt;“We’re skipping the pirate space 
+battle,” Josh says. “It’s big, it’s noisy, it’s fine. People will love 
+it. Let’s go right into Afghanistan.”\n&lt;&lt;becomes&gt;&gt;Erika 
+sighs audibly. Josh has insisted on referring to the game’s early, 
+self-consciously studied war-is-bad desert battle -- the second major 
+combat encounter -- as “Afghanistan” so indefatigably that a panicked PR
+ flack made him undergo emergency deprogramming right before E3 last 
+year, lest he slip and actually say such a thing out loud to the press. 
+&lt;&lt;becomes&gt;&gt;(At his press conference, he wound up saying the 
+battle only &lt;i&gt;reminded&lt;/i&gt; him of Afghanistan, which 
+thankfully only had  higher-minded critics on Twitter tsk-tsking for 
+about an hour afterwards.)\n&lt;&lt;becomes&gt;&gt;“Remember,” Troy 
+says. “We’re not supposed to call it Afghanistan 
+anymore.”\n\n&lt;&lt;gains&gt;&gt;“Sorry. Let’s go right into Tora 
+Bora.”\n\n&lt;&lt;gains&gt;&gt;Troy makes another 
+note.\n\n&lt;&lt;becomes&gt;&gt;Josh is walking around the table now, 
+his hands moving in emphatic little circles. “This is our showstopper, 
+the first moment in the game where we announce our true intentions. The 
+new &lt;i&gt;ShatterGate&lt;/i&gt;. Grittier, tougher, meaner. And yet 
+the enemy barks throughout that level sound cartoonish. They’re not 
+convincing. Everything is just ‘Argle bargle, kill the human!’ It’s 
+murdering the feels here.”\n&lt;&lt;becomes&gt;&gt;Okay, so -- is he 
+taking another shot at you? If so, it’s a stab at the centrally absurd 
+heart of everything you’ve been trying to overcome in the past year. You
+ would very much like to know how anyone -- how Melville, Shakespeare, 
+or even Marc Laidlaw -- could write “convincing” combat dialogue for a 
+game in which you punch the heads off of enemies frozen in place by your
+ ice grenades.&lt;&lt;becomes&gt;&gt;[[“Grittier, tougher, meaner”: 
+Nothing else in the game actually supported these aspirations, even 
+though Drew and Josh talked about them all the time. A single glance at 
+the weapons, art, story, and milieu of this game leads any rational 
+person to an inescapable conclusion: This is a willfully, obviously 
+ridiculous world.|S E Choice]]&lt;&lt;endreplace&gt;&gt;</div><div tiddler="S F" tags="bodystyle" created="201410242130" modifier="twee" twine-position="430,710">&lt;&lt;replace&gt;&gt;All
+ at once you go boneless in your chair. What was billed as an emergency 
+fix-the-game meeting has turned unambiguously into something else. 
+&lt;&lt;becomes&gt;&gt;You feel like you’ve gained fifteen pounds of 
+paranoia in the last hour. You look around the table. Do all of them 
+have it in for you? How long have they been whispering about your work? 
+&lt;&lt;becomes&gt;&gt;Has this whole charade been concocted as an 
+elaborate show trial to convict you for the imminent failure of 
+&lt;i&gt;ShatterGate: Future Perfect&lt;/i&gt; -- the game that 
+absolutely cannot fail? &lt;&lt;becomes&gt;&gt;What about the jokes 
+you’ve shared, the beers you’ve drunk, the snarky memes you’ve forwarded
+ to one another in response to some innocent team member’s “I brought 
+banana bread!” email announcement? All that camaraderie seems like a 
+distant shimmering mirage right now.\n&lt;&lt;becomes&gt;&gt;[[“So I 
+gather it’s all a writing problem,” you say, weakly defiant. “Our whole 
+game.”|S F Choice]]&lt;&lt;endreplace&gt;&gt;</div><div tiddler="S G" tags="bodystyle" created="201410242132" modifier="twee" twine-position="430,850">&lt;&lt;replace&gt;&gt;You’re
+ not sure when you stood up, but now, slowly, you sit back 
+down.\n&lt;&lt;becomes&gt;&gt;“We’re a team,” Josh says, finally. He 
+doesn’t seem to have been offended by what you said. Worse, he doesn’t 
+seem to have even listened to what you said. &lt;&lt;gains&gt;&gt;“This 
+is a team effort. We’re going to solve this as a team. I know this is 
+hard on everyone. And E3 is just around the corner again. Any day now 
+they’re going to be hounding us for demos and fucking interviews and God
+ knows what else. &lt;&lt;gains&gt;&gt;But listen. If there’s one thing I
+ know about this team, it’s that we can slam it home when it counts. 
+We've done it before; we’ll do it again. And this -- 
+&lt;i&gt;this&lt;/i&gt; is where it counts.”\n&lt;&lt;becomes&gt;&gt;You
+ think about this man missing his son’s second birthday party due to an 
+emergency meeting about execution 
+animations.\n&lt;&lt;becomes&gt;&gt;“Man,” Mike says. “It almost feels 
+like we’re in that mission at the end of &lt;i&gt;Scoured 
+Lands&lt;/i&gt;. The fracture thing with the linear motion 
+gun?”\n&lt;&lt;becomes&gt;&gt;Shawn actually puts a hand over his heart.
+ “You mean where the floor gets dynamically blown apart while you’re 
+running around on it? I remember playing that. God, it must have been so
+ hard to script.”\n\n&lt;&lt;gains&gt;&gt;“It was so worth it, though. 
+‘Fraaaaacture!’”\n&lt;&lt;becomes&gt;&gt;Now even Josh is sinking into a
+ marsh of warm, happy memories. “Yeah. That was a really good bit.” 
+&lt;&lt;gains&gt;&gt;Then he looks around -- bird-like, eureka’d. “Wait a
+ sec. Maybe we should base our opening on something like 
+that.”\n&lt;&lt;becomes&gt;&gt;Troy’s Lobot eyes grow suddenly wide and 
+alert. “Uh -- we’re not back on the open again, are 
+we?”\n&lt;&lt;becomes&gt;&gt;[[Josh leans over, his chest pressed right 
+up against the table’s edge, while he hand-puppets his new idea. “Just 
+think about it. You open up on the player, lasers are coming down, the 
+floor is getting totally destroyed.”|S G 
+Choice]]&lt;&lt;endreplace&gt;&gt;</div><div tiddler="Pause Before End" tags="bodystyle" created="201503280958" modifier="twee" twine-position="430,1550">&lt;&lt;timedgoto "The End" 2s&gt;&gt;</div><div tiddler="CSS 5 Blink" tags="stylesheet" created="201503141815" modifier="twee" twine-position="150,710">blink
+ {\n  -webkit-animation: blink 400ms steps(5, start) infinite;\n  
+-moz-animation:    blink 400ms steps(5, start) infinite;\n  
+-o-animation:      blink 400ms steps(5, start) infinite; \n  animation: 
+        blink 400ms steps(5, start) infinite;\n}\n\n@-webkit-keyframes 
+blink {\n  to { visibility: hidden; }\n}\n@-moz-keyframes blink {\n  to {
+ visibility: hidden; }\n}\n@-o-keyframes blink {\n  to { visibility: 
+hidden; }\n}\n@keyframes blink {\n  to { visibility: hidden; 
+}\n}\n\nblinkslow {\n  -webkit-animation: blink 800ms steps(5, start) 
+infinite;\n  -moz-animation:    blink 800ms steps(5, start) infinite;\n 
+ -o-animation:      blink 800ms steps(5, start) infinite; \n  animation:
+         blink 800ms steps(5, start) infinite;\n}\n\n@-webkit-keyframes 
+blink {\n  to { visibility: hidden; }\n}\n@-moz-keyframes blink {\n  to {
+ visibility: hidden; }\n}\n@-o-keyframes blink {\n  to { visibility: 
+hidden; }\n}\n@keyframes blink {\n  to { visibility: hidden; }\n}</div><div tiddler="S H 1 Pause" tags="bodystyle" created="201410261239" modifier="twee" twine-position="430,1130">&lt;&lt;timedreplace
+ 
+500ms&gt;&gt;.&lt;&lt;gains&gt;&gt;.&lt;&lt;gains&gt;&gt;.&lt;&lt;gains&gt;&gt;.&lt;&lt;gains&gt;&gt;.&lt;&lt;gains&gt;&gt;.&lt;&lt;endtimedreplace&gt;&gt;&lt;&lt;timedgoto
+ "S I 1 Title" 2s&gt;&gt;</div><div tiddler="Title Page" tags="titlestyle" created="201410161831" modifier="twee" twine-position="290,150">&lt;&lt;playsound
+ "sounds/typing.mp3"&gt;&gt;&lt;&lt;timedreplace 
+210ms&gt;&gt;&lt;&lt;gains&gt;&gt;&lt;&lt;gains&gt;&gt;&lt;&lt;gains&gt;&gt;&lt;&lt;gains&gt;&gt;The&lt;&lt;gains&gt;&gt;
+ Writer&lt;&lt;gains&gt;&gt; Will&lt;&lt;gains&gt;&gt; 
+Do&lt;&lt;gains&gt;&gt; 
+Some&lt;&lt;gains&gt;&gt;thing\n&lt;&lt;gains&gt;&gt;\n&lt;&lt;gains&gt;&gt;\n&lt;&lt;gains&gt;&gt;\n&lt;&lt;gains&gt;&gt;\n&lt;&lt;gains&gt;&gt;&lt;&lt;gains&gt;&gt;by
+ &lt;&lt;gains&gt;&gt;Tom &lt;&lt;gains&gt;&gt;Bissell 
+&lt;&lt;gains&gt;&gt;&amp; &lt;&lt;gains&gt;&gt;Matthew 
+&lt;&lt;gains&gt;&gt;S. 
+&lt;&lt;gains&gt;&gt;Burns\n&lt;&lt;gains&gt;&gt;\n&lt;&lt;endtimedreplace&gt;&gt;&lt;blink&gt;|&lt;/blink&gt;\n&lt;&lt;timedgoto
+ "Date Card" 10s&gt;&gt;</div><div tiddler="Focus transition" tags="stylesheet transition focus" created="201407041027" modifier="twee" twine-position="150,290">.transition-in
+ {\n\tposition:absolute;\n\topacity:0;\n}\n.passage {\n\ttransition: 
+3s;\n\t-webkit-transition: 3s;\n}\n.transition-out 
+{\n\tposition:absolute;\n\topacity:0;\n}</div><div tiddler="Pause After Date Card" tags="titlestyle" created="201410251706" modifier="twee" twine-position="290,430">&lt;&lt;timedgoto "S A" 1.5s&gt;&gt;</div><div tiddler="S C 1" tags="bodystyle" created="201410242128" modifier="twee" twine-position="710,290">&lt;&lt;replace&gt;&gt;You
+ say, “Josh, eight months ago you and Drew told me to write up that 
+opening cinematic. You both said it was going to be a ‘test.’ I had like
+ one night to write it. Next thing I knew, it was being storyboarded and
+ animated.”&lt;&lt;becomes&gt;&gt;Josh stares at you, but it’s Mike that
+ speaks: “If it was such a bad idea, why didn’t you push back? Or make 
+it better later? We hired you to know what good writing is. Why aren’t 
+you raising red flags if you see issues like 
+this?”&lt;&lt;becomes&gt;&gt;“I didn’t think it was a bad idea on its 
+own.” This isn’t a satisfactory answer; you can feel a chilly orb form 
+around and separate you from your colleagues. 
+&lt;&lt;becomes&gt;&gt;Josh, still looking at you, crosses his arms. You
+ know you have to say something. You say, “Maybe I’m imagining this, but
+ it seems like a lot of the game’s problems are all of a sudden being 
+placed at my feet.”&lt;&lt;becomes&gt;&gt;“No one’s saying that,” Troy 
+says.\n\n&lt;&lt;gains&gt;&gt;“I don’t know,” Erika says. “I haven’t 
+been that crazy about the quality of the scripts. Just to be 
+frank.”&lt;&lt;becomes&gt;&gt;[[“Me neither.” This is Shawn. You stare 
+at him in hot-eyed surprise.|S D]]&lt;&lt;endreplace&gt;&gt;</div><div tiddler="CSS 1 Titlestyle" tags="stylesheet titlestyle" created="201410161831" modifier="twee" twine-position="10,290">/*
+ Your story will use the CSS in this passage to style the page.\nGive 
+this passage more tags, and it will only affect passages with those 
+tags. */\n\n/* Plain Sugarcane Stylesheet version 1.03 by Richard D. 
+Sharpe, Dec. 30, 2013 */\n\nbody {\n\t/* This affects the entire page. 
+*/\n\n\t/* Remove default styles */\n\tcolor: 
+black;\n\tbackground-color: white;\n\t/* 
+background-image:url('data/choice_bkngd.png'); 
+*/\n\tbackground-repeat:no-repeat;\n\tmargin: 0;\n}\n\n#sidebar {\n\t/* 
+This affects the Sugarcane sidebar */\n\n\t/* Removes the Sugarcane 
+sidebar */\n\tdisplay: none; \n}\n\n#passages { \n\t/* This is a 
+container for all passages displayed on the page */\n\n\t/* Removes the 
+vertical line to the left of Sugarcane passages */\n\tborder: 0;\n\n\t/*
+ Removes the space left from removing the Sugarcane sidebar 
+*/\n\tmargin: 0;\n\n\t/* Creates space between the passage and the top 
+and bottom of the page */\n\tpadding-bottom: 5%;\n\tpadding-left: 
+0;\n\tpadding-right: 0;\n\tpadding-top: 5%;\n}\n\n.passage {\n\t/* This 
+only affects passages */\n\n\t/* Passage width */\n\twidth: 
+640px;\n\n\t/* Passage height */\n\theight: auto;\n\n\t/* Centers the 
+passage horizontally */\n\tmargin-left: auto;\n\tmargin-right: 
+auto;\n\n\t/* Padding 
+*/\n\tpadding-top:25px;\n\tpadding-bottom:25px;\n\tpadding-right:50px;\n\tpadding-left:50px;\n\n\t/*
+ Text formatting */\n\tfont-style: normal;\n\tfont-variant: 
+normal;\n\tfont-weight: normal;\n\tfont-stretch: 
+normal;\n\tletter-spacing:-1.8pt;\n\tword-spacing:2pt;\n\tfont-size: 
+40px;\n\tline-height: normal;\n\tfont-family: 'Lato', 
+sans-serif;\n\t-webkit-font-smoothing: antialiased;\n\n\t/* Sets the 
+passage background color */\n\tbackground: white;\n}\n\n.passage a 
+{\n\t/* This affects passage links */\n\n\n\tfont-weight: 
+normal;\n\tcolor: black;\n\ttext-decoration: none;\n}\n\n.passage 
+a:hover {\n\t/* This affects links while the cursor is over them 
+*/\n\n\tcolor: black;\n\ttext-decoration: none;\n}</div><div tiddler="S C 3" tags="bodystyle" created="201410242128" modifier="twee" twine-position="990,290">&lt;&lt;replace&gt;&gt;You
+ say, “We tried that open -- the ‘cold open.’ Everyone hated it. 
+Remember?”&lt;&lt;becomes&gt;&gt;“I realize that,” Josh says. “The 
+problem is everyone hates what replaced it even more. So let me ask you:
+ Do you think what we have is a strong open?”&lt;&lt;becomes&gt;&gt;You 
+open your mouth, but Erika speaks first: “It’s garbage. I haven’t been 
+crazy about any of the scripts. I’m sorry -- I’m just being honest. 
+&lt;&lt;gains&gt;&gt;In Hollywood you have a whole group of story 
+specialists who hammer on the beats, together in a room, and subject 
+them to constant stress tests. I feel like we never did that. 
+&lt;&lt;gains&gt;&gt;The ‘story’ was just what you and Josh cooked up 
+behind our backs.”\n\n&lt;&lt;gains&gt;&gt;“That’s not fair,” Josh 
+says.\n\n&lt;&lt;becomes&gt;&gt;[[“I don’t care if it’s fair. It’s 
+true.”|S D]]&lt;&lt;endreplace&gt;&gt;</div><div tiddler="Date Card" tags="titlestyle" created="201407022037" modifier="twee" twine-position="290,290">&lt;center&gt;&lt;&lt;timedreplace
+ 500ms&gt;&gt;\n&lt;&lt;gains&gt;&gt;\n&lt;&lt;gains&gt;&gt;April 26, 
+2012&lt;&lt;playsound 
+"sounds/datecard.mp3"&gt;&gt;\n&lt;&lt;gains&gt;&gt;&lt;&lt;endtimedreplace&gt;&gt;\n&lt;/center&gt;\n&lt;&lt;timedgoto
+ "Pause After Date Card" 7s&gt;&gt;</div><div tiddler="S F 1" tags="bodystyle" created="201410242131" modifier="twee" twine-position="710,710">[[You
+ go on: “Over the past year, I’ve been trying -- really, really trying 
+-- to go along with every idea, every stupid idea that gets tossed into 
+the stew pot around here. I’ve written cold opens, hot opens, 
+expositional opens, mission instructions, button tutorials. I’ve written
+ a 700-hundred-page game script in the style of a comic-book-movie romp.
+ I then rewrote it, at request, in the style of a Serious War Movie. 
+Then I Frankensteined the two together -- again, at request. I wrote 
+everything you wanted me to write, the way you wanted me to write it. 
+And any time I said I thought this or that might work better you all 
+just plowed right over me. So what I said -- what I’ve always said -- is
+ fine. What I’ll do is try please you -- all of you -- even when you’re 
+contradicting each other, which you all are, by the way, all the time, 
+constantly.”|S G]]</div><div tiddler="S F 2" tags="bodystyle" created="201410242131" modifier="twee" twine-position="850,710">&lt;&lt;replace&gt;&gt;You
+ go on: “It all goes back to the real problem here. I can’t make 
+something serious when the gameplay is not serious. But you’re telling 
+me to do this; you’re telling me it’s going to work. And it hasn’t 
+worked. Now, right now, I’m telling you now it’s not going to work. 
+Ever. &lt;&lt;gains&gt;&gt;You want a serious, sober, gray-skied story, 
+but you don’t want to give up your gameplay. And I understand not 
+wanting to give that up -- it’s what everyone likes about 
+&lt;i&gt;ShatterGate&lt;/i&gt;. That doesn’t change the fact that you’re
+ asking for something impossible. Don’t you get that? 
+&lt;&lt;gains&gt;&gt;You want to have your cake and eat it 
+too.”\n\n&lt;&lt;gains&gt;&gt;Mike sighs. “The cake is a 
+lie.”&lt;&lt;becomes&gt;&gt;[[Erika’s softly disdainful eyes close. 
+“Mike, shut the fuck up.”|S G]]&lt;&lt;endreplace&gt;&gt;</div><div tiddler="S F 3" tags="bodystyle" created="201410242131" modifier="twee" twine-position="990,710">&lt;&lt;replace&gt;&gt;[[You
+ go on: “That’s what you all wanted from the start, isn’t it? To pin 
+this on me. To have someone to point to when this game comes out and 
+it’s publicly stoned to death. That way, you can fire me, and the rest 
+of you can keep your jobs. You’ll hire a new writer to come in and fix 
+everything, just like I came in and cleaned up after Ken on 
+&lt;i&gt;Scoured Lands&lt;/i&gt;, just like Ken came in and cleaned up 
+after Bryan on &lt;i&gt;ShatterGate 1&lt;/i&gt;. Easy, right? And you 
+all can keep on being ‘creative.’ Well, keep on doing such a 
+tremendously excellent job with this franchise.”|S 
+G]]&lt;&lt;endreplace&gt;&gt;</div><div tiddler="S E 3" tags="bodystyle" created="201410242130" modifier="twee" twine-position="990,570">&lt;&lt;replace&gt;&gt;&lt;&lt;timedreplace
+ 1s&gt;&gt;“Yeah, so what?”\n\n&lt;&lt;gains&gt;&gt;“You think we should
+ take that direction seriously? To have our second group of enemies be 
+‘Arabic-sounding’ in an environment you’ve publicly acknowledged is 
+reminiscent of Afghanistan?”\n\n&lt;&lt;gains&gt;&gt;“They don’t speak 
+Arabic in Afghanistan,” Shawn says, studying his hand, to 
+nobody.&lt;&lt;endtimedreplace&gt;&gt;\n\n&lt;&lt;becomes&gt;&gt;Josh, 
+looking like an impotent wizard, tries to wave away what you’re saying. 
+“You’re putting words in Drew’s mouth. Nobody wants them literally 
+speaking Arabic.”\n&lt;&lt;becomes&gt;&gt;“Okay, but going in that 
+direction even a little, even a tiny bit, opens us up to some 
+potentially pretty devastating 
+criticism.”\n&lt;&lt;becomes&gt;&gt;“Hey,” Mike says. “Drew isn’t the 
+one who put ‘Durka durka!’ into the script when our enemies charge you. 
+That was you. And believe me, I like &lt;i&gt;Team America&lt;/i&gt; as 
+much as the next guy.”\n\n&lt;&lt;gains&gt;&gt;“It was an Easter egg!” 
+you say. “A joke!”\n&lt;&lt;becomes&gt;&gt;[[“But not your joke,” Shawn 
+says, devastatingly. “Was it? Maybe that’s the problem here. All your 
+best stuff is someone else’s.”|S F]]&lt;&lt;endreplace&gt;&gt;</div><div tiddler="S E 2" tags="bodystyle" created="201410242130" modifier="twee" twine-position="850,570">&lt;&lt;replace&gt;&gt;&lt;&lt;timedreplace
+ 1s&gt;&gt;“Yeah, so what?”\n\n&lt;&lt;gains&gt;&gt;“So what is our main
+ character. He’s ridiculous. He’s like James Bond in 
+space.”\n\n&lt;&lt;gains&gt;&gt;“Who says James Bond is ridiculous? Look
+ at &lt;i&gt;Skyfall&lt;/i&gt;. That’s exactly the type of reimagining 
+we’re trying to do here. I thought you understood 
+that.”&lt;&lt;endtimedreplace&gt;&gt;\n\n&lt;&lt;becomes&gt;&gt;“Okay, 
+but in &lt;i&gt;Skyfall&lt;/i&gt; James Bond doesn’t have the option to 
+stay in a safe house with a selection of alien girlfriends for a 
+temporary combat boost.”\n&lt;&lt;becomes&gt;&gt;Mike: “Hey, that’s one 
+of the systemic pillars of our game!”\n&lt;&lt;becomes&gt;&gt;You turn 
+to him. “I know. And I know it’s too late to change it. 
+&lt;&lt;gains&gt;&gt;I know we’ve recorded all the dialogue. I know 
+we’ve made all the animations. I know it’s tied in to all these other 
+systems. &lt;&lt;gains&gt;&gt;All I’m saying is, this is the kind of 
+stuff that negates the whole ‘gritty experience’ aspiration. 
+&lt;&lt;gains&gt;&gt;How am I supposed to ‘grit up’ your interactions 
+with alien girlfriends? Do I make them all green three-titted hookers or
+ what?”\n&lt;&lt;becomes&gt;&gt;[[Josh’s eyes cloud over with something 
+dark. “That’s actually pretty sexist, what you just said.”|S 
+F]]&lt;&lt;endreplace&gt;&gt;</div><div tiddler="Script 2 - timedgoto" tags="script" created="201407041035" modifier="twee" twine-position="10,570">version.extensions.timedgotoMacro={major:1,minor:2,revision:0};\nmacros["goto"]=macros.timedgoto={timer:null,handler:function(a,b,c,d){function
+ cssTimeUnit(s){if(typeof 
+s=="string"){if(s.slice(-2).toLowerCase()=="ms"){return 
++(s.slice(0,-2))||0\n}else{if(s.slice(-1).toLowerCase()=="s"){return 
++(s.slice(0,-1))*1000||0\n}}}throwError(a,s+" isn't a CSS time 
+unit");return 0}var 
+t,d,m,s;\nt=c[c.length-1];d=d.fullArgs();m=0;if(b!="goto"){d=d.slice(0,d.lastIndexOf(t));\nm=cssTimeUnit(t)}d=eval(Wikifier.parse(d));if(d+""&amp;&amp;state&amp;&amp;state.init){if(macros["goto"].timer){clearTimeout(macros["goto"].timer)\n}s=state.history[0].passage.title;macros["goto"].timer=setTimeout(function(){if(state.history[0].passage.title==s){state.display(d,a)\n}},m)}}};</div><div tiddler="CSS 2 Bodystyle" tags="stylesheet bodystyle" created="201410161831" modifier="twee" twine-position="150,430">/*
+ Your story will use the CSS in this passage to style the page.\nGive 
+this passage more tags, and it will only affect passages with those 
+tags. */\n\n/* Plain Sugarcane Stylesheet version 1.03 by Richard D. 
+Sharpe, Dec. 30, 2013 */\n\nbody {\n\t/* This affects the entire page. 
+*/\n\n\t/* Remove default styles */\n\tcolor: 
+black;\n\tbackground-color: white;\n\t/* 
+background-image:url('data/choice_bkngd.png'); 
+*/\n\tbackground-repeat:no-repeat;\n\tmargin: 0;\n}\n\n#sidebar {\n\t/* 
+This affects the Sugarcane sidebar */\n\n\t/* Removes the Sugarcane 
+sidebar */\n\tdisplay: none; \n}\n\n#passages { \n\t/* This is a 
+container for all passages displayed on the page */\n\n\t/* Removes the 
+vertical line to the left of Sugarcane passages */\n\tborder: 0;\n\n\t/*
+ Removes the space left from removing the Sugarcane sidebar 
+*/\n\tmargin: 0;\n\n\t/* Creates space between the passage and the top 
+and bottom of the page */\n\tpadding-bottom: 5%;\n\tpadding-left: 
+0;\n\tpadding-right: 0;\n\tpadding-top: 5%;\n}\n\n.passage {\n\t/* This 
+only affects passages */\n\n\t/* Passage width */\n\twidth: 
+800px;\n\n\t/* Passage height */\n\theight: auto;\n\n\t/* Centers the 
+passage horizontally */\n\tmargin-left: auto;\n\tmargin-right: 
+auto;\n\n\t/* Padding 
+*/\n\tpadding-top:25px;\n\tpadding-bottom:25px;\n\tpadding-right:25px;\n\tpadding-left:25px;\n\n\t/*
+ Text formatting */\n\tfont-style: normal;\n\tfont-variant: 
+normal;\n\tfont-weight: normal;\n\tfont-stretch: 
+normal;\n\tletter-spacing:-0.1pt;\n\tword-spacing:2pt;\n\tfont-size: 
+26px;\n\tline-height: normal;\n\tfont-family: 'Lato', 
+sans-serif;\n\t-webkit-font-smoothing: antialiased;\n\n\t/* Sets the 
+passage background color */\n\tbackground: white;\n}\n\n.passage a 
+{\n\t/* This affects passage links */\n\n\n\tfont-weight: 
+normal;\n\tcolor: black;\n\ttext-decoration: none;\n}\n\n.passage 
+a:hover {\n\t/* This affects links while the cursor is over them 
+*/\n\n\tcolor: black;\n\ttext-decoration: none;\n}</div><div tiddler="S F Choice" tags="bodystyle" created="201410251705" modifier="twee" twine-position="570,710">&lt;&lt;timedreplace
+ 500ms&gt;&gt;The others glance around the table at one another. They 
+seem to be waiting for you to 
+continue.\n&lt;&lt;gains&gt;&gt;\n&lt;&lt;gains&gt;&gt;- [[“Look, I’m 
+trying my best, but none of you have given me any support the entire 
+time I’ve been here.”|S F 1]]\n&lt;&lt;gains&gt;&gt;\n- [[“I hate to 
+break it to you, but there are fundamental problems here we can’t fix 
+with script changes.”|S F 
+2]]\n&lt;&lt;gains&gt;&gt;\n&lt;&lt;gains&gt;&gt;- [[“Yeah. Okay, then. 
+Guess I fucked up. Guess I’m not good at this. Guess it’s my fault. Have
+ fun fixing your shitty game without me.”|S F 
+3]]\n&lt;&lt;endtimedreplace&gt;&gt;</div><div tiddler="Troy" tags="bodystyle" created="201407022037" modifier="twee" twine-position="990,10">&lt;&lt;replace&gt;&gt;Troy
+ is apparently the youngest Lead Producer in the company’s history, and 
+he certainly looks the part: thin, fair-faced, with an altar boy 
+side-part and an array of ironic T-shirts. (Your favorite: “World’s 
+Greatest Grandma.”) He came to &lt;i&gt;ShatterGate: Future 
+Perfect&lt;/i&gt; only a few months ago, fresh from rescuing another 
+famous game development disaster, &lt;i&gt;Cruel Fates&lt;/i&gt; 
+(Metacritic: 82). Although he’s new here, his lurid tales of impossible 
+odds, recalcitrant developers, and the physical toll he took jetting 
+back and forth to Japan every other week to pummel that game into its 
+final, publishable form have gained him a succession of rapt audiences 
+here. And really, it’s not that difficult to see why. Everyone’s hoping 
+that Troy can work whatever dark production magicks he possesses to 
+repeat the trick and cement his reputation as an industry turnaround 
+artist, a game-dev messiah. &lt;&lt;becomes&gt;&gt;[[He likes to say, 
+somewhat cockishly, “All I really do is make people do their jobs.”|S A 
+Choice]]&lt;&lt;endreplace&gt;&gt;</div><div tiddler="S H 2" tags="bodystyle" created="201410242132" modifier="twee" twine-position="570,990">&lt;&lt;replace&gt;&gt;Just
+ as the words leave your mouth, the door to the conference room drifts 
+open. Mallory, the audio AP, is standing in the doorjamb, her face all 
+pinched and traumatized. She’s breathing hard; her face is red. 
+&lt;&lt;gains&gt;&gt;She must have run here from Greenland, which is 
+what everyone calls the audio department. Why? Because it’s a distant, 
+harsh land that nobody ever thinks about unless prompted. She’s 
+balancing an open laptop upon her left 
+hand.\n&lt;&lt;becomes&gt;&gt;&lt;&lt;timedreplace 3s&gt;&gt;“I heard 
+you guys are talking about changing lines again? 
+&lt;i&gt;Again&lt;/i&gt;? What the fuck? Dude, I told you” -- she’s 
+looking at Troy now -- “to keep the audio team in the loop on this shit!
+ We’re overscoped as it is without another recording 
+session!”\n\n&lt;&lt;gains&gt;&gt;Josh stands to make peace. “Mallory, 
+we’re just 
+--”\n&lt;&lt;endtimedreplace&gt;&gt;\n&lt;&lt;becomes&gt;&gt;Mallory, 
+still looking at Troy, talks right over her ostensible boss Josh. “Well 
+guess what? It’s too late. Grant’s in Germany shooting with Wes 
+Anderson; we’re not getting him back for at least three months. Remember
+ when I told you all that? Remember when I told you what we needed to 
+have locked and why? But none of you assholes listen to 
+me.”\n\n&lt;&lt;gains&gt;&gt;“He’s shooting a Wes Anderson movie?” Shawn
+ says. “Ugh.”\n&lt;&lt;becomes&gt;&gt;“Why don’t we just recast him?” 
+Troy asks the room, his Producer Tone so reasonable, so seductive. 
+“Honestly, a lot of his takes are pretty rough.”\n\n“Hiring movie stars 
+for games is a waste of money, anyway,” Mike 
+says.\n\n&lt;&lt;becomes&gt;&gt;“Not if you do it right,” Erika, who had
+ a lot to do with Grant’s casting, says. “How it’s 
+&lt;i&gt;supposed&lt;/i&gt; to work is you get what you need and you cut
+ it. You don’t call one of the world’s busiest movie stars back into the
+ booth every three weeks for pick ups because you don’t know what you 
+want.”\n\n&lt;&lt;becomes&gt;&gt;Mallory hasn’t actually stopped 
+talking. “And anyway, recasting? Fucking &lt;i&gt;recasting&lt;/i&gt; 
+discussions at this stage? Look, audio kinda has to be invited to 
+meetings about things that affect 
+audio!”\n\n&lt;&lt;gains&gt;&gt;&lt;&lt;timedreplace 1s&gt;&gt;Josh is 
+looking at the ceiling. “I didn’t invite you because I was trying to let
+ you guys work.” His eyes lower to meet hers. “You know, because you’re 
+so &lt;i&gt;behind&lt;/i&gt;.”\n\n&lt;&lt;gains&gt;&gt;“Fuck you, 
+Josh.”\n&lt;&lt;endtimedreplace&gt;&gt;\n&lt;&lt;becomes&gt;&gt;“Okay,” 
+Troy says. “Please, can we calm down? We’re making mass entertainment 
+here, people.”\n\n&lt;&lt;becomes&gt;&gt;Mallory is walking deeper into 
+the room, toward Troy. “Know why we’re behind? Because you keep making 
+more work for us! It’s like our whole team is just fucking 
+&lt;i&gt;invisible&lt;/i&gt; to you!”\n&lt;&lt;becomes&gt;&gt;Everyone 
+starts shouting at once. Except for Shawn, who’s laughing. Your 
+colleagues’ voices are big and dense and forceful, like waves. 
+&lt;&lt;gains&gt;&gt;They’re around you, beneath you, on top of you, 
+hitting you, pushing you. You let the waves drive you away. Your eyes 
+are closed. &lt;&lt;becomes&gt;&gt;[[Soon you’re no longer there but in 
+some happier place, on some other, better project, in some other, better
+ future...|S H 2 Pause]]&lt;&lt;endreplace&gt;&gt;</div><div tiddler="Erika" tags="bodystyle" created="201407022037" modifier="twee" twine-position="1270,10">&lt;&lt;replace&gt;&gt;Erika
+ came to game development from Hollywood, and you have noticed that she 
+likes to talk about Hollywood as though it were one monolithic set of 
+beliefs, practices, and aspirations. She claims to regard video games as
+ “the next big step,” but has never, as far as you know, described what 
+this big step putatively leads toward. Of everyone on the team, she is 
+simultaneously the most passionately devoted to getting “to quality” and
+ the least concerned with defining what “quality” actually means. She’s 
+been known to spend forty minutes explaining why a window shouldn’t go 
+there, 1.5 hours on correct doorknob height. Behind her back, she’s 
+called the Professor. The level designers just want to slap down 
+geometry and go, but Erika wants everything on screen to be perfectly 
+positioned, perfectly lit, and perfectly designed. The end result is 
+testers bathing in the sensuous visual caramel of her environments and 
+quickly realizing they have absolutely no idea where they should go next
+ or what they should even be looking at. She and Josh usually have a 
+weekly meeting in which he begs her to dial back on the excessive 
+detail. &lt;&lt;becomes&gt;&gt;[[Yet if &lt;i&gt;ShatterGate: Future 
+Perfect&lt;/i&gt; ends up with anything going for it at all, it will be 
+its art. You can see the critical consensus on it already, six months 
+before it ships: &lt;i&gt;This beautiful but emotionally empty 
+screenshot generator is yet another example -- as if one more were 
+needed! -- of AAA development’s creative bankruptcy.&lt;/i&gt;|S A 
+Choice]]&lt;&lt;endreplace&gt;&gt;</div><div tiddler="StoryAuthor" tags="" created="201410161828" modifier="twee" twine-position="10,150">Matthew S. Burns</div><div tiddler="S E 1" tags="bodystyle" created="201410242130" modifier="twee" twine-position="710,570">&lt;&lt;replace&gt;&gt;&lt;&lt;timedreplace
+ 500ms&gt;&gt;“Okay. So what?”\n\n&lt;&lt;gains&gt;&gt;“It’s not very 
+gritty, is my point.”\n\n&lt;&lt;gains&gt;&gt;“Well, that’s all in how 
+it’s presented.”\n\n&lt;&lt;gains&gt;&gt;“It’s a gun with a sword on it.
+ That &lt;i&gt;is&lt;/i&gt; how it’s 
+presented.”&lt;&lt;endtimedreplace&gt;&gt;\n\n&lt;&lt;becomes&gt;&gt;Mike
+ says, with a sigh, “It’s the game’s signature 
+weapon.”\n&lt;&lt;becomes&gt;&gt;“And that’s fine,” you say, because you
+ actually like the Gunsword in gameplay a lot. &lt;&lt;gains&gt;&gt;“But
+ we’re shooting ourselves in the foot if we don’t honor what our 
+experience actually wants to be. &lt;&lt;gains&gt;&gt;We go on about how
+ our core fan base wants a ‘grittier, heavier experience,’ but nothing 
+else in the game is doing anything to support that experience. 
+&lt;&lt;gains&gt;&gt;You think that can all be done with writing? With 
+words?”\n&lt;&lt;becomes&gt;&gt;“Nobody’s suggesting this rests entirely
+ on words,” Erika says. “I’ve been here without a day off for 
+thirty-eight days in a row. You know why? Because I’m dirtying up our 
+environments to make them grittier.”\n&lt;&lt;becomes&gt;&gt;[[“Words, 
+words,” Shawn mutters, to nobody.|S F]]&lt;&lt;endreplace&gt;&gt;</div></div>
+<script defer="defer" src="index_data/htmlgame.js" type="text/javascript"></script>
+</body></html>

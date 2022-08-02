@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<!--[if lte IE 8]> <html class="lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html><!--<![endif]--><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<!--
+Made in Twine 1.4 (running on Windows 7)
+
+Sugarcane is based on:
+
+TiddlyWiki 1.2.39 by Jeremy Ruston, (jeremy [at] osmosoft [dot] com)
+
+Published under a BSD open source license
+
+Copyright (c) Osmosoft Limited 2005
+
+Redistribution and use in source and binary forms, with or without modification,
+are permitted provided that the following conditions are met:
+
+Redistributions of source code must retain the above copyright notice, this
+list of conditions and the following disclaimer.
+
+Redistributions in binary form must reproduce the above copyright notice, this
+list of conditions and the following disclaimer in the documentation and/or other
+materials provided with the distribution.
+
+Neither the name of the Osmosoft Limited nor the names of its contributors may be
+used to endorse or promote products derived from this software without specific
+prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY
+EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
+OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
+SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR
+BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
+ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
+DAMAGE.
+-->
+<title>Sugarcane</title>
+<script title="engine">
+(function(){
+
+function clone(a){var b={};for(var property in a){if(typeof a[property]=="object"){try{b[property]=JSON.parse(JSON.stringify(a[property]));continue}catch(e){}}b[property]=a[property]}return b}function insertElement(a,d,f,c,e){var b=document.createElement(d);if(f){b.id=f}if(c){b.className=c}if(e){insertText(b,e)}if(a){a.appendChild(b)}return b}function insertText(a,b){return a.appendChild(document.createTextNode(b))}function removeChildren(a){while(a.hasChildNodes()){a.removeChild(a.firstChild)}}function setPageElement(c,b,a){var place;if(place=(typeof c=="string"?document.getElementById(c):c)){removeChildren(place);if(tale.has(b)){new Wikifier(place,tale.get(b).text)}else{new Wikifier(place,a)}}}function addStyle(b){if(document.createStyleSheet){document.getElementsByTagName("head")[0].insertAdjacentHTML("beforeEnd","&nbsp;<style>"+b+"</style>")}else{var a=document.createElement("style");a.appendChild(document.createTextNode(b));document.getElementsByTagName("head")[0].appendChild(a)}}function alterCSS(text){var imgPassages=tale.lookup("tags","Twine.image");text=text.replace(/\/\*(?:[^\*]|\*(?!\/))*\*\//g,"");return text.replace(new RegExp(Wikifier.imageFormatter.lookahead,"gim"),function(m,p1,p2,p3,src){for(var i=0;i<imgPassages.length;i++){if(imgPassages[i].title==src){src=imgPassages[i].text;break}}return"url("+src+");"})}function setTransitionCSS(styleText){styleText=alterCSS(styleText);var style=document.getElementById("transitionCSS");style.styleSheet?(style.styleSheet.cssText=styleText):(style.innerHTML=styleText)}function throwError(a,b,tooltip){var elem=insertElement(a,"span",null,"marked",b);tooltip&&elem.setAttribute("title",tooltip)}Math.easeInOut=function(a){return(1-((Math.cos(a*Math.PI)+1)/2))};String.prototype.readMacroParams=function(keepquotes){var exec,re=/(?:\s*)(?:(?:"([^"]*)")|(?:'([^']*)')|(?:\[\[((?:[^\]]|\](?!\]))*)\]\])|([^"'\s]\S*))/mg,params=[];do{var val;exec=re.exec(this);if(exec){if(exec[1]){val=exec[1];keepquotes&&(val='"'+val+'"')}else{if(exec[2]){val=exec[2];keepquotes&&(val="'"+val+"'")}else{if(exec[3]){val=exec[3];keepquotes&&(val='"'+val.replace('"','\\"')+'"')}else{if(exec[4]){val=exec[4]}}}}val&&params.push(val)}}while(exec);return params};String.prototype.readBracketedList=function(){var c,b="\\[\\[([^\\]]+)\\]\\]",a="[^\\s$]+",e="(?:"+b+")|("+a+")",d=new RegExp(e,"mg"),f=[];do{c=d.exec(this);if(c){if(c[1]){f.push(c[1])}else{if(c[2]){f.push(c[2])}}}}while(c);return(f)};String.prototype.trim||(String.prototype.trim=function(){return this.replace(/^\s\s*/,"").replace(/\s\s*$/,"")});String.prototype.unDash=function(){var s=this.split("-");if(s.length>1){for(var t=1;t<s.length;t++){s[t]=s[t].substr(0,1).toUpperCase()+s[t].substr(1)}}return s.join("")};Array.prototype.indexOf||(Array.prototype.indexOf=function(b,d){d=(d==null)?0:d;var a=this.length;for(var c=d;c<a;c++){if(this[c]==b){return c}}return -1});(function(){function t(t){this.message=t}var e=window,r="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";t.prototype=Error(),t.prototype.name="InvalidCharacterError",e.btoa||(e.btoa=function(e){for(var o,n,a=0,i=r,c="";e.charAt(0|a)||(i="=",a%1);c+=i.charAt(63&o>>8-8*(a%1))){if(n=e.charCodeAt(a+=0.75),n>255){throw new t()}o=o<<8|n}return c}),e.atob||(e.atob=function(e){if(e=e.replace(/=+$/,""),1==e.length%4){throw new t()}for(var o,n,a=0,i=0,c="";n=e.charAt(i++);~n&&(o=a%4?64*o+n:n,a++%4)?c+=String.fromCharCode(255&o>>(6&-2*a)):0){n=r.indexOf(n)}return c})})();var hasTransition="transition" in document.documentElement.style||"-webkit-transition" in document.documentElement.style;function fade(f,c){var h;var e=f.cloneNode(true);var g=(c.fade=="in")?1:-1;f.parentNode.replaceChild(e,f);if(c.fade=="in"){h=0;e.style.visibility="visible"}else{h=1}b(e,h);var a=window.setInterval(d,25);function d(){h+=0.05*g;b(e,Math.easeInOut(h));if(((g==1)&&(h>=1))||((g==-1)&&(h<=0))){f.style.visibility=(c.fade=="in")?"visible":"hidden";if(e.parentNode){e.parentNode.replaceChild(f,e)}window.clearInterval(a);if(c.onComplete){c.onComplete.call(f)}}}function b(k,j){var l=Math.floor(j*100);k.style.zoom=1;k.style.filter="alpha(opacity="+l+")";k.style.opacity=j}}var scrollWindowInterval;function scrollWindowTo(e){var d=window.scrollY?window.scrollY:document.body.scrollTop;var g=k(e);var c=Math.abs(d-g);var b=0;var j=(d>g)?-1:1;scrollWindowInterval=window.setInterval(h,25);function h(){b+=0.1;window.scrollTo(0,d+j*(c*Math.easeInOut(b)));if(b>=1){window.clearInterval(scrollWindowInterval)}}function k(o){var p=a(o);var q=p+o.offsetHeight;var l=window.scrollY?window.scrollY:document.body.scrollTop;var m=window.innerHeight?window.innerHeight:document.body.clientHeight;var n=l+m;if(p<l){return p}else{if(q>n){if(o.offsetHeight<m){return(p-(m-o.offsetHeight)+20)}else{return p}}else{return p}}}function a(l){var m=0;while(l.offsetParent){m+=l.offsetTop;l=l.offsetParent}return m}}function delta(old,neu){var vars,ret={};if(old&&neu){for(vars in neu){if(neu[vars]!==old[vars]){ret[vars]=neu[vars]}}}return ret}function History(){this.history=[{passage:null,variables:{},hash:null}]}History.prototype.encodeHistory=function(b,noVars){var ret=".",vars,type,hist=this.history[b],d=this.history[b+1]?delta(this.history[b+1].variables,hist.variables):hist.variables;function vtob(str){try{return window.btoa(unescape(encodeURIComponent(JSON.stringify(str))))}catch(e){return"0"}}if(!hist.passage||hist.passage.id==undefined){return""}ret+=hist.passage.id.toString(36);if(noVars){return ret}for(vars in d){type=typeof d[vars];if(type!="function"&&type!="undefined"){ret+="$"+vtob(vars)+","+vtob(d[vars])}}for(vars in hist.linkVars){type=typeof hist.linkVars[vars];if(type!="function"&&type!="undefined"){ret+="["+vtob(vars)+","+vtob(hist.linkVars[vars])}}return ret};History.prototype.decodeHistory=function(str,prev){var name,splits,variable,c,d,ret={variables:prev.variables||{}},match=/([a-z0-9]+)((?:\$[A-Za-z0-9\+\/=]+,[A-Za-z0-9\+\/=]+)*)((?:\[[A-Za-z0-9\+\/=]+,[A-Za-z0-9\+\/=]+)*)/g.exec(str);function btov(str){try{return JSON.parse(decodeURIComponent(escape(window.atob(str))))}catch(e){return 0}}if(match){name=parseInt(match[1],36);if(!tale.has(name)){return false}if(match[2]){ret.variables||(ret.variables={});splits=match[2].split("$");for(c=0;c<splits.length;c++){variable=splits[c].split(",");d=btov(variable[0]);if(d){ret.variables[d]=btov(variable[1])}}}if(match[3]){ret.linkVars||(ret.linkVars={});splits=match[3].split("[");for(c=0;c<splits.length;c++){variable=splits[c].split(",");d=btov(variable[0]);if(d){ret.linkVars[d]=btov(variable[1])}}}ret.passage=tale.get(name);return ret}};History.prototype.save=function(c){var hist,b,a="";for(b=this.history.length-1;b>=0;b--){hist=this.history[b];if(!hist){break}a+=this.encodeHistory(b)}return"#"+a};History.prototype.restore=function(){var a,b,c,vars;try{if(testplay){this.display(testplay,null,"quietly");return true}if(!window.location.hash||(window.location.hash=="#")){return false}if(window.location.hash.substr(0,2)=="#!"){c=window.location.hash.substr(2).split("_").join(" ");this.display(c,null,"quietly");return true}a=window.location.hash.replace("#","").split(".");for(b=0;b<a.length;b++){vars=this.decodeHistory(a[b],vars||{});if(vars){if(b==a.length-1){vars.variables=this.history[0].variables;for(c in this.history[0].linkVars){vars.variables[c]=this.history[0].linkVars[c]}this.history.unshift(vars);this.display(vars.passage.title,null,"back")}else{this.history.unshift(vars)}}}return true}catch(d){return false}};var version={major:4,minor:0,revision:0,date:new Date("November 28, 2013"),extensions:{}};var testplay,tale,state,prerender={},postrender={},macros=window.macros={};version.extensions.displayMacro={major:2,minor:0,revision:0};macros.display={parameters:[],handler:function(place,macroName,params,parser){var t,j,output,oldDisplayParams,name=parser.fullArgs();if(macroName!="display"){output=macroName;params=name.readMacroParams(true);try{for(j=0;j<params.length;j++){params[j]=eval(Wikifier.parse(params[j]))}}catch(e){throwError(place,"<<"+macroName+" "+name+">> bad argument: "+params[j],parser.fullMatch());return}}else{try{output=eval(name)}catch(e){if(tale.get(name).id){output=name}else{throwError(place,"<<"+macroName+">> bad expression: "+e.message,parser.fullMatch());return}}}t=tale.get(output+"");if(!output){throwError(place,'"'+name+'" did not evaluate to a passage name',parser.fullMatch())}else{if(t.id===undefined){throwError(place,'The "'+output+'" passage does not exist',parser.fullMatch())}else{oldDisplayParams=this.parameters;this.parameters=params;if(t.tags.indexOf("script")>-1){scriptEval(t)}else{new Wikifier(place,tale.get(output+"").processText())}this.parameters=oldDisplayParams}}}};version.extensions.actionsMacro={major:1,minor:2,revision:0};macros.actions={handler:function(a,f,g){var v=state.history[0].variables,e=insertElement(a,"ul");if(!v["actions clicked"]){v["actions clicked"]={}}for(var b=0;b<g.length;b++){if(v["actions clicked"][g[b]]){continue}var d=insertElement(e,"li");var c=Wikifier.createInternalLink(d,g[b],(function(link){return function(){state.history[0].variables["actions clicked"][link]=true}}(g[b])));insertText(c,g[b])}}};version.extensions.printMacro={major:1,minor:1,revision:1};macros.print={handler:function(place,macroName,params,parser){try{var args=parser.fullArgs(macroName!="print"),output=eval(args);if(output!=null&&(typeof output!="number"||!isNaN(output))){new Wikifier(place,output.toString())}}catch(e){throwError(place,"<<print>> bad expression: "+e.message,parser.fullMatch())}}};version.extensions.setMacro={major:1,minor:1,revision:0};macros.set={handler:function(a,b,c,parser){macros.set.run(a,parser.fullArgs(),parser)},run:function(a,expression,parser){try{return eval(Wikifier.parse(expression))}catch(e){throwError(a,"bad expression: "+e.message,parser?parser.fullMatch():expression)}}};version.extensions.ifMacros={major:2,minor:0,revision:0};macros["if"]={handler:function(place,macroName,params,parser){var conditions=[],clauses=[],srcOffset=parser.source.indexOf(">>",parser.matchStart)+2,src=parser.source.slice(srcOffset),endPos=-1,currentCond=parser.fullArgs(),currentClause="",t=0,nesting=0;for(var i=0;i<src.length;i++){if(src.substr(i,9)=="<<endif>>"){nesting--;if(nesting<0){endPos=srcOffset+i+9;conditions.push(currentCond.trim());clauses.push(currentClause);break}}if((src.substr(i,6)=="<<else")&&!nesting){conditions.push(currentCond.trim());clauses.push(currentClause);currentClause="";t=src.indexOf(">>",i+6);if(src.substr(i+6,4)==" if "||src.substr(i+6,3)=="if "){currentCond=Wikifier.parse(src.slice(i+9,t))}else{currentCond="true"}i=t+2}if(src.substr(i,5)=="<<if "){nesting++}currentClause+=src.charAt(i)}try{if(endPos!=-1){parser.nextMatch=endPos;for(i=0;i<clauses.length;i++){if(eval(conditions[i])){new Wikifier(place,clauses[i]);break}}}else{throwError(place,"can't find matching endif",parser.fullMatch())}}catch(e){throwError(place,"<<if>> bad condition: "+e.message,!i?parser.fullMatch():"<<else if "+conditions[i]+">>")}}};macros["else"]=macros.elseif=macros.endif={handler:function(){}};version.extensions.rememberMacro={major:2,minor:0,revision:0};macros.remember={handler:function(place,macroName,params,parser){var variable,value,re,match,statement=params.join(" ");macros.set.run(place,parser.fullArgs());if(!window.localStorage){throwError(place,"<<remember>> can't be used "+(window.location.protocol=="file:"?" by local HTML files ":"")+" in this browser.");return}re=new RegExp(Wikifier.textPrimitives.variable,"g");while(match=re.exec(statement)){variable=match[1];value=state.history[0].variables[variable];try{value=JSON.stringify(value)}catch(e){throwError(place,"can't remember $"+variable+" ("+(typeof value)+")",parser.fullMatch());return}window.localStorage[this.prefix+variable]=value}},init:function(){var i,variable,value;if(tale.has("StoryTitle")){this.prefix="Twine."+tale.get("StoryTitle").text+"."}else{this.prefix="Twine.Untitled Story."}for(i in window.localStorage){if(i.indexOf(this.prefix)==0){variable=i.substr(this.prefix.length);value=window.localStorage[i];try{value=JSON.parse(value);state.history[0].variables[variable]=value}catch(e){}}}},expire:null,prefix:null};version.extensions.forgetMacro={major:1,minor:0,revision:0};macros.forget={handler:function(place,macroName,params){var re,match,variable,statement=params.join(" ");re=new RegExp(Wikifier.textPrimitives.variable,"g");while(match=re.exec(statement)){variable=match[1]+"";delete state.history[0].variables[variable];delete window.localStorage[macros.remember.prefix+variable]}}};version.extensions.SilentlyMacro={major:1,minor:1,revision:0};macros.nobr=macros.silently={handler:function(place,macroName,f,parser){var i,h=insertElement(null,"div"),k=parser.source.indexOf(">>",parser.matchStart)+2,a=parser.source.slice(k),d=-1,c="",l=0;for(i=0;i<a.length;i++){if(a.substr(i,15)=="<<end"+macroName+">>"){if(l==0){d=k+i+15;break}else{l--}}else{if(a.substr(i,12)=="<<"+macroName+">>"){l++}}if(macroName=="nobr"&&a.charAt(i)=="\n"){c+="\u200c"}else{c+=a.charAt(i)}}if(d!=-1){new Wikifier(macroName=="nobr"?place:h,c);parser.nextMatch=d}else{throwError(place,"can't find matching end"+macroName,parser.fullMatch())}}};macros.endsilently={handler:function(){}};version.extensions.choiceMacro={major:2,minor:0,revision:0};macros.choice={handler:function(A,C,D,parser){var link,id,match,temp,text=D[1]||D[0].split("|")[0],clicked=state.history[0].variables["choice clicked"]||(state.history[0].variables["choice clicked"]={}),passage=A;while(passage&&!~passage.className.indexOf("passage")){passage=passage.parentNode}id=(passage&&passage.id.replace(/\|[^\]]*$/,"")+"|"+text);if(id&&clicked[id]){insertElement(A,"span",null,"disabled",text)}else{match=new RegExp(Wikifier.linkFormatter.lookahead).exec(parser.fullArgs());if(match){temp=document.createElement("p");new Wikifier(temp,parser.fullArgs());link=temp.firstChild;A.appendChild(link)}else{link=Wikifier.createInternalLink(A,D[0]);setPageElement(link,null,text)}link.onclick=(function(link,onclick){return function(){onclick&&onclick();clicked[id]=true;link.outerHTML="<span class=disabled>"+link.innerHTML+"</span>"}}(link,link.onclick));link.className+=" "+C}}};version.extensions.backMacro={major:2,minor:0,revision:0};macros.back={labeltext:"&#171; back",handler:function(a,b,e){var labelParam,c,el,labeltouse=this.labeltext,steps=1,stepsParam=e.indexOf("steps"),stepsParam2="";if(stepsParam>0){stepsParam2=e[stepsParam-1];if(stepsParam2[0]=="$"){try{stepsParam2=eval(Wikifier.parse(stepsParam2))}catch(r){throwError(a,b+"Macro bad expression: "+r.message);return}}steps=+stepsParam2;if(steps>=state.history.length-1){steps=state.history.length-2}e.splice(stepsParam-1,2)}labelParam=e.indexOf("label");if(labelParam==-1){labelParam=e.indexOf("labeldefault")}if(labelParam>-1){if(!e[labelParam+1]){throwError(a,e[labelParam]+"keyword needs an additional label parameter");return}labeltouse=e[labelParam+1];if(e[labelParam]=="labeldefault"){this.labeltext=labeltouse}e.splice(labelParam,2)}if(stepsParam<=0){if(e[0]){if(e[0].charAt(0)=="$"){try{e=eval(Wikifier.parse(e[0]))}catch(r){throwError(a,"<<"+b+">> bad expression: "+r.message);return}}else{e=e[0]}if(tale.get(e).id==undefined){throwError(a,'The "'+e+'" passage does not exist');return}for(c=0;c<state.history.length;c++){if(state.history[c].passage.title==e){steps=c;break}}}}el=document.createElement("a");el.className=b;el.onclick=(function(b){return function(){return macros.back.onclick(b=="back",steps)}}(b));el.innerHTML=labeltouse;a.appendChild(el)}};version.extensions.returnMacro={major:2,minor:0,revision:0};macros["return"]={labeltext:"&#171; return",handler:function(a,b,e){macros.back.handler.call(this,a,b,e)}};function Passage(c,b,a,ofunc,okey){this.title=c;if(b){this.id=a;if(ofunc!=null&&typeof ofunc=="function"&&okey!=null){var t=b.firstChild?b.firstChild.nodeValue:"";t=ofunc(t,okey);this.initialText=this.text=Passage.unescapeLineBreaks(t);this.tags=b.getAttribute("tags");if(typeof this.tags=="string"){this.tags=ofunc(this.tags,okey);this.tags=this.tags.readBracketedList()}else{this.tags=[]}}else{this.initialText=this.text=Passage.unescapeLineBreaks(b.firstChild?b.firstChild.nodeValue:"");this.tags=b.getAttribute("tags");if(typeof this.tags=="string"){this.tags=this.tags.readBracketedList()}else{this.tags=[]}}}else{this.initialText=this.text="@@This passage does not exist: "+c+"@@";this.tags=[]}}Passage.unescapeLineBreaks=function(a){if(a&&typeof a=="string"){return a.replace(/\\n/mg,"\n").replace(/\\s/mg,"\\").replace(/\\/mg,"\\").replace(/\r/mg,"")}else{return""}};Passage.prototype.setTags=function(b){var t=this.tags!=null&&this.tags.length?this.tags.join(" "):"";if(t){b.setAttribute("data-tags",this.tags.join(" "))}document.body.setAttribute("data-tags",t)};Passage.prototype.processText=function(){var ret=this.text;if(~this.tags.indexOf("nobr")){ret=ret.replace(/\n/g,"\u200c")}if(~this.tags.indexOf("Twine.image")){ret="[img["+ret+"]]"}return ret};function Tale(){this.passages={};var a,b,c,lines,i,kv,ns,nsc,nope,settings=this.storysettings={lookup:function(a){return !~["0","off","false"].indexOf((this[a]+"").toLowerCase())}},tiddlerTitle="";function deswap(t,k){var i,c,p,p1,up,r="";for(i=0;i<t.length;i++){c=t.charAt(i);up=(c==c.toUpperCase());p=k.indexOf(c.toLowerCase());if(p>-1){p1=p+(p%2==0?1:-1);if(p1>=k.length){p1=p}c=k.charAt(p1);up&&(c=c.toUpperCase())}r=r+c}return r}if(document.normalize){document.normalize()}a=document.getElementById("storeArea").children;for(b=0;b<a.length;b++){c=a[b];if(c.getAttribute&&c.getAttribute("tiddler")=="StorySettings"){lines=new Passage("StorySettings",c,0,null,null).text.split("\n");for(i in lines){if(typeof lines[i]=="string"&&lines[i].indexOf(":")>-1){kv=lines[i].split(":");kv[0]=kv[0].replace(/^\s+|\s+$/g,"");kv[1]=kv[1].replace(/^\s+|\s+$/g,"");settings[kv[0]]=kv[1]}}}}if(settings.obfuscate=="swap"&&settings.obfuscatekey){ns="";nope=':\\"n0';if(settings.obfuscatekey=="rot13"){settings.obfuscatekey="anbocpdqerfsgthuivjwkxlymz"}for(i=0;i<settings.obfuscatekey.length;i++){nsc=settings.obfuscatekey[i];if(ns.indexOf(nsc)==-1&&nope.indexOf(nsc)==-1){ns=ns+nsc}}settings.obfuscatekey=ns;for(b=0;b<a.length;b++){c=a[b];if(c.getAttribute&&(tiddlerTitle=c.getAttribute("tiddler"))){if(tiddlerTitle!="StorySettings"){tiddlerTitle=deswap(tiddlerTitle,settings.obfuscatekey)}this.passages[tiddlerTitle]=new Passage(tiddlerTitle,c,b+1,deswap,settings.obfuscatekey)}}}else{for(b=0;b<a.length;b++){c=a[b];if(c.getAttribute&&(tiddlerTitle=c.getAttribute("tiddler"))){this.passages[tiddlerTitle]=new Passage(tiddlerTitle,c,b,null,null)}}}this.title=(this.passages.StoryTitle?this.passages.StoryTitle.text:document.title)}Tale.prototype.has=function(a){if(typeof a=="string"){return(this.passages[a]!=null)}else{for(var i in this.passages){if(this.passages[i].id==a){return true}}return false}};Tale.prototype.get=function(a){if(typeof a=="string"){return this.passages[a]||new Passage(a)}else{for(var i in this.passages){if(this.passages[i].id==a){return this.passages[i]}}}};Tale.prototype.lookup=function(h,g,a){var d=[];for(var c in this.passages){var f=this.passages[c];for(var b=0;b<f[h].length;b++){if(f[h][b]==g){d.push(f)}}}if(!a){a="title"}d.sort(function(k,j){if(k[a]==j[a]){return(0)}else{return(k[a]<j[a])?-1:+1}});return d};Tale.prototype.canUndo=function(){return this.storysettings.lookup("undo")};Tale.prototype.forEachStylesheet=function(tags,callback){var passage,i;tags=tags||[];if(typeof callback!="function"){return}for(passage in this.passages){passage=tale.passages[passage];if(passage&&~passage.tags.indexOf("stylesheet")){for(i=0;i<tags.length;i++){if(~passage.tags.indexOf(tags[i])){callback(passage);break}}}}};function Wikifier(place,source){this.source=source;this.output=place;this.nextMatch=0;this.assembleFormatterMatches(Wikifier.formatters);this.subWikify(this.output)}Wikifier.prototype.assembleFormatterMatches=function(formatters){this.formatters=[];var pattern=[];for(var n=0;n<formatters.length;n++){pattern.push("("+formatters[n].match+")");this.formatters.push(formatters[n])}this.formatterRegExp=new RegExp(pattern.join("|"),"mg")};Wikifier.prototype.subWikify=function(output,terminator){var terminatorMatch,formatterMatch,oldOutput=this.output;this.output=output;var terminatorRegExp=terminator?new RegExp("("+terminator+")","mg"):null;do{this.formatterRegExp.lastIndex=this.nextMatch;if(terminatorRegExp){terminatorRegExp.lastIndex=this.nextMatch}formatterMatch=this.formatterRegExp.exec(this.source);terminatorMatch=terminatorRegExp?terminatorRegExp.exec(this.source):null;if(terminatorMatch&&(!formatterMatch||terminatorMatch.index<=formatterMatch.index)){if(terminatorMatch.index>this.nextMatch){this.outputText(this.output,this.nextMatch,terminatorMatch.index)}this.matchStart=terminatorMatch.index;this.matchLength=terminatorMatch[1].length;this.matchText=terminatorMatch[1];this.nextMatch=terminatorMatch.index+terminatorMatch[1].length;this.output=oldOutput;return}else{if(formatterMatch){if(formatterMatch.index>this.nextMatch){this.outputText(this.output,this.nextMatch,formatterMatch.index)}this.matchStart=formatterMatch.index;this.matchLength=formatterMatch[0].length;this.matchText=formatterMatch[0];this.nextMatch=this.formatterRegExp.lastIndex;var matchingFormatter=-1;for(var t=1;t<formatterMatch.length;t++){if(formatterMatch[t]){matchingFormatter=t-1}}if(matchingFormatter!=-1){this.formatters[matchingFormatter].handler(this)}}}}while(terminatorMatch||formatterMatch);if(this.nextMatch<this.source.length){this.outputText(this.output,this.nextMatch,this.source.length);this.nextMatch=this.source.length}this.output=oldOutput};Wikifier.prototype.outputText=function(place,startPos,endPos){insertText(place,this.source.substring(startPos,endPos))};Wikifier.prototype.fullMatch=function(){return this.source.slice(this.matchStart,this.source.indexOf(">>",this.matchStart)+2)};Wikifier.prototype.fullArgs=function(includeName){var startPos=this.source.indexOf(includeName?"<<":" ",this.matchStart)+(includeName?2:1),endPos=this.source.indexOf(">>",this.matchStart);if(startPos<this.matchStart||endPos<this.matchStart){return""}return Wikifier.parse(this.source.slice(startPos,endPos).trim())};Wikifier.parse=function(input){var m,re,b=input,found=[],g="(?=(?:[^\"'\\\\]*(?:\\\\.|'(?:[^'\\\\]*\\\\.)*[^'\\\\]*'|\"(?:[^\"\\\\]*\\\\.)*[^\"\\\\]*\"))*[^'\"]*$)";function alter(from,to){return b.replace(new RegExp(from+g,"gi"),to)}re=new RegExp(Wikifier.textPrimitives.variable,"gi");while(m=re.exec(input)){if(!~found.indexOf(m[0])){b=m[0]+" == null && ("+m[0]+" = 0);"+b;found.push(m[0])}}b=alter(Wikifier.textPrimitives.variable,"state.history[0].variables.$1");b=alter("\\beq\\b"," == ");b=alter("\\bneq\\b"," != ");b=alter("\\bgt\\b"," > ");b=alter("\\bgte\\b"," >= ");b=alter("\\blt\\b"," < ");b=alter("\\blte\\b"," <= ");b=alter("\\band\\b"," && ");b=alter("\\bor\\b"," || ");b=alter("\\bnot\\b"," ! ");b=alter("\\bis\\b"," == ");b=alter("\\bto\\b"," = ");return b};Wikifier.formatHelpers={charFormatHelper:function(a){var b=insertElement(a.output,this.element);a.subWikify(b,this.terminator)},inlineCssHelper:function(w){var s,v,lookaheadMatch,gotMatch,styles=[],lookahead="(?:("+Wikifier.textPrimitives.anyLetter+"+)\\(([^\\)\\|\\n]+)(?:\\):))|(?:("+Wikifier.textPrimitives.anyLetter+"+):([^;\\|\\n]+);)",lookaheadRegExp=new RegExp(lookahead,"mg"),hadStyle=false;do{lookaheadRegExp.lastIndex=w.nextMatch;lookaheadMatch=lookaheadRegExp.exec(w.source);gotMatch=lookaheadMatch&&lookaheadMatch.index==w.nextMatch;if(gotMatch){hadStyle=true;if(lookaheadMatch[1]){s=lookaheadMatch[1].unDash();v=lookaheadMatch[2]}else{s=lookaheadMatch[3].unDash();v=lookaheadMatch[4]}switch(s){case"bgcolor":s="backgroundColor";break;case"float":s="cssFloat";break}styles.push({style:s,value:v});w.nextMatch=lookaheadMatch.index+lookaheadMatch[0].length}}while(gotMatch);return styles},monospacedByLineHelper:function(w){var lookaheadRegExp=new RegExp(this.lookahead,"mg");lookaheadRegExp.lastIndex=w.matchStart;var lookaheadMatch=lookaheadRegExp.exec(w.source);if(lookaheadMatch&&lookaheadMatch.index==w.matchStart){var text=lookaheadMatch[1];if(navigator.userAgent.indexOf("msie")!=-1&&navigator.userAgent.indexOf("opera")==-1){text=text.replace(/\n/g,"\r")}var e=insertElement(w.output,"pre",null,null,text);w.nextMatch=lookaheadMatch.index+lookaheadMatch[0].length}}};Wikifier.formatters=[{name:"table",match:"^\\|(?:[^\\n]*)\\|(?:[fhc]?)$",lookahead:"^\\|([^\\n]*)\\|([fhc]?)$",rowTerminator:"\\|(?:[fhc]?)$\\n?",cellPattern:"(?:\\|([^\\n\\|]*)\\|)|(\\|[fhc]?$\\n?)",cellTerminator:"(?:\\x20*)\\|",rowTypes:{"c":"caption","h":"thead","":"tbody","f":"tfoot"},handler:function(w){var rowContainer,rowElement,lookaheadMatch,matched,table=insertElement(w.output,"table"),lookaheadRegExp=new RegExp(this.lookahead,"mg"),currRowType=null,nextRowType,prevColumns=[],rowCount=0;w.nextMatch=w.matchStart;do{lookaheadRegExp.lastIndex=w.nextMatch;lookaheadMatch=lookaheadRegExp.exec(w.source),matched=lookaheadMatch&&lookaheadMatch.index==w.nextMatch;if(matched){nextRowType=lookaheadMatch[2];if(nextRowType!=currRowType){rowContainer=insertElement(table,this.rowTypes[nextRowType])}currRowType=nextRowType;if(currRowType=="c"){if(rowCount==0){rowContainer.setAttribute("align","top")}else{rowContainer.setAttribute("align","bottom")}w.nextMatch=w.nextMatch+1;w.subWikify(rowContainer,this.rowTerminator)}else{rowElement=insertElement(rowContainer,"tr");this.rowHandler(w,rowElement,prevColumns)}rowCount++}}while(matched)},rowHandler:function(w,e,prevColumns){var cellMatch,matched,col=0,currColCount=1,cellRegExp=new RegExp(this.cellPattern,"mg");do{cellRegExp.lastIndex=w.nextMatch;cellMatch=cellRegExp.exec(w.source);matched=cellMatch&&cellMatch.index==w.nextMatch;if(matched){if(cellMatch[1]=="~"){var last=prevColumns[col];if(last){last.rowCount++;last.element.setAttribute("rowSpan",last.rowCount);last.element.setAttribute("rowspan",last.rowCount);last.element.valign="center"}w.nextMatch=cellMatch.index+cellMatch[0].length-1}else{if(cellMatch[1]==">"){currColCount++;w.nextMatch=cellMatch.index+cellMatch[0].length-1}else{if(cellMatch[2]){w.nextMatch=cellMatch.index+cellMatch[0].length;break}else{var spaceLeft=false,spaceRight=false,lastColCount,lastColElement,styles,cell,t;w.nextMatch++;styles=Wikifier.formatHelpers.inlineCssHelper(w);while(w.source.substr(w.nextMatch,1)==" "){spaceLeft=true;w.nextMatch++}if(w.source.substr(w.nextMatch,1)=="!"){cell=insertElement(e,"th");w.nextMatch++}else{cell=insertElement(e,"td")}prevColumns[col]={rowCount:1,element:cell};lastColCount=1;lastColElement=cell;if(currColCount>1){cell.setAttribute("colSpan",currColCount);cell.setAttribute("colspan",currColCount);currColCount=1}for(t=0;t<styles.length;t++){cell.style[styles[t].style]=styles[t].value}w.subWikify(cell,this.cellTerminator);if(w.matchText.substr(w.matchText.length-2,1)==" "){spaceRight=true}if(spaceLeft&&spaceRight){cell.align="center"}else{if(spaceLeft){cell.align="right"}else{if(spaceRight){cell.align="left"}}}w.nextMatch=w.nextMatch-1}}}col++}}while(matched)}},{name:"rule",match:"^----$\\n?",handler:function(w){insertElement(w.output,"hr")}},{name:"emdash",match:"--",handler:function(a){insertElement(a.output,"span",null,"char "+(a.matchText==" "?"space":a.matchText),a.matchText)}},{name:"heading",match:"^!{1,5}",terminator:"\\n",handler:function(w){var e=insertElement(w.output,"h"+w.matchLength);w.subWikify(e,this.terminator)}},{name:"monospacedByLine",match:"^\\{\\{\\{\\n",lookahead:"^\\{\\{\\{\\n((?:^[^\\n]*\\n)+?)(^\\}\\}\\}$\\n?)",handler:Wikifier.formatHelpers.monospacedByLineHelper},{name:"monospacedByLineForPlugin",match:"^//\\{\\{\\{\\n",lookahead:"^//\\{\\{\\{\\n\\n*((?:^[^\\n]*\\n)+?)(\\n*^//\\}\\}\\}$\\n?)",handler:Wikifier.formatHelpers.monospacedByLineHelper},{name:"wikifyCommentForPlugin",match:"^/\\*\\*\\*\\n",terminator:"^\\*\\*\\*/\\n",handler:function(w){w.subWikify(w.output,this.terminator)}},{name:"quoteByBlock",match:"^<<<\\n",terminator:"^<<<\\n",handler:function(w){var e=insertElement(w.output,"blockquote");w.subWikify(e,this.terminator)}},{name:"quoteByLine",match:"^>+",terminator:"\\n",element:"blockquote",handler:function(w){var lookaheadRegExp=new RegExp(this.match,"mg");var placeStack=[w.output];var currLevel=0;var newLevel=w.matchLength;var t;do{if(newLevel>currLevel){for(t=currLevel;t<newLevel;t++){placeStack.push(insertElement(placeStack[placeStack.length-1],this.element))}}else{if(newLevel<currLevel){for(t=currLevel;t>newLevel;t--){placeStack.pop()}}}currLevel=newLevel;w.subWikify(placeStack[placeStack.length-1],this.terminator);lookaheadRegExp.lastIndex=w.nextMatch;var lookaheadMatch=lookaheadRegExp.exec(w.source);var matched=lookaheadMatch&&lookaheadMatch.index==w.nextMatch;if(matched){newLevel=lookaheadMatch[0].length;w.nextMatch+=lookaheadMatch[0].length;insertElement(placeStack[placeStack.length-1],"br")}}while(matched)}},{name:"list",match:"^(?:(?:\\*+)|(?:#+))",lookahead:"^(?:(\\*+)|(#+))",terminator:"\\n",outerElement:"ul",itemElement:"li",handler:function(w){var lookaheadRegExp=new RegExp(this.lookahead,"mg");w.nextMatch=w.matchStart;var placeStack=[w.output];var currType=null,newType;var currLevel=0,newLevel;var t;do{lookaheadRegExp.lastIndex=w.nextMatch;var lookaheadMatch=lookaheadRegExp.exec(w.source);var matched=lookaheadMatch&&lookaheadMatch.index==w.nextMatch;if(matched){if(lookaheadMatch[1]){newType="ul"}if(lookaheadMatch[2]){newType="ol"}newLevel=lookaheadMatch[0].length;w.nextMatch+=lookaheadMatch[0].length;if(newLevel>currLevel){for(t=currLevel;t<newLevel;t++){placeStack.push(insertElement(placeStack[placeStack.length-1],newType))}}else{if(newLevel<currLevel){for(t=currLevel;t>newLevel;t--){placeStack.pop()}}else{if(newLevel==currLevel&&newType!=currType){placeStack.pop();placeStack.push(insertElement(placeStack[placeStack.length-1],newType))}}}currLevel=newLevel;currType=newType;var e=insertElement(placeStack[placeStack.length-1],"li");w.subWikify(e,this.terminator)}}while(matched)}},(Wikifier.linkFormatter={name:"prettyLink",match:"\\[\\[",lookahead:"\\[\\[([^\\|\\]]*?)(?:\\|(.*?))?\\](?:\\[(.*?)])?\\]",callback:function(out,text){return function(){macros.set.run(out,text)}},handler:function(w){var title,link,callback,lookaheadRegExp=new RegExp(this.lookahead,"mg");lookaheadRegExp.lastIndex=w.matchStart;var lookaheadMatch=lookaheadRegExp.exec(w.source);if(lookaheadMatch&&lookaheadMatch.index==w.matchStart){if(lookaheadMatch[3]){callback=this.callback(w.output,lookaheadMatch[3])}if(!lookaheadMatch[2]){title=Wikifier.parsePassageTitle(lookaheadMatch[1]);link=Wikifier.createInternalLink(w.output,title,callback);setPageElement(link,null,title)}else{title=Wikifier.parsePassageTitle(lookaheadMatch[2]);if(tale.has(title)||!title){link=Wikifier.createInternalLink(w.output,title,callback)}else{link=Wikifier.createExternalLink(w.output,lookaheadMatch[2],callback)}setPageElement(link,null,w.source.substring(w.nextMatch,w.nextMatch+lookaheadMatch[1].length))}w.nextMatch=lookaheadMatch.index+lookaheadMatch[0].length}}}),{name:"urlLink",match:"(?:http|https|mailto|ftp):[^\\s'\"]+(?:/|\\b)",handler:function(w){var e=Wikifier.createExternalLink(w.output,w.matchText);w.outputText(e,w.matchStart,w.nextMatch)}},(Wikifier.imageFormatter={name:"image",match:"\\[(?:[<]{0,1})(?:[>]{0,1})[Ii][Mm][Gg]\\[",lookahead:"\\[([<]?)(>?)img\\[(?:([^\\|\\]]+)\\|)?([^\\[\\]\\|]+)\\](?:\\[([^\\]]*)\\]?)?(\\])",handler:function(w){var lookaheadRegExp=new RegExp(this.lookahead,"mig");lookaheadRegExp.lastIndex=w.matchStart;var lookaheadMatch=lookaheadRegExp.exec(w.source);if(lookaheadMatch&&lookaheadMatch.index==w.matchStart){var e=w.output,title=Wikifier.parsePassageTitle(lookaheadMatch[5]);if(title){if(tale.has(title)){e=Wikifier.createInternalLink(w.output,title)}else{e=Wikifier.createExternalLink(w.output,title)}}var img=insertElement(e,"img");if(lookaheadMatch[1]){img.align="left"}else{if(lookaheadMatch[2]){img.align="right"}}if(lookaheadMatch[3]){img.title=lookaheadMatch[3]}img.src=lookaheadMatch[4];var imgPassages=tale.lookup("tags","Twine.image");for(var j=0;j<imgPassages.length;j++){if(imgPassages[j].title==lookaheadMatch[4]){img.src=imgPassages[j].text;break}}w.nextMatch=lookaheadMatch.index+lookaheadMatch[0].length}}}),{name:"macro",match:"<<",lookahead:"<<([^>\\s]+)(?:\\s*)((?:[^>]|>(?!>))*)>>",handler:function(w){var lookaheadRegExp=new RegExp(this.lookahead,"mg");lookaheadRegExp.lastIndex=w.matchStart;var lookaheadMatch=lookaheadRegExp.exec(w.source);if(lookaheadMatch&&lookaheadMatch.index==w.matchStart&&lookaheadMatch[1]){var params=lookaheadMatch[2].readMacroParams();w.nextMatch=lookaheadMatch.index+lookaheadMatch[0].length;var name=lookaheadMatch[1];try{var macro=macros[name];if(macro&&macro.handler){macro.handler(w.output,name,params,w)}else{if(name[0]=="$"){macros.print.handler(w.output,name,[name].concat(params),w)}else{if(tale.has(name)){macros.display.handler(w.output,name,[name].concat(params),w)}else{throwError(w.output,"Macro not found: "+name,w.fullMatch())}}}}catch(e){throwError(w.output,"Error executing macro "+name+": "+e.toString(),w.fullMatch())}}}},{name:"html",match:"<html>",lookahead:"<html>((?:.|\\n)*?)</html>",handler:function(w){var lookaheadRegExp=new RegExp(this.lookahead,"mg");lookaheadRegExp.lastIndex=w.matchStart;var lookaheadMatch=lookaheadRegExp.exec(w.source);if(lookaheadMatch&&lookaheadMatch.index==w.matchStart){var e=insertElement(w.output,"span");e.innerHTML=lookaheadMatch[1];w.nextMatch=lookaheadMatch.index+lookaheadMatch[0].length}}},{name:"commentByBlock",match:"/%",lookahead:"/%((?:.|\\n)*?)%/",handler:function(w){var lookaheadRegExp=new RegExp(this.lookahead,"mg");lookaheadRegExp.lastIndex=w.matchStart;var lookaheadMatch=lookaheadRegExp.exec(w.source);if(lookaheadMatch&&lookaheadMatch.index==w.matchStart){w.nextMatch=lookaheadMatch.index+lookaheadMatch[0].length}}},{name:"boldByChar",match:"''",terminator:"''",element:"strong",handler:Wikifier.formatHelpers.charFormatHelper},{name:"strikeByChar",match:"==",terminator:"==",element:"strike",handler:Wikifier.formatHelpers.charFormatHelper},{name:"underlineByChar",match:"__",terminator:"__",element:"u",handler:Wikifier.formatHelpers.charFormatHelper},{name:"italicByChar",match:"//",terminator:"//",element:"em",handler:Wikifier.formatHelpers.charFormatHelper},{name:"subscriptByChar",match:"~~",terminator:"~~",element:"sub",handler:Wikifier.formatHelpers.charFormatHelper},{name:"superscriptByChar",match:"\\^\\^",terminator:"\\^\\^",element:"sup",handler:Wikifier.formatHelpers.charFormatHelper},{name:"monospacedByChar",match:"\\{\\{\\{",lookahead:"\\{\\{\\{((?:.|\\n)*?)\\}\\}\\}",handler:function(w){var lookaheadRegExp=new RegExp(this.lookahead,"mg");lookaheadRegExp.lastIndex=w.matchStart;var lookaheadMatch=lookaheadRegExp.exec(w.source);if(lookaheadMatch&&lookaheadMatch.index==w.matchStart){var e=insertElement(w.output,"code",null,null,lookaheadMatch[1]);w.nextMatch=lookaheadMatch.index+lookaheadMatch[0].length}}},{name:"styleByChar",match:"@@",terminator:"@@",lookahead:"(?:([^\\(@]+)\\(([^\\)]+)(?:\\):))|(?:([^:@]+):([^;]+);)",handler:function(w){var e=insertElement(w.output,"span",null,null,null);var styles=Wikifier.formatHelpers.inlineCssHelper(w);if(styles.length==0){e.className="marked"}else{for(var t=0;t<styles.length;t++){e.style[styles[t].style]=styles[t].value}}w.subWikify(e,this.terminator)}},{name:"lineBreak",match:"\\n",handler:function(w){insertElement(w.output,"br")}},{name:"continuedLine",match:"\\\\\\s*?\\n",handler:function(a){a.nextMatch=a.matchStart+2}},{name:"htmltag",match:"<\\w+(?:(?:\\s+\\w+(?:\\s*=\\s*(?:\".*?\"|'.*?'|[^'\">\\s]+))?)+\\s*|\\s*)\\/?>",tagname:"<(\\w+)",voids:["area","base","br","col","embed","hr","img","input","link","meta","param","source","track","wbr"],handler:function(a){var e,isvoid,lookaheadRegExp,lookaheadMatch,lookahead,re=new RegExp(this.tagname).exec(a.matchText),tn=re&&re[1];if(tn&&tn.toLowerCase()!="html"){lookahead="<\\/\\s*"+tn+"\\s*>";isvoid=(this.voids.indexOf(tn.toLowerCase())!=-1);lookaheadRegExp=new RegExp(lookahead,"mg");lookaheadRegExp.lastIndex=a.matchStart;lookaheadMatch=lookaheadRegExp.exec(a.source);if(lookaheadMatch||isvoid){e=document.createElement(a.output.tagName);e.innerHTML=a.matchText;e=e.firstChild;if(!isvoid){a.subWikify(e,lookahead)}a.output.appendChild(e)}else{throwError(a.output,"HTML tag '"+tn+"' wasn't closed.",a.matchText)}}}},{name:"char",match:".",handler:function(a){insertElement(a.output,"span",null,"char "+(a.matchText==" "?"space":a.matchText),a.matchText)}}];Wikifier.parsePassageTitle=function(title){if(title&&!tale.has(title)){try{title=eval(this.parse(title));title&&(title+="")}catch(e){}}return title};Wikifier.createExternalLink=function(place,url){var el=insertElement(place,"a");el.href=url;el.className="externalLink";el.target="_blank";if(place){place.appendChild(el)}return el};if(!((new RegExp("[\u0150\u0170]","g")).test("\u0150"))){Wikifier.textPrimitives={upperLetter:"[A-Z\u00c0-\u00de]",lowerLetter:"[a-z\u00df-\u00ff_0-9\\-]",anyLetter:"[A-Za-z\u00c0-\u00de\u00df-\u00ff_0-9\\-]"}}else{Wikifier.textPrimitives={upperLetter:"[A-Z\u00c0-\u00de\u0150\u0170]",lowerLetter:"[a-z\u00df-\u00ff_0-9\\-\u0151\u0171]",anyLetter:"[A-Za-z\u00c0-\u00de\u00df-\u00ff_0-9\\-\u0150\u0170\u0151\u0171]"}}Wikifier.textPrimitives.variable="\\$((?:"+Wikifier.textPrimitives.anyLetter.replace("\\-","\\.")+"*"+Wikifier.textPrimitives.anyLetter.replace("0-9\\-","\\.")+"+"+Wikifier.textPrimitives.anyLetter.replace("\\-","\\.")+"*"+"|\\[[^\\]]+\\])+)";function visited(e){var ret=0,i=0;e=e||state.history[0].passage.title;if(arguments.length>1){for(ret=state.history.length;i<arguments.length;i++){ret=Math.min(ret,visited(arguments[i]))}}else{for(;i<state.history.length&&state.history[i].passage;i++){if(~e.indexOf(state.history[i].passage.title)){ret++}}}return ret}function previous(){if(state.history[1]){for(var d=1;d<state.history.length&&state.history[d].passage;d++){if(state.history[d].passage.title!=state.history[0].passage.title){return state.history[d].passage.title}}}return""}function either(){return arguments[~~(Math.random()*arguments.length)]}function parameter(n){n=n||0;if(macros.display.parameters[n]){return macros.display.parameters[n]}throw new RangeError("there isn't a parameter "+n)}function scriptEval(s){try{eval(s.text)}catch(e){alert("There is a technical problem with this story ("+s.title+": "+e.message+"). You may be able to continue reading, but parts of the story may not work properly.")}}var $;function main(){$=window.$||function(a){return(typeof a=="string"?document.getElementById(a):a)};var imgs,scripts,macro,style,styleText="",i,p=document.getElementById("passages");if(!window.JSON){return(p.innerHTML="This story requires a newer web browser. Sorry.")}else{p.innerHTML=""}tale=window.tale=new Tale();state=window.state=new History();document.title=tale.title;if(~document.documentElement.className.indexOf("lt-ie9")){imgs=tale.lookup("tags","Twine.image");for(i=0;i<imgs.length;i++){if(imgs[i].text.length>=32768){alert("NOTE: This story's HTML file contains embedded images that may be too large for this browser to display.");break}}}setPageElement("storyTitle","StoryTitle","Untitled Story");setPageElement("storySubtitle","StorySubtitle","");if(tale.has("StoryAuthor")){setPageElement("titleSeparator",null,"\n");setPageElement("storyAuthor","StoryAuthor","")}if(tale.has("StoryMenu")){document.getElementById("storyMenu").style.display="inline";setPageElement("storyMenu","StoryMenu","")}scripts=tale.lookup("tags","script");for(i=0;i<scripts.length;i++){scriptEval(scripts[i])}for(macro in macros){macro=macros[macro];if(typeof macro.init=="function"){macro.init()}}style=document.getElementById("storyCSS");for(i in tale.passages){i=tale.passages[i];if(i.tags+""=="stylesheet"){styleText+=alterCSS(i.text)}else{if(i.tags.length==2&&i.tags.indexOf("transition")>-1&&i.tags.indexOf("stylesheet")>-1){setTransitionCSS(i.text)}}}style.styleSheet?(style.styleSheet.cssText=styleText):(style.innerHTML=styleText);state.init()};
+
+var hasPushState=!!window.history&&(typeof window.history.pushState=="function");Tale.prototype.canBookmark=function(){return this.canUndo()&&(this.storysettings.lookup("bookmark")||!hasPushState)};History.prototype.init=function(){var a=this;if(!this.restore()){this.display("Start",null)}if(!hasPushState){this.hash=window.location.hash;this.interval=window.setInterval(function(){a.watchHash()},250)}};History.prototype.display=function(title,b,type,callback){var bookmarkhref,c=tale.get(title),p=document.getElementById("passages");if(type!="back"){this.history.unshift({passage:c,variables:clone(this.history[0].variables)});if(typeof callback=="function"){callback();this.history[1]&&(this.history[1].linkVars=delta(this.history[1].variables,this.history[0].variables))}if(hasPushState&&tale.canUndo()){if(this.history.length<=2&&window.history.state==""){window.history.replaceState(this.history,document.title)}else{window.history.pushState(this.history,document.title)}}}bookmarkhref=this.save();var e=c.render();if(type!="quietly"){if(hasTransition){for(var i=0;i<p.childNodes.length;i+=1){var q=p.childNodes[i];q.classList.add("transition-out");setTimeout((function(a){return function(){if(a.parentNode){a.parentNode.removeChild(a)}}}(q)),1000)}e.classList.add("transition-in");setTimeout(function(){e.classList.remove("transition-in")},1);e.style.visibility="visible";p.appendChild(e)}else{removeChildren(p);p.appendChild(e);fade(e,{fade:"in"})}}else{p.appendChild(e);e.style.visibility="visible"}if(tale.canUndo()){if(!hasPushState&&type!="back"){this.hash=bookmarkhref;window.location.hash=this.hash}else{if(tale.canBookmark()){var bookmark=document.getElementById("bookmark");bookmark&&(bookmark.href=bookmarkhref)}}}window.scroll(0,0);return e};History.prototype.watchHash=function(){if(window.location.hash!=this.hash){if(window.location.hash&&(window.location.hash!="#")){this.history=[{passage:null,variables:{}}];removeChildren(document.getElementById("passages"));if(!this.restore()){alert("The passage you had previously visited could not be found.")}}else{window.location.reload()}this.hash=window.location.hash}};History.prototype.restart=function(){if(!hasPushState){window.location.hash=""}else{window.history.replaceState(this.history,document.title,window.location.href.replace(/#.*$/,""));window.location.reload()}};Passage.prototype.render=function(){var b=insertElement(null,"div","passage"+this.title,"passage");b.style.visibility="hidden";this.setTags(b);this.setCSS();insertElement(b,"div","","header");var a=insertElement(b,"div","","body content");for(var i in prerender){(typeof prerender[i]=="function")&&prerender[i].call(this,a)}new Wikifier(a,this.processText());insertElement(b,"div","","footer");for(i in postrender){(typeof postrender[i]=="function")&&postrender[i].call(this,a)}return b};Passage.prototype.excerpt=function(){var b=this.text.replace(/<<.*?>>/g,"");b=b.replace(/!.*?\n/g,"");b=b.replace(/[\[\]\/]/g,"");var a=b.split("\n");while(a.length&&a[0].length==0){a.shift()}var c="";if(a.length==0||a[0].length==0){c=this.title}else{c=a[0].substr(0,30)+"..."}return c};Passage.transitionCache="";Passage.prototype.setCSS=function(){var trans=false,text="",tags=this.tags||[],c=document.getElementById("tagCSS"),c2=document.getElementById("transitionCSS");if(c&&c.getAttribute("data-tags")!=tags.join(" ")){tale.forEachStylesheet(tags,function(passage){if(~passage.tags.indexOf("transition")){if(!Passage.transitionCache&&c2){Passage.transitionCache=c2.innerHTML}setTransitionCSS(passage.text);trans=true}else{text+=alterCSS(passage.text)}});if(!trans&&Passage.transitionCache&&c2){setTransitionCSS(Passage.transitionCache);trans=false;Passage.transitionCache=""}c.styleSheet?(c.styleSheet.cssText=text):(c.innerHTML=text);c.setAttribute("data-tags",tags.join(" "))}};Wikifier.createInternalLink=function(place,title,callback){var el=insertElement(place,"a",title);if(tale.has(title)){el.className="internalLink"}else{el.className="brokenLink"}el.onclick=function(){state.display(title,el,null,callback)};if(place){place.appendChild(el)}return el};var Interface={init:function(){var snapback=document.getElementById("snapback"),restart=document.getElementById("restart"),bookmark=document.getElementById("bookmark");main();if(snapback){if(!tale.lookup("tags","bookmark").length){snapback.parentNode.removeChild(snapback)}else{snapback.onclick=Interface.showSnapback}}if(bookmark&&(!tale.canBookmark()||!hasPushState)){bookmark.parentNode.removeChild(bookmark)}restart&&(restart.onclick=Interface.restart)},restart:function(){if(confirm("Are you sure you want to restart this story?")){window.state.restart()}},showSnapback:function(a){Interface.hideAllMenus();Interface.buildSnapback();Interface.showMenu(a,document.getElementById("snapbackMenu"))},buildSnapback:function(){var b,c=false,state=window.state,menuelem=document.getElementById("snapbackMenu");while(menuelem.hasChildNodes()){menuelem.removeChild(menuelem.firstChild)}for(var a=state.history.length-1;a>=0;a--){if(state.history[a].passage&&state.history[a].passage.tags.indexOf("bookmark")!=-1){b=document.createElement("div");b.pos=a;b.onclick=function(){var p=this.pos;var n=state.history[p].passage.title;while(p>=0){if(state.history.length>1){state.history.shift()}p--}state.display(n)};b.innerHTML=state.history[a].passage.excerpt();menuelem.appendChild(b);c=true}}if(!c){b=document.createElement("div");b.innerHTML="<i>No passages available</i>";document.getElementById("snapbackMenu").appendChild(b)}},hideAllMenus:function(){document.getElementById("snapbackMenu").style.display="none"},showMenu:function(b,a){if(!b){b=window.event}var c={x:0,y:0};if(b.pageX||b.pageY){c.x=b.pageX;c.y=b.pageY}else{if(b.clientX||b.clientY){c.x=b.clientX+document.body.scrollLeft+document.documentElement.scrollLeft;c.y=b.clientY+document.body.scrollTop+document.documentElement.scrollTop}}a.style.top=c.y+"px";a.style.left=c.x+"px";a.style.display="block";document.onclick=Interface.hideAllMenus;b.cancelBubble=true;if(b.stopPropagation){b.stopPropagation()}}};window.onload=Interface.init;macros.back.onclick=function(back,steps){if(back){if(tale.canUndo()){window.history.go(-steps);return}else{while(steps>=0){if(state.history.length>1){state.history.shift()}steps--}}state.display(state.history[0].passage.title)}else{state.display(state.history[steps].passage.title)}};window.onpopstate=function(e){if(e.state&&e.state.length>0){state.history=e.state;state.display(state.history[0].passage.title,null,"back")}};
+
+}());
+</script>
+<script title="modules">
+
+
+</script>
+<style id="baseCSS">
+body {
+	background-color: #000;
+	color: #fff;
+	font-family: Verdana,sans-serif;
+	font-size: 62.5%;
+	margin: 4em 15% 5% 5em;
+}
+#sidebar {
+	position: absolute;
+	width: 12em;
+	list-style: none;
+	margin: 0;
+	padding: 0 1em 0 0;
+	font: bold 1.1em Verdana,sans-serif;
+}
+#sidebar li {
+	color: #333;
+	text-align: right;
+	background-repeat: no-repeat;
+	margin-bottom: 1em;
+	line-height: 1.4em !important;
+	list-style: none;
+}
+#sidebar li:hover {
+	color: #fff;
+	cursor: pointer;
+}
+#sidebar li a {
+	color: #333;
+	text-decoration: none;
+}
+#sidebar li a:hover {
+	color: #fff;
+	text-decoration: none;
+}
+#sidebar #title {
+	color: #999;
+	font-size: 150%;
+	cursor: auto;
+}
+#sidebar #title a {
+	color: #999;
+}
+#sidebar #title a:hover {
+	color: #fff;
+}
+#sidebar 
+#storySubtitle {
+	font-size: 75%;
+	display: block;
+}
+#storyAuthor {
+	font-size: 50%;
+}
+#sidebar #storyMenu {
+	display: none;
+	line-height: 2.5em;
+	margin-bottom: .5em;
+}
+#sidebar #title:hover {
+	color: #999;
+}
+#sidebar #credits {
+	padding-top: 2em;
+	font-weight: normal;
+	font-size: 80%;
+	cursor: auto;
+}
+#sidebar #credits:hover {
+	color: #333;
+}
+#sidebar #credits a {
+	text-decoration: none;
+}
+.menu {
+	position: absolute;
+	display: none;
+	background-color: #343434;
+	color: #fff;
+	opacity: .9;
+	border: 1px solid #fff;
+	text-align: left;
+	font: 1.1em Verdana;
+	line-height: 2em;
+}
+.menu div {
+	padding: 0 .4em;
+}
+.menu div:hover {
+	cursor: pointer;
+	background-color: #fff;
+	color: #343434;
+}
+#passages {
+	margin-left: 18.2em;
+	border-left: 1px solid #333;
+	padding-left: 1.5em;
+	position:relative;
+}
+.passage {
+	font-size: 1.2em;
+	line-height: 175%;
+	margin-bottom: 2em;
+	text-align: left;
+}
+.passage ul {
+	padding-top: 1.3em;
+}
+.passage li {
+	margin-right: 6em;
+}
+.passage center {
+	max-width:50%;
+	margin:auto;
+}
+.passage a {
+	color: #4d6ad8;
+	font-weight: bold;
+	text-decoration: none;
+	cursor: pointer;
+}
+.passage a:hover {
+	color: #8ea6ff;
+	text-decoration: underline;
+}
+a.brokenLink {
+	background-color: red;
+	text-decoration: none;
+	color: #000;
+}
+.disabled {
+	font-weight: bold;
+	color: #333;
+}
+.marked {
+	background-color: red;
+	color: #000;
+	margin-right: 12px;
+	padding: 3px;
+}
+.marked[title] {
+	cursor: help;
+}
+.passage ul {
+	margin-left: .5em;
+	padding-left: 1.5em;
+}
+.passage ol {
+	margin-left: .5em;
+	padding-left: 1.5em;
+}
+.passage table {
+	border-collapse: collapse;
+	font-size: 100%;
+	margin: .8em 1.0em;
+}
+.passage th,.passage td,.passage tr,.passage caption {
+	padding: 3px;
+}
+.passage hr {
+	height: 1px;
+}
+#storeArea {
+	display: none;
+}
+#noscript {
+	margin-left: 18.2em;
+	font-size: 1.2em;
+	font-weight: bold;
+}
+</style>
+<style id="transitionCSS">
+.transition-in {
+	opacity:0;
+	position:absolute;
+}
+.passage:not(.transition-out) {
+	transition: 1s;
+	-webkit-transition: 1s;
+}
+#passages .transition-out {
+	opacity:0 !important;
+	position:absolute;
+}
+</style>
+<style id="storyCSS">
+
+a.internalLink,a.externalLink,a.back,a.return {font-weight: bold;
+text-decoration:none;
+font-size:150%;
+color: #33FFCC;}
+
+a.internalLink:hover,a.externalLink:hover,a.back:hover,a.return:hover{font-weight: bold;
+text-decoration:none;
+font-size:200%;
+color: #CC00CC;
+background: url(sparklegif.gif);
+width:200px;
+height:300px;}
+
+body{background-color:#000000;color:#CC66CC;font-size:125%;}
+
+#sidebar { display: none } 
+
+#restart {visibility:hidden}
+
+.passage .title { display: none } 
+
+
+#title{color:#999;font-size:150%;cursor:auto;visibility:hidden}
+
+#passages {border:none; margin:50px 0px 0px 100px !important;}</style>
+<style id="tagCSS" data-tags=""></style>
+</head>
+<body data-tags="">
+<ul id="sidebar">
+<li id="title"><span id="storyTitle"><span class="char U">U</span><span class="char n">n</span><span class="char t">t</span><span class="char i">i</span><span class="char t">t</span><span class="char l">l</span><span class="char e">e</span><span class="char d">d</span><span class="char space"> </span><span class="char S">S</span><span class="char t">t</span><span class="char o">o</span><span class="char r">r</span><span class="char y">y</span></span><span id="storySubtitle"></span><span id="titleSeparator"></span><span id="storyAuthor"></span></li>
+<li id="storyMenu"></li>
+
+<li id="restart">Restart</li>
+<li><a id="bookmark" title="Permanent link to this passage" href="#.6">Bookmark</a></li>
+<li id="credits">
+This story was created with <a href="http://twinery.org/">Twine</a> and is powered by <a href="http://tiddlywiki.com/">TiddlyWiki</a>
+</li>
+</ul>
+<div id="snapbackMenu" class="menu"></div>
+<div id="passages"><div id="passageStart" class="passage" style="visibility: visible;"><div class="header"></div><div class="body content"><span class="char C">C</span><span class="char R">R</span><span class="char Y">Y</span><span class="char $">$</span><span class="char T">T</span><span class="char A">A</span><span class="char L">L</span><span class="char space"> </span><span class="char W">W</span><span class="char A">A</span><span class="char R">R</span><span class="char R">R</span><span class="char I">I</span><span class="char O">O</span><span class="char R">R</span><span class="char space"> </span><span class="char K">K</span><span class="char E">E</span><span class="char $">$</span><span class="char H">H</span><span class="char A">A</span><br><span class="char b">b</span><span class="char y">y</span><span class="char space"> </span><a href="http://slimedaughter.com/" class="externalLink" target="_blank"><span class="char p">p</span><span class="char o">o</span><span class="char r">r</span><span class="char p">p</span><span class="char e">e</span><span class="char n">n</span><span class="char t">t</span><span class="char i">i</span><span class="char n">n</span><span class="char e">e</span></a><br><br><span><img src="Sugarcane_files/kesha-crystal%20armor.png"></span><span class="char space"> </span><br><br><a id="begin" class="internalLink"><span class="char b">b</span><span class="char e">e</span><span class="char g">g</span><span class="char i">i</span><span class="char n">n</span></a><br><br></div><div class="footer"></div></div></div>
+<div id="storeArea"><div tiddler="there" tags="" modified="201301120944" created="201301120944" twine-position="430,1410" modifier="twee">flaregun up ahead in emergency case\n\n[[smash the glass|flare]]</div><div tiddler="dagger" tags="" modified="201301120715" created="201301120715" twine-position="710,2110" modifier="twee">//Cut the bullshit out with a dagger, with a dagger, with a dagger.//\n\n&lt;&lt;back&gt;&gt;</div><div tiddler="disaster" tags="" modified="201301120542" created="201301120542" twine-position="290,1270" modifier="twee">you
+ were never one to take the low road\n\nyou leap across the catwalks 
+dodging explosions\n\nwhoever did this is gonna pay\n\n[[fuck 
+yeah|there]]</div><div tiddler="whirl inside" tags="" modified="201301120753" created="201301120753" twine-position="570,1830" modifier="twee">photographs
+ of [[emasculated men|Vagina Jungle]] taped to one wall\n\nslutwave 
+power gear on the other\n\n[[prepare yourself for the upcoming battle 
+with whatever fuckers|gear]]\n\n</div><div tiddler="focus your power" tags="" modified="201301120524" created="201301120524" twine-position="430,850" modifier="twee">You focus on\n\n[[the shimmering crystals you wear|crystals]]\n\n[[the glitter pulsating in your bloodstream|glitter]]\n</div><div tiddler="boy2" tags="" modified="201301120435" created="201301120435" twine-position="710,2670" modifier="twee">"i
+ just wanna go home i cant handle cosmic warfare wahhhhhhhhhh"\n\nyou 
+turn your glitter-smeared face to the shaking human.\n\n[["You will 
+follow my orders because I know magic"|magic-drive]]</div><div tiddler="Start" tags="" modified="201403061319" created="201301120420" twine-position="150,10" modifier="twee">CRY$TAL
+ WARRIOR KE$HA\nby 
+[[porpentine|http://slimedaughter.com]]\n\n&lt;html&gt;&lt;IMG 
+SRC="kesha-crystal%20armor.png"&gt;&lt;/html&gt; 
+\n\n[[begin]]\n\n&lt;&lt;set $w = 0&gt;&gt;</div><div tiddler="boy1" tags="" modified="201301120435" created="201301120435" twine-position="430,2670" modifier="twee">"i
+ just wanna go home i cant handle cosmic warfare wahhhhhhhhhh"\n\nyou 
+turn your glitter-smeared face to the shaking human.\n\n[["You will 
+follow my orders because I know magic"|magic-gun]]</div><div tiddler="gunnery" tags="" modified="201301120752" created="201301120752" twine-position="710,2530" modifier="twee">you
+ calibrate the glitter guns and sight down the scope\n\nyou'll need a 
+driver though. Vagina Jungle don't drive itself.\n\nyou spot a shivering
+ boy escaped from the concert, sparkle-smeared shirt torn up and 
+bloody\n\n[["YOU WILL BE MY DRIVER"|boy2]]</div><div tiddler="hater1" tags="" modified="201301120925" created="201301120925" twine-position="1270,1830" modifier="twee">I
+ WILL TAKE YOUR WORDS AND TWIST THEM BEHIND YOUR BACK\n\n[["You don't 
+know me. Tell me then, how is your hatred anything more than hatred of 
+yourself?"|hater2]]\n</div><div tiddler="crystals" tags="" modified="201301120528" created="201301120528" twine-position="290,990" modifier="twee">the shards of your shattered armor leap up and reform\n\nregenerated you resist the incoming energy\n\n[[nice]]</div><div tiddler="hater2" tags="" modified="201301120926" created="201301120926" twine-position="1270,1970" modifier="twee">YOUR
+ MUSIC IS SCIENTIFICALLY TERRIBLE\n\nYOU SHOULD KILL YOURSELF\n\n[["I 
+pity your attempts to justify your insecurity with analysis. It is false
+ analysis with no substance."|hater3]]\n</div><div tiddler="hater3" tags="" modified="201301120928" created="201301120928" twine-position="1270,2110" modifier="twee">the
+ alpha hater is melting\n\nat this point its words are just incoherent 
+howling\n\nraw, burning hatred, like you're teetering on the rim of a 
+volcano\n\n[["If you don't like my song, then turn off the radio. Take 
+it or leave it, love me or hate me. I'm not going anywhere."|hater4]]</div><div tiddler="glitter" tags="" modified="201301120524" created="201301120524" twine-position="570,990" modifier="twee">You
+ form an energy critter of spirit glitter\n\nshimmering blue\n\nthe 
+critter absorbs the blast\n\nturns purple with violence 
+absorbed\n\ndisintegrates\n\n[["Thank you critter"|nice]]\n</div><div tiddler="more gear" tags="" modified="201301120756" created="201301120756" twine-position="570,2110" modifier="twee">crystal [[dagger]]?\n\n[[mmmhm|and more gear]]</div><div tiddler="what" tags="" modified="201301120910" created="201301120910" twine-position="1270,1550" modifier="twee">the
+ shitty lense flare on top of the mountain dims until you can see a 
+fucked-up form inside it\n\nI AM THE ALPHA HATER\n\non this desolate 
+mountaintop there are no fans to bolster your energy\n\n[[i've always 
+been my biggest fan. it was my taste that brought me to this point. i 
+trust myself.|hater]]\n\n[[people come and go. the only constant is us. 
+we are the guardian of our own self.|hater]]\n\n\n</div><div tiddler="end" tags="" modified="201403012017" created="201301120940" twine-position="1270,2390" modifier="twee">&lt;html&gt;&lt;IMG SRC="kesha-2.jpg"&gt;&lt;/html&gt; </div><div tiddler="FASTER" tags="" modified="201403012016" created="201301120824" twine-position="1270,850" modifier="twee">the
+ dry grass is on fire\n\na toxic purple light\n\n&lt;html&gt;&lt;IMG 
+SRC="kesha-grass.png"&gt;&lt;/html&gt; \n\nbursts of energy slam into 
+Vagina Jungle's grimesynth shields\n\nyour crystal cannons shoot 
+incoming projectiles down\n\ndriving into the smoking, oversaturated 
+heart of cosmic chaos\n\n[[FASTER FASTER]]</div><div tiddler="hater4" tags="" modified="201301120949" created="201301120949" twine-position="1270,2250" modifier="twee">you
+ unleash [[lasers]] from every inch of your bod\n\nthe hater is 
+destroyed\n\nand who remains\n\nspattered in blood and 
+beauty\n\n[[Ke$ha|end]]\n</div><div tiddler="lasers" tags="" modified="201301120948" created="201301120948" twine-position="1410,2110" modifier="twee">//Go
+ be cynical ??? I???m having a good time. Like, who would you rather 
+hang  out with? That cynical dude or, like, me with my laser 
+beams?//\n\n&lt;&lt;back&gt;&gt;</div><div tiddler="roadkill" tags="" modified="201301120713" created="201301120713" twine-position="710,1970" modifier="twee">//A
+ friend of mine has a big farm in the desert, and she picks up feathers 
+and roadkill for me, then makes it into clothes. I think it's cool to 
+wear roadkill. If I died and somebody wanted to wear my teeth around 
+their neck to VMAs, I'd feel honored.//\n\n&lt;&lt;back&gt;&gt;</div><div tiddler="finger" tags="" modified="201301120917" created="201301120917" twine-position="710,2250" modifier="twee">//Lately,
+ I've been wearing a person's middle-finger bone around my neck. It's 
+kind of a middle finger to anyone who wants to hate. I'm not sure whose 
+finger it was, but I hope they were cool.//\n\n&lt;&lt;back&gt;&gt;</div><div tiddler="LET'S GO" tags="" modified="201403012016" created="201301120813" twine-position="1270,710" modifier="twee">Vagina
+ Jungle spins down the road spraying up dirt\n\nmassive energy signature
+ in the purple mountains in the distance\n\n&lt;html&gt;&lt;IMG 
+SRC="kesha-mountains.jpg"&gt;&lt;/html&gt;\n\n[[FASTER]]</div><div tiddler="css" tags="stylesheet" modified="201403012023" created="201301120722" twine-position="990,10" modifier="twee">\n\na.internalLink,a.externalLink,a.back,a.return
+ {font-weight: bold;\ntext-decoration:none;\nfont-size:150%;\ncolor: 
+#33FFCC;}\n\na.internalLink:hover,a.externalLink:hover,a.back:hover,a.return:hover{font-weight:
+ bold;\ntext-decoration:none;\nfont-size:200%;\ncolor: 
+#CC00CC;\nbackground: 
+url(sparklegif.gif);\nwidth:200px;\nheight:300px;}\n\nbody{background-color:#000000;color:#CC66CC;font-size:125%;}\n\n#sidebar
+ { display: none } \n\n#restart {visibility:hidden}\n\n.passage .title {
+ display: none } 
+\n\n\n#title{color:#999;font-size:150%;cursor:auto;visibility:hidden}\n\n#passages
+ {border:none; margin:50px 0px 0px 100px !important;}</div><div tiddler="nice" tags="" modified="201301120529" created="201301120529" twine-position="430,1130" modifier="twee">you
+ have to get to the flare. you always keep a flaregun in case concerts 
+go wrong and you need a quick exit. never had to use one before.\n\ndark
+ maze of amps, broken bottles, road cases\n\n[[go low with the 
+flow|flow]]\n\n[[ride high with disaster|disaster]]</div><div tiddler="warrior" tags="" modified="201301120436" created="201301120436" twine-position="430,150" modifier="twee">&lt;&lt;if
+ $w lte 3&gt;&gt;[[drop lyrical 
+genius|warrior]]&lt;&lt;endif&gt;&gt;\n\n&lt;&lt;if $w gte 1&gt;&gt;//We
+ were born to break the doors down, fighting till the 
+end.//&lt;&lt;endif&gt;&gt;\n\n&lt;&lt;if $w gte 2&gt;&gt;//It's 
+something that's inside of us.//&lt;&lt;endif&gt;&gt;\n\n&lt;&lt;if $w 
+gte 3&gt;&gt;//It's how we've always 
+been.\n\nYeah.//&lt;&lt;endif&gt;&gt;\n\n&lt;&lt;if $w gte 
+4&gt;&gt;\nbright light incoming but you didn't rehearse anything like 
+that\n\n[[huh]]&lt;&lt;endif&gt;&gt;\n\n&lt;&lt;set $w = $w + 
+1&gt;&gt;\n</div><div tiddler="begin" tags="" modified="201403012015" created="201301120544" twine-position="430,10" modifier="twee">the
+ greatest night of your life\n\ncouldn't find your toothbrush, took a 
+swig of jack daniels \n\nhit the road with your animals\n\nthe crowd is 
+jumping up n down\n\na sea of glitter and flesh\n\nthe beat is 
+building\n\n[[lift the mic|warrior]]\n&lt;&lt;fadeinsound "warrior.mp3" 
+&gt;&gt;</div><div tiddler="victory" tags="" modified="201301120905" created="201301120905" twine-position="1270,1410" modifier="twee">suddenly
+ lifted\n\nparalyzed\n\nyour glitter is disintegrating\n\nyour day-glo 
+facepaint is melting\n\nyour crystals are deharmonizing\n\nyour roadkill
+ demicloak is torn\n\nyour middle finger talisman splinters\n\nyour 
+crystal dagger falls into some grass, damn\n\n[[what fucker has this 
+power|what]]</div><div tiddler="gear" tags="" modified="201301120713" created="201301120713" twine-position="570,1970" modifier="twee">[[roadkill]] cloak?\n\n[[yeah|more gear]]</div><div tiddler="huh" tags="" modified="201301120612" created="201301120612" twine-position="430,290" modifier="twee">searing pain\n\nblinding radiance\n\nexplosion\n\non your back, on the floor\n\nblood and glitter and burnt flesh\n\n[[urgh]]</div><div tiddler="and more gear" tags="" modified="201301120917" created="201301120917" twine-position="570,2250" modifier="twee">[[middle finger|finger]] talisman?\n\n[[hell yeah]]</div><div tiddler="driver" tags="" modified="201301120752" created="201301120752" twine-position="430,2530" modifier="twee">you
+ tear down the road\n\nbut no sense heading to a cosmic death zone 
+without someone to handle the Vagina Jungle's formidable glitter 
+cannons\n\nyou spot a shivering boy escaped from the concert, 
+sparkle-smeared shirt torn up and bloody\n\n[["YOU WILL BE MY 
+GUNNER"|boy1]]</div><div tiddler="FASTER FASTER" tags="" modified="201301120853" created="201301120853" twine-position="1270,990" modifier="twee">at
+ the peak of the mountain the heat is fierce\n\nyou get out and 
+\n\nhaters cohere from the aether\n\npaparazzi eidolons, music critic 
+manes, spirit constructs of slutshaming dudes afraid of your raw 
+sexuality\n\n[[drain your boyslave's virile energy to fuel your slutwave
+ mantis transformation|drain]]\n\n[[spray glitter from every 
+orifice|spray]]</div><div tiddler="magic-gun" tags="" modified="201301120809" created="201301120809" twine-position="430,2810" modifier="twee">he
+ gets inside and the Vagina Jungle swiftly sucks his body inside the 
+gunner pod\n\nyour machinery acclimates his body to the expression of 
+power violence\n\nhe will serve\n\n[[LET'S GO]]</div><div tiddler="spray" tags="" modified="201301120837" created="201301120837" twine-position="1410,1130" modifier="twee">[[glitter|glit]]
+ sprays from every orifice in your body\n\nthe sparkling psychic 
+shrapnel eviscerates your enemies\n\n[[GLITTER HOWL|victory]]</div><div tiddler="where the fuck are the bodyguards" tags="" modified="201301120445" created="201301120445" twine-position="430,710" modifier="twee">your
+ elite bodyguards/back-up dancers are undone.\n\nit wasn't just an 
+energy attack. whoever did this had chrono magic.\n\nthe time bomb 
+didn't kill them. it scattered them to distant lonely worlds of time, 
+temporal backwaters. they could be the kid you meet on the street, the 
+old woman hobbling through her garden\n\nbut one thing's for 
+sure\n\nthey aren't in fighting condition.\n\nthey aren't ready for 
+cosmic resistance.\n\n[[focus your power]]</div><div tiddler="glit" tags="" modified="201301120837" created="201301120837" twine-position="1550,1130" modifier="twee">//I
+ am shooting glitter from glitter guns and out of every orifice in my 
+body. It's really a big part of what I do. It's my goal to cover the 
+planet in glitter and take the fuck over.//\n\n&lt;&lt;back&gt;&gt;</div><div tiddler="urgh" tags="" modified="201301120439" created="201301120439" twine-position="430,430" modifier="twee">crystals
+ litter the floor. direct hit to your shard armor.\n\nit is against the 
+pact to conduct warfare during concerts\n\nno ordinary hater did 
+this\n\n[[Pluck shards from your face]]</div><div tiddler="sound" tags="script" modified="201402241238" created="201402241237" twine-position="1270,10" modifier="twee">(function
+ () {\n  "use strict";\n  version.extensions['soundMacros'] = {\n    
+major: 1,\n    minor: 1,\n    revision: 2\n  };\n  var p = 
+macros['playsound'] = {\n    soundtracks: {},\n    handler: function (a,
+ b, c, d) {\n      var loop = function (m) {\n          if (m.loop == 
+undefined) {\n            m.loopfn = function () {\n              
+this.play();\n            };\n            m.addEventListener('ended', 
+m.loopfn, 0);\n          } else m.loop = true;\n          m.play();\n   
+       };\n      var s = eval(d.fullArgs());\n      if (s) {\n        s =
+ s.toString();\n        var m = this.soundtracks[s.slice(0, 
+s.lastIndexOf("."))];\n        if (m) {\n          if (b == "playsound")
+ {\n            m.play();\n          } else if (b == "loopsound") {\n   
+         loop(m);\n          } else if (b == "pausesound") {\n          
+  m.pause();\n          } else if (b == "unloopsound") {\n            if
+ (m.loop != undefined) {\n              m.loop = false;\n            } 
+else if (m.loopfn) {\n              m.removeEventListener('ended', 
+m.loopfn);\n              delete m.loopfn;\n            }\n          } 
+else if (b == "stopsound") {\n            m.pause();\n            
+m.currentTime = 0;\n          } else if (b == "fadeoutsound" || b == 
+"fadeinsound") {\n            if (m.interval) 
+clearInterval(m.interval);\n            if (b == "fadeinsound") {\n     
+         if (m.currentTime&gt;0) return;\n              m.volume = 0;\n 
+             loop(m);\n            } else {\n              if 
+(!m.currentTime) return;\n              m.play();\n            }\n      
+      var v = m.volume;\n            m.interval = setInterval(function 
+() {\n              v = Math.min(1, Math.max(0, v + 0.005 * (b == 
+"fadeinsound" ? 1 : -1)));\n              m.volume = 
+Math.easeInOut(v);\n              if (v == 0 || v == 1) 
+clearInterval(m.interval);\n              if (v == 0) {\n               
+ m.pause();\n                m.currentTime = 0;\n                
+m.volume = 1;\n              }\n            }, 10);\n          }\n      
+  }\n      }\n    }\n  }\n  macros['fadeinsound'] = p;\n  
+macros['fadeoutsound'] = p;\n  macros['unloopsound'] = p;\n  
+macros['loopsound'] = p;\n  macros['pausesound'] = p;\n  
+macros['stopsound'] = p;\n  macros['stopallsound'] = {\n    handler: 
+function () {\n      var s = macros.playsound.soundtracks;\n      for 
+(var j in s) {\n		if (s.hasOwnProperty(j)) {\n          s[j].pause();\n 
+         if (s[j].currentTime) {\n		    s[j].currentTime = 0;\n		  }\n		
+}\n      }\n    }\n  }\n  var div = 
+document.getElementById("storeArea").firstChild;\n  var fe = ["ogg", 
+"mp3", "wav", "webm"];\n  while (div) {\n    var b = 
+String.fromCharCode(92);\n    var q = '"';\n    var re = "['" + q + 
+"]([^" + q + "']*?)" + b + ".(ogg|mp3|wav|webm)['" + q + "]";\n    k(new
+ RegExp(re, "gi"));\n    div = div.nextSibling;\n  }\n\n  function k(c, 
+e) {\n    do {\n      var d = c.exec(div.innerHTML);\n      if (d) {\n  
+      var a = new Audio();\n        if (a.canPlayType) {\n          for 
+(var i = -1; i &lt; fe.length; i += 1) {\n            if (i &gt;= 0) 
+d[2] = fe[i];\n            if (a.canPlayType("audio/" + d[2])) break;\n 
+         }\n          if (i &lt; fe.length) {\n            
+a.setAttribute("src", d[1] + "." + d[2]);\n            a.interval = 
+null;\n            macros.playsound.soundtracks[d[1]] = a;\n          } 
+else console.log("Browser can't play '" + d[1] + "'");\n        }\n     
+ }\n    } while (d);\n  }\n}());</div><div tiddler="mantis-haters" tags="" modified="201301120902" created="201301120902" twine-position="1130,1270" modifier="twee">SLASH SHWING STAB TEAR GUT EVISCARATE\n\nthey scream as you send them back to LA\n\n[[MANTIS VICTORY SCREAM|victory]]</div><div tiddler="drain" tags="" modified="201301120900" created="201301120900" twine-position="1130,1130" modifier="twee">you
+ tear apart his flimsy American Apparel and drain his boy energy\n\nhe 
+turns into a photograph on your wall\n\nYOU ARE A HUGE PSYCHIC SLUTWAVE 
+[[MANTIS]] WITH DAY-GLO POWER SCYTHES\n\n[[annihilate the 
+haters|mantis-haters]]</div><div tiddler="magic-drive" tags="" modified="201301120809" created="201301120809" twine-position="710,2810" modifier="twee">he
+ gets inside and slides his drivers license inside the console to make 
+sure he's old enough to drive because you care about kid's safety and 
+make sure all your machinery reflects that\n\nhe's a pretty good driver 
+thanks to your ambient glitter filling him with basic wisdom\n\n[[LET'S 
+GO]]</div><div tiddler="flare" tags="" modified="201301120747" created="201301120747" twine-position="570,1550" modifier="twee">you
+ pull the trigger\n\nthe flare spirals high in the sky\n\nbursts\n\nhelp
+ is coming.\n\n[[re-apply glitter to every inch of your body from 
+emergency vial|jungle]]\n\n[[excrete mascara through eyeballs as defense
+ against high-flying LA curses|jungle]]\n\n[[secrete day-glo facepaint 
+through pores and form perfect power mask|jungle]]</div><div tiddler="flow" tags="" modified="201301120540" created="201301120540" twine-position="570,1270" modifier="twee">you
+ catch your way in flashes of sparks drizzling from ceiling 
+lighting\n\njungle of cables, don't trip\n\ncome on Ke$ha\n\n[[you got 
+this|there]]</div><div tiddler="MANTIS" tags="" modified="201301120845" created="201301120845" twine-position="990,1130" modifier="twee">//I
+ do destroy men on a weekly basis. It's like a hobby. I'm like a praying
+ mantis. They fuck me, and then I eat them.//\n\n&lt;&lt;back&gt;&gt;</div><div tiddler="jungle" tags="" modified="201301120521" created="201301120521" twine-position="570,1690" modifier="twee">you
+ head outside and stare into the night\n\nyou hear wheels and bad-ass 
+engine sounds\n\nthe Vagina Jungle skids to a stop and the doors pop 
+open in a blast of glitter.\n\n[[whirl inside]]</div><div tiddler="hell yeah" tags="" modified="201301120757" created="201301120757" twine-position="570,2390" modifier="twee">roadkill
+ demi-cloak, crystal dagger, middle finger talisman, crystal 
+armor\n\neverything is humming\n\n[[leap into the driver's 
+seat|driver]]\n\n[[take control of gunnery systems|gunnery]]</div><div tiddler="Vagina Jungle" tags="" modified="201301120522" created="201301120522" twine-position="710,1830" modifier="twee">//Whenever
+ a man came onto my bus, he had to drop trou, and I took a Polaroid of 
+him, just to emasculate him  and make sure he knew he was in the vagina 
+jungle. That???s what I call my bus.//\n\n&lt;&lt;back&gt;&gt;</div><div tiddler="hater" tags="" modified="201403061320" created="201301120937" twine-position="1270,1690" modifier="twee">I
+ WILL TURN ALL YOUR ACCOMPLISHMENTS AND BRIGHTEST MOMENTS TO 
+ASH\n\n&lt;html&gt;&lt;IMG SRC="kesha-1.jpg"&gt;&lt;/html&gt; \n\n[["I 
+pity your cursed mouth that can speak only negs, when mouths were made 
+for eating and laughing and make-outs"|hater1]]</div><div tiddler="Pluck shards from your face" tags="" modified="201403012016" created="201301120616" twine-position="430,570" modifier="twee">your
+ fans are all turned into snakes and fucking up shit\n\nchaotic energy 
+attack, probably off-world tech\n\n&lt;html&gt;&lt;IMG class="x" 
+SRC="kesha-blood.jpg"&gt;&lt;/html&gt;\n\n[[where the fuck are the 
+bodyguards]]</div></div>
+</body></html>

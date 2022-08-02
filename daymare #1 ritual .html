@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<!--[if lte IE 8]> <html class="lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html><!--<![endif]--><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<!--
+Made in Twine 1.4.1 (running on Windows 7)
+Built on 24 Jun 2014 at 00:33:42, Eastern Daylight Time
+
+Sugarcane is based on:
+
+TiddlyWiki 1.2.39 by Jeremy Ruston, (jeremy [at] osmosoft [dot] com)
+
+Published under a BSD open source license
+
+Copyright (c) Osmosoft Limited 2005
+
+Redistribution and use in source and binary forms, with or without modification,
+are permitted provided that the following conditions are met:
+
+Redistributions of source code must retain the above copyright notice, this
+list of conditions and the following disclaimer.
+
+Redistributions in binary form must reproduce the above copyright notice, this
+list of conditions and the following disclaimer in the documentation and/or other
+materials provided with the distribution.
+
+Neither the name of the Osmosoft Limited nor the names of its contributors may be
+used to endorse or promote products derived from this software without specific
+prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY
+EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
+OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
+SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR
+BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
+ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
+DAMAGE.
+-->
+<title>daymare #1: "ritual"</title>
+<script title="engine">
+(function(){
+
+function clone(a){var b={};if(!a||typeof a!="object"){return a}for(var property in a){if(typeof a[property]=="object"){try{b[property]=JSON.parse(JSON.stringify(a[property]));continue}catch(e){}}b[property]=a[property]}return b}function insertElement(a,d,f,c,e){var b=document.createElement(d);if(f){b.id=f}if(c){b.className=c}if(e){insertText(b,e)}if(a){a.appendChild(b)}return b}function insertText(a,b){return a.appendChild(document.createTextNode(b))}function removeChildren(a){while(a.hasChildNodes()){a.removeChild(a.firstChild)}}function findPassageParent(el){while(el&&el!=document.body&&!~el.className.indexOf("passage")){el=el.parentNode}return el==document.body?null:el}function setPageElement(c,b,a){var place;if(place=(typeof c=="string"?document.getElementById(c):c)){removeChildren(place);if(tale.has(b)){new Wikifier(place,tale.get(b).processText())}else{new Wikifier(place,a)}}}function addStyle(b){if(document.createStyleSheet){document.getElementsByTagName("head")[0].insertAdjacentHTML("beforeEnd","&nbsp;<style>"+b+"</style>")}else{var a=document.createElement("style");a.appendChild(document.createTextNode(b));document.getElementsByTagName("head")[0].appendChild(a)}}function alterCSS(text){var imgPassages=tale.lookup("tags","Twine.image");text=text.replace(/\/\*(?:[^\*]|\*(?!\/))*\*\//g,"");text=text.replace(/:link/g,"[class*=Link]");text=text.replace(/:visited/g,".visitedLink");return text.replace(new RegExp(Wikifier.imageFormatter.lookahead,"gim"),function(m,p1,p2,p3,src){for(var i=0;i<imgPassages.length;i++){if(imgPassages[i].title==src){src=imgPassages[i].text;break}}return"url("+src+")"})}function setTransitionCSS(styleText){styleText=alterCSS(styleText);var style=document.getElementById("transitionCSS");style.styleSheet?(style.styleSheet.cssText=styleText):(style.innerHTML=styleText)}function throwError(a,b,tooltip){if(a){var elem=insertElement(a,"span",null,"marked",b);tooltip&&elem.setAttribute("title",tooltip)}}Math.easeInOut=function(a){return(1-((Math.cos(a*Math.PI)+1)/2))};String.prototype.readMacroParams=function(keepquotes){var exec,re=/(?:\s*)(?:(?:"([^"]*)")|(?:'([^']*)')|(?:\[\[((?:[^\]]|\](?!\]))*)\]\])|([^"'\s]\S*))/mg,params=[];do{var val;exec=re.exec(this);if(exec){if(exec[1]){val=exec[1];keepquotes&&(val='"'+val+'"')}else{if(exec[2]){val=exec[2];keepquotes&&(val="'"+val+"'")}else{if(exec[3]){val=exec[3];keepquotes&&(val='"'+val.replace('"','\\"')+'"')}else{if(exec[4]){val=exec[4]}}}}val&&params.push(val)}}while(exec);return params};String.prototype.readBracketedList=function(){var c,b="\\[\\[([^\\]]+)\\]\\]",a="[^\\s$]+",e="(?:"+b+")|("+a+")",d=new RegExp(e,"mg"),f=[];do{c=d.exec(this);if(c){if(c[1]){f.push(c[1])}else{if(c[2]){f.push(c[2])}}}}while(c);return(f)};String.prototype.trim||(String.prototype.trim=function(){return this.replace(/^\s\s*/,"").replace(/\s\s*$/,"")});String.prototype.unDash=function(){var s=this.split("-");if(s.length>1){for(var t=1;t<s.length;t++){s[t]=s[t].substr(0,1).toUpperCase()+s[t].substr(1)}}return s.join("")};Array.prototype.indexOf||(Array.prototype.indexOf=function(b,d){d=(d==null)?0:d;var a=this.length;for(var c=d;c<a;c++){if(this[c]==b){return c}}return -1});(function(){function t(t){this.message=t}var e=window,r="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";t.prototype=Error(),t.prototype.name="InvalidCharacterError",e.btoa||(e.btoa=function(e){for(var o,n,a=0,i=r,c="";e.charAt(0|a)||(i="=",a%1);c+=i.charAt(63&o>>8-8*(a%1))){if(n=e.charCodeAt(a+=0.75),n>255){throw new t()}o=o<<8|n}return c}),e.atob||(e.atob=function(e){if(e=e.replace(/=+$/,""),1==e.length%4){throw new t()}for(var o,n,a=0,i=0,c="";n=e.charAt(i++);~n&&(o=a%4?64*o+n:n,a++%4)?c+=String.fromCharCode(255&o>>(6&-2*a)):0){n=r.indexOf(n)}return c})})();var hasTransition="transition" in document.documentElement.style||"-webkit-transition" in document.documentElement.style;function fade(f,c){var h;var e=f.cloneNode(true);var g=(c.fade=="in")?1:-1;f.parentNode.replaceChild(e,f);if(c.fade=="in"){h=0;e.style.visibility="visible"}else{h=1}b(e,h);var a=window.setInterval(d,25);function d(){h+=0.05*g;b(e,Math.easeInOut(h));if(((g==1)&&(h>=1))||((g==-1)&&(h<=0))){f.style.visibility=(c.fade=="in")?"visible":"hidden";if(e.parentNode){e.parentNode.replaceChild(f,e)}window.clearInterval(a);if(c.onComplete){c.onComplete.call(f)}}}function b(k,j){var l=Math.floor(j*100);k.style.zoom=1;k.style.filter="alpha(opacity="+l+")";k.style.opacity=j}}var scrollWindowInterval;function scrollWindowTo(e){var d=window.scrollY?window.scrollY:document.documentElement.scrollTop,g=k(e),c=Math.abs(d-g),b=0,j=(d>g)?-1:1;scrollWindowInterval=window.setInterval(h,25);function h(){b+=0.1;window.scrollTo(0,d+j*(c*Math.easeInOut(b)));if(b>=1){window.clearInterval(scrollWindowInterval)}}function k(o){var p=a(o);var q=p+o.offsetHeight;var l=window.scrollY?window.scrollY:document.documentElement.scrollTop;var m=window.innerHeight?window.innerHeight:document.documentElement.clientHeight;var n=l+m;if(p<l){return p}else{if(q>n){if(o.offsetHeight<m){return(p-(m-o.offsetHeight)+20)}else{return p}}else{return p}}}function a(l){var m=0;while(l.offsetParent){m+=l.offsetTop;l=l.offsetParent}return m}}function delta(old,neu){var vars,ret={};if(old&&neu){for(vars in neu){if(neu[vars]!==old[vars]){ret[vars]=neu[vars]}}}return ret}function History(){this.history=[{passage:null,variables:{}}];this.id=new Date().getTime()+""}History.prototype.encodeHistory=function(b,noVars){var ret=".",vars,type,hist=this.history[b],d=this.history[b+1]?delta(this.history[b+1].variables,hist.variables):hist.variables;function vtob(str){try{return window.btoa(unescape(encodeURIComponent(JSON.stringify(str))))}catch(e){return"0"}}if(!hist.passage||hist.passage.id==null){return""}ret+=hist.passage.id.toString(36);if(noVars){return ret}for(vars in d){type=typeof d[vars];if(type!="function"&&type!="undefined"){ret+="$"+vtob(vars)+","+vtob(d[vars])}}for(vars in hist.linkVars){type=typeof hist.linkVars[vars];if(type!="function"&&type!="undefined"){ret+="["+vtob(vars)+","+vtob(hist.linkVars[vars])}}return ret};History.prototype.decodeHistory=function(str,prev){var name,splits,variable,c,d,ret={variables:clone(prev.variables)||{}},match=/([a-z0-9]+)((?:\$[A-Za-z0-9\+\/=]+,[A-Za-z0-9\+\/=]+)*)((?:\[[A-Za-z0-9\+\/=]+,[A-Za-z0-9\+\/=]+)*)/g.exec(str);function btov(str){try{return JSON.parse(decodeURIComponent(escape(window.atob(str))))}catch(e){return 0}}if(match){name=parseInt(match[1],36);if(!tale.has(name)){return false}if(match[2]){ret.variables||(ret.variables={});splits=match[2].split("$");for(c=0;c<splits.length;c++){variable=splits[c].split(",");d=btov(variable[0]);if(d){ret.variables[d]=btov(variable[1])}}}if(match[3]){ret.linkVars||(ret.linkVars={});splits=match[3].split("[");for(c=0;c<splits.length;c++){variable=splits[c].split(",");d=btov(variable[0]);if(d){ret.linkVars[d]=btov(variable[1])}}}ret.passage=tale.get(name);return ret}};History.prototype.save=function(c){var hist,b,a="";for(b=this.history.length-1;b>=0;b--){hist=this.history[b];if(!hist){break}a+=this.encodeHistory(b)}return"#"+a};History.prototype.restore=function(){var a,b,c,vars;try{if(testplay){this.display(testplay,null,"quietly");return true}if(!window.location.hash||(window.location.hash=="#")){return false}if(window.location.hash.substr(0,2)=="#!"){c=window.location.hash.substr(2).split("_").join(" ");this.display(c,null,"quietly");return true}a=window.location.hash.replace("#","").split(".");for(b=0;b<a.length;b++){vars=this.decodeHistory(a[b],vars||{});if(vars){if(b==a.length-1){vars.variables=clone(this.history[0].variables);for(c in this.history[0].linkVars){vars.variables[c]=clone(this.history[0].linkVars[c])}this.history.unshift(vars);this.display(vars.passage.title,null,"back")}else{this.history.unshift(vars)}}}return true}catch(d){return false}};History.prototype.saveVariables=function(c,el,callback){this.history.unshift({passage:c,variables:clone(this.history[0].variables)});if(typeof callback=="function"){callback.call(el);this.history[1]&&(this.history[1].linkVars=delta(this.history[1].variables,this.history[0].variables))}};var restart=History.prototype.restart=function(){if(typeof window.history.replaceState=="function"){this.pushState(true,window.location.href.replace(/#.*$/,""));window.location.reload()}else{window.location.hash=""}};var version={major:4,minor:1,revision:0,date:new Date("January 1, 2013"),extensions:{}};var testplay,tale,state,prerender={},postrender={},macros=window.macros={};version.extensions.displayMacro={major:2,minor:0,revision:0};macros.display={parameters:[],handler:function(place,macroName,params,parser){var t,j,output,oldDisplayParams,name=parser.fullArgs();if(macroName!="display"){output=macroName;params=name.readMacroParams(true);try{for(j=0;j<params.length;j++){params[j]=eval(Wikifier.parse(params[j]))}}catch(e){throwError(place,"<<"+macroName+" "+name+">> bad argument: "+params[j],parser.fullMatch());return}}else{try{output=eval(name)}catch(e){}if(output==null){if(tale.has(name)){output=name}else{throwError(place,"<<"+macroName+">> bad expression: "+e.message,parser.fullMatch());return}}}if(!output){throwError(place,'"'+name+'" did not evaluate to a passage name',parser.fullMatch())}else{if(!tale.has(output+"")){throwError(place,'The "'+output+'" passage does not exist',parser.fullMatch())}else{oldDisplayParams=this.parameters;this.parameters=params;t=tale.get(output+"");if(t.tags.indexOf("script")>-1){scriptEval(t)}else{new Wikifier(place,t.processText())}this.parameters=oldDisplayParams}}}};version.extensions.actionsMacro={major:1,minor:2,revision:0};macros.actions={handler:function(a,f,g){var v=state.history[0].variables,e=insertElement(a,"ul");if(!v["actions clicked"]){v["actions clicked"]={}}for(var b=0;b<g.length;b++){if(v["actions clicked"][g[b]]){continue}var d=insertElement(e,"li");var c=Wikifier.createInternalLink(d,g[b],(function(link){return function(){state.history[0].variables["actions clicked"][link]=true}}(g[b])));insertText(c,g[b])}}};version.extensions.printMacro={major:1,minor:1,revision:1};macros.print={handler:function(place,macroName,params,parser){try{var args=parser.fullArgs(macroName!="print"),output=eval(args);if(output!=null&&(typeof output!="number"||!isNaN(output))){new Wikifier(place,output.toString())}}catch(e){throwError(place,"<<print>> bad expression: "+e.message,parser.fullMatch())}}};version.extensions.setMacro={major:1,minor:1,revision:0};macros.set={handler:function(a,b,c,parser){macros.set.run(a,parser.fullArgs(),parser)},run:function(a,expression,parser){try{return eval(expression)}catch(e){throwError(a,"bad expression: "+e.message,parser?parser.fullMatch():expression)}}};version.extensions.ifMacros={major:2,minor:0,revision:0};macros["if"]={handler:function(place,macroName,params,parser){var conditions=[],clauses=[],srcOffset=parser.source.indexOf(">>",parser.matchStart)+2,src=parser.source.slice(srcOffset),endPos=-1,currentCond=parser.fullArgs(),currentClause="",t=0,nesting=0;for(var i=0;i<src.length;i++){if(src.substr(i,9)=="<<endif>>"){nesting--;if(nesting<0){endPos=srcOffset+i+9;conditions.push(currentCond.trim());clauses.push(currentClause);break}}if((src.substr(i,6)=="<<else")&&!nesting){conditions.push(currentCond.trim());clauses.push(currentClause);currentClause="";t=src.indexOf(">>",i+6);if(src.substr(i+6,4)==" if "||src.substr(i+6,3)=="if "){currentCond=Wikifier.parse(src.slice(i+9,t))}else{currentCond="true"}i=t+2}if(src.substr(i,5)=="<<if "){nesting++}currentClause+=src.charAt(i)}try{if(endPos!=-1){parser.nextMatch=endPos;for(i=0;i<clauses.length;i++){if(eval(conditions[i])){new Wikifier(place,clauses[i]);break}}}else{throwError(place,"can't find matching endif",parser.fullMatch())}}catch(e){throwError(place,"<<if>> bad condition: "+e.message,!i?parser.fullMatch():"<<else if "+conditions[i]+">>")}}};macros["else"]=macros.elseif=macros.endif={handler:function(){}};version.extensions.rememberMacro={major:2,minor:0,revision:0};macros.remember={handler:function(place,macroName,params,parser){var variable,value,re,match,statement=params.join(" ");macros.set.run(place,parser.fullArgs());if(!window.localStorage){throwError(place,"<<remember>> can't be used "+(window.location.protocol=="file:"?" by local HTML files ":"")+" in this browser.",parser.fullMatch());return}re=new RegExp(Wikifier.textPrimitives.variable,"g");while(match=re.exec(statement)){variable=match[1];value=state.history[0].variables[variable];try{value=JSON.stringify(value)}catch(e){throwError(place,"can't remember $"+variable+" ("+(typeof value)+")",parser.fullMatch());return}window.localStorage[this.prefix+variable]=value}},init:function(){var i,variable,value;if(tale.has("StoryTitle")){this.prefix="Twine."+tale.title+"."}else{this.prefix="Twine.Untitled Story."}for(i in window.localStorage){if(i.indexOf(this.prefix)==0){variable=i.substr(this.prefix.length);value=window.localStorage[i];try{value=JSON.parse(value);state.history[0].variables[variable]=value}catch(e){}}}},expire:null,prefix:null};version.extensions.forgetMacro={major:1,minor:0,revision:0};macros.forget={handler:function(place,macroName,params){var re,match,variable,statement=params.join(" ");re=new RegExp(Wikifier.textPrimitives.variable,"g");while(match=re.exec(statement)){variable=match[1]+"";delete state.history[0].variables[variable];delete window.localStorage[macros.remember.prefix+variable]}}};version.extensions.SilentlyMacro={major:1,minor:1,revision:0};macros.nobr=macros.silently={handler:function(place,macroName,f,parser){var i,h=insertElement(null,"div"),k=parser.source.indexOf(">>",parser.matchStart)+2,a=parser.source.slice(k),d=-1,c="",l=0;for(i=0;i<a.length;i++){if(a.substr(i,macroName.length+7)=="<<end"+macroName+">>"){if(l==0){d=k+i+macroName.length+7;break}else{l--}}else{if(a.substr(i,macroName.length+4)=="<<"+macroName+">>"){l++}}if(macroName=="nobr"&&a.charAt(i)=="\n"){c+="\u200c"}else{c+=a.charAt(i)}}if(d!=-1){new Wikifier(macroName=="nobr"?place:h,c);parser.nextMatch=d}else{throwError(place,"can't find matching end"+macroName,parser.fullMatch())}}};macros.endsilently={handler:function(){}};version.extensions.choiceMacro={major:2,minor:0,revision:0};macros.choice={callback:function(){var i,other,passage=findPassageParent(this);if(passage){other=passage.querySelectorAll(".choice");for(i=0;i<other.length;i++){other[i].outerHTML="<span class=disabled>"+other[i].innerHTML+"</span>"}state.history[0].variables["choice clicked"][passage.id.replace(/\|[^\]]*$/,"")]=true}},handler:function(A,C,D,parser){var link,id,match,text=D[1]||D[0].split("|")[0],passage=findPassageParent(A);if(!passage){throwError(A,"<<"+C+">> can't be used here.",parser.fullMatch());return}id=(passage&&passage.id.replace(/\|[^\]]*$/,""));if(id&&(state.history[0].variables["choice clicked"]||(state.history[0].variables["choice clicked"]={}))[id]){insertElement(A,"span",null,"disabled",text)}else{match=new RegExp(Wikifier.linkFormatter.lookahead).exec(parser.fullArgs());if(match){link=Wikifier.linkFormatter.makeLink(A,match,this.callback)}else{link=Wikifier.linkFormatter.makeLink(A,[0,text,D[0]],this.callback)}link.className+=" "+C}}};version.extensions.backMacro={major:2,minor:0,revision:0};macros.back={labeltext:"&#171; back",handler:function(a,b,e,parser){var labelParam,c,el,labeltouse=this.labeltext,steps=1,stepsParam=e.indexOf("steps"),stepsParam2="";if(stepsParam>0){stepsParam2=e[stepsParam-1];if(stepsParam2[0]=="$"){try{stepsParam2=eval(Wikifier.parse(stepsParam2))}catch(r){throwError(a,"<<"+b+">> bad expression: "+r.message,parser.fullMatch());return}}steps=+stepsParam2;if(steps>=state.history.length-1){steps=state.history.length-2}e.splice(stepsParam-1,2)}labelParam=e.indexOf("label");if(labelParam>-1){if(!e[labelParam+1]){throwError(a,e[labelParam]+" keyword needs an additional label parameter",parser.fullMatch());return}labeltouse=e[labelParam+1];if(e[labelParam]=="labeldefault"){this.labeltext=labeltouse}e.splice(labelParam,2)}if(stepsParam<=0){if(e[0]){if(e[0].charAt(0)=="$"){try{e=eval(Wikifier.parse(e[0]))}catch(r){throwError(a,"<<"+b+">> bad expression: "+r.message,parser.fullMatch());return}}else{e=e[0]}if(!tale.has(e)){throwError(a,'The "'+e+'" passage does not exist',parser.fullMatch());return}for(c=0;c<state.history.length;c++){if(state.history[c].passage.title==e){steps=c;break}}}}el=document.createElement("a");el.className=b;el.onclick=(function(b){return function(){return macros.back.onclick(b=="back",steps,el)}}(b));el.innerHTML=labeltouse;a.appendChild(el)}};version.extensions.returnMacro={major:2,minor:0,revision:0};macros["return"]={labeltext:"&#171; return",handler:function(a,b,e){macros.back.handler.call(this,a,b,e)}};version.extensions.textInputMacro={major:2,minor:0,revision:0};macros.checkbox=macros.radio=macros.textinput={handler:function(A,C,D,parser){var match,class_=C.replace("input","Input"),q=A.querySelectorAll("input"),id=class_+"|"+((q&&q.length)||0);input=insertElement(null,"input",id,class_);input.name=D[0];input.type=C.replace("input","");A.appendChild(input);if(C=="textinput"&&D[1]){match=new RegExp(Wikifier.linkFormatter.lookahead).exec(parser.fullArgs());if(match){Wikifier.linkFormatter.makeLink(A,match,macros.button.callback,"button")}else{Wikifier.linkFormatter.makeLink(A,[0,(D[2]||D[1]),D[1]],macros.button.callback,"button")}}else{if((C=="radio"||C=="checkbox")&&D[1]){input.value=D[1];insertElement(A,"label","","",D[1]).setAttribute("for",id);if(D[2]){insertElement(A,"br");D.splice(1,1);macros[C].handler(A,C,D)}}}}};version.extensions.buttonMacro={major:1,minor:0,revision:0};macros.button={callback:function(){var el=findPassageParent(this);if(el){var inputs=el.querySelectorAll("input");for(i=0;i<inputs.length;i++){if(inputs[i].type!="checkbox"&&(inputs[i].type!="radio"||inputs[i].checked)){macros.set.run(null,Wikifier.parse(inputs[i].name+' = "'+inputs[i].value.replace(/"/g,'\\"')+'"'))}else{if(inputs[i].type=="checkbox"&&inputs[i].checked){macros.set.run(null,Wikifier.parse(inputs[i].name+" = [].concat("+inputs[i].name+" || []);"));macros.set.run(null,Wikifier.parse(inputs[i].name+'.push("'+inputs[i].value.replace(/"/g,'\\"')+'")'))}}}}},handler:function(A,C,D,parser){var link,match=new RegExp(Wikifier.linkFormatter.lookahead).exec(parser.fullArgs());if(match){Wikifier.linkFormatter.makeLink(A,match,this.callback,"button")}else{Wikifier.linkFormatter.makeLink(A,[0,D[1]||D[0],D[0]],this.callback,"button")}}};function Passage(c,b,a,ofunc,okey){var t,k;this.title=c;if(b){this.id=a;if(ofunc!=null&&typeof ofunc=="function"&&okey!=null){t=b.firstChild?b.firstChild.nodeValue:"";this.initialText=this.text=ofunc(Passage.unescapeLineBreaks(t),okey);this.tags=b.getAttribute("tags");if(typeof this.tags=="string"){this.tags=ofunc(this.tags,okey);this.tags=this.tags.readBracketedList()}else{this.tags=[]}}else{this.initialText=this.text=Passage.unescapeLineBreaks(b.firstChild?b.firstChild.nodeValue:"");this.tags=b.getAttribute("tags");if(typeof this.tags=="string"){this.tags=this.tags.readBracketedList()}else{this.tags=[]}}if(!~(this.tags.indexOf("Twine.image"))){this.preloadImages()}}else{this.initialText=this.text="@@This passage does not exist: "+c+"@@";this.tags=[]}}Passage.prototype.preloadImages=function(){var u="s*['\"]?([^\"']+.(jpe?g|a?png|gif|bmp|webp|svg))['\"]?s*",k=function(c,e){var i,d;do{d=c.exec(this.initialText);if(d){i=new Image();i.src=d[e]}}while(d);return k};k.call(this,new RegExp(Wikifier.imageFormatter.lookahead.replace("[^\\[\\]\\|]+",u),"mg"),4).call(this,new RegExp("url("+u+")","mig"),1).call(this,new RegExp("srcs*="+u,"mig"),1)};Passage.unescapeLineBreaks=function(a){if(a&&typeof a=="string"){return a.replace(/\\n/mg,"\n").replace(/\\t/mg,"\t").replace(/\\s/mg,"\\").replace(/\\/mg,"\\").replace(/\r/mg,"")}else{return""}};Passage.prototype.setTags=function(b){var t=this.tags!=null&&this.tags.length?this.tags.join(" "):"";if(t){b.setAttribute("data-tags",this.tags.join(" "))}document.body.setAttribute("data-tags",t)};Passage.prototype.processText=function(){var ret=this.text;if(~this.tags.indexOf("nobr")){ret=ret.replace(/\n/g,"\u200c")}if(~this.tags.indexOf("Twine.image")){ret="[img["+ret+"]]"}return ret};function Tale(){var a,b,c,lines,i,kv,ns,nsc,nope,settings=this.storysettings={lookup:function(a){return !~["0","off","false"].indexOf((this[a]+""))}},tiddlerTitle="";function deswap(t,k){var i,c,p,p1,up,r="";for(i=0;i<t.length;i++){c=t.charAt(i);up=(c==c.toUpperCase());p=k.indexOf(c.toLowerCase());if(p>-1){p1=p+(p%2==0?1:-1);if(p1>=k.length){p1=p}c=k.charAt(p1);up&&(c=c.toUpperCase())}r=r+c}return r}this.passages={};if(document.normalize){document.normalize()}a=document.getElementById("storeArea").children;for(b=0;b<a.length;b++){c=a[b];if(c.getAttribute&&c.getAttribute("tiddler")=="StorySettings"){lines=new Passage("StorySettings",c,0,null,null).text.split("\n");for(i in lines){if(typeof lines[i]=="string"&&lines[i].indexOf(":")>-1){kv=lines[i].toLowerCase().split(":");kv[0]=kv[0].replace(/^\s+|\s+$/g,"");kv[1]=kv[1].replace(/^\s+|\s+$/g,"");if(kv[0]!="lookup"){settings[kv[0]]=kv[1]}}}}}if(settings.obfuscate=="swap"&&settings.obfuscatekey){ns="";nope=':\\"n0';if(settings.obfuscatekey=="rot13"){settings.obfuscatekey="anbocpdqerfsgthuivjwkxlymz"}for(i=0;i<settings.obfuscatekey.length;i++){nsc=settings.obfuscatekey[i];if(ns.indexOf(nsc)==-1&&nope.indexOf(nsc)==-1){ns=ns+nsc}}settings.obfuscatekey=ns;for(b=0;b<a.length;b++){c=a[b];if(c.getAttribute&&(tiddlerTitle=c.getAttribute("tiddler"))){if(tiddlerTitle!="StorySettings"){tiddlerTitle=deswap(tiddlerTitle,settings.obfuscatekey)}this.passages[tiddlerTitle]=new Passage(tiddlerTitle,c,b+1,deswap,settings.obfuscatekey)}}}else{for(b=0;b<a.length;b++){c=a[b];if(c.getAttribute&&(tiddlerTitle=c.getAttribute("tiddler"))){this.passages[tiddlerTitle]=new Passage(tiddlerTitle,c,b,null,null)}}}}Tale.prototype.has=function(a){if(typeof a=="string"){return(this.passages[a]!=null)}else{for(var i in this.passages){if(this.passages[i].id==a){return true}}return false}};Tale.prototype.get=function(a){if(typeof a=="string"){return this.passages[a]||new Passage(a)}else{for(var i in this.passages){if(this.passages[i].id==a){return this.passages[i]}}}};Tale.prototype.lookup=function(h,g,a){var d=[];for(var c in this.passages){var f=this.passages[c];for(var b=0;b<f[h].length;b++){if(f[h][b]==g){d.push(f)}}}if(!a){a="title"}d.sort(function(k,j){if(k[a]==j[a]){return(0)}else{return(k[a]<j[a])?-1:+1}});return d};Tale.prototype.canUndo=function(){return this.storysettings.lookup("undo")};Tale.prototype.forEachStylesheet=function(tags,callback){var passage,i;tags=tags||[];if(typeof callback!="function"){return}for(passage in this.passages){passage=tale.passages[passage];if(passage&&~passage.tags.indexOf("stylesheet")){for(i=0;i<tags.length;i++){if(~passage.tags.indexOf(tags[i])){callback(passage);break}}}}};Tale.prototype.setPageElements=function(){var storyTitle,defaultTitle="daymare1";setPageElement("storyTitle","StoryTitle",defaultTitle);storyTitle=document.getElementById("storyTitle");document.title=this.title=(storyTitle&&(storyTitle.textContent||storyTitle.innerText))||defaultTitle;setPageElement("storySubtitle","StorySubtitle","");if(tale.has("StoryAuthor")){setPageElement("titleSeparator",null,"\n");setPageElement("storyAuthor","StoryAuthor","")}if(tale.has("StoryMenu")){document.getElementById("storyMenu").style.display="block";setPageElement("storyMenu","StoryMenu","")}};function Wikifier(place,source){this.source=source;this.output=place;this.nextMatch=0;this.assembleFormatterMatches(Wikifier.formatters);this.subWikify(this.output)}Wikifier.prototype.assembleFormatterMatches=function(formatters){this.formatters=[];var pattern=[];for(var n=0;n<formatters.length;n++){pattern.push("("+formatters[n].match+")");this.formatters.push(formatters[n])}this.formatterRegExp=new RegExp(pattern.join("|"),"mg")};Wikifier.prototype.subWikify=function(output,terminator){var terminatorMatch,formatterMatch,oldOutput=this.output;this.output=output;var terminatorRegExp=terminator?new RegExp("("+terminator+")","mg"):null;do{this.formatterRegExp.lastIndex=this.nextMatch;if(terminatorRegExp){terminatorRegExp.lastIndex=this.nextMatch}formatterMatch=this.formatterRegExp.exec(this.source);terminatorMatch=terminatorRegExp?terminatorRegExp.exec(this.source):null;if(terminatorMatch&&(!formatterMatch||terminatorMatch.index<=formatterMatch.index)){if(terminatorMatch.index>this.nextMatch){this.outputText(this.output,this.nextMatch,terminatorMatch.index)}this.matchStart=terminatorMatch.index;this.matchLength=terminatorMatch[1].length;this.matchText=terminatorMatch[1];this.nextMatch=terminatorMatch.index+terminatorMatch[1].length;this.output=oldOutput;return}else{if(formatterMatch){if(formatterMatch.index>this.nextMatch){this.outputText(this.output,this.nextMatch,formatterMatch.index)}this.matchStart=formatterMatch.index;this.matchLength=formatterMatch[0].length;this.matchText=formatterMatch[0];this.nextMatch=this.formatterRegExp.lastIndex;var matchingFormatter=-1;for(var t=1;t<formatterMatch.length;t++){if(formatterMatch[t]){matchingFormatter=t-1;break}}if(matchingFormatter!=-1){this.formatters[matchingFormatter].handler(this)}}}}while(terminatorMatch||formatterMatch);if(this.nextMatch<this.source.length){this.outputText(this.output,this.nextMatch,this.source.length);this.nextMatch=this.source.length}this.output=oldOutput};Wikifier.prototype.outputText=function(place,startPos,endPos){insertText(place,this.source.substring(startPos,endPos))};Wikifier.prototype.fullMatch=function(){return this.source.slice(this.matchStart,this.source.indexOf(">>",this.matchStart)+2)};Wikifier.prototype.fullArgs=function(includeName){var source=this.source.replace(/\u200c/g," "),endPos=source.indexOf(">>",this.matchStart),startPos=source.indexOf(includeName?"<<":" ",this.matchStart);if(!~startPos||!~endPos||endPos<=startPos){return""}return Wikifier.parse(source.slice(startPos+(includeName?2:1),endPos).trim())};Wikifier.parse=function(input){var m,re,b=input,found=[],g="(?=(?:[^\"'\\\\]*(?:\\\\.|'(?:[^'\\\\]*\\\\.)*[^'\\\\]*'|\"(?:[^\"\\\\]*\\\\.)*[^\"\\\\]*\"))*[^'\"]*$)";function alter(from,to){return b.replace(new RegExp(from+g,"gi"),to)}re=new RegExp(Wikifier.textPrimitives.variable,"gi");while(m=re.exec(input)){if(!~found.indexOf(m[0])){b=m[0]+" == null && ("+m[0]+" = 0);"+b;found.push(m[0])}}b=alter(Wikifier.textPrimitives.variable,"state.history[0].variables.$1");b=alter("\\beq\\b"," == ");b=alter("\\bneq\\b"," != ");b=alter("\\bgt\\b"," > ");b=alter("\\bgte\\b"," >= ");b=alter("\\blt\\b"," < ");b=alter("\\blte\\b"," <= ");b=alter("\\band\\b"," && ");b=alter("\\bor\\b"," || ");b=alter("\\bnot\\b"," ! ");b=alter("\\bis\\b"," == ");b=alter("\\bto\\b"," = ");return b};Wikifier.formatHelpers={charFormatHelper:function(a){var b=insertElement(a.output,this.element);a.subWikify(b,this.terminator)},inlineCssHelper:function(w){var s,v,lookaheadMatch,gotMatch,styles=[],lookahead="(?:("+Wikifier.textPrimitives.anyLetter+"+)\\(([^\\)\\|\\n]+)(?:\\):))|(?:("+Wikifier.textPrimitives.anyLetter+"+):([^;\\|\\n]+);)",lookaheadRegExp=new RegExp(lookahead,"mg"),hadStyle=false;do{lookaheadRegExp.lastIndex=w.nextMatch;lookaheadMatch=lookaheadRegExp.exec(w.source);gotMatch=lookaheadMatch&&lookaheadMatch.index==w.nextMatch;if(gotMatch){hadStyle=true;if(lookaheadMatch[1]){s=lookaheadMatch[1].unDash();v=lookaheadMatch[2]}else{s=lookaheadMatch[3].unDash();v=lookaheadMatch[4]}switch(s){case"bgcolor":s="backgroundColor";break;case"float":s="cssFloat";break}styles.push({style:s,value:v});w.nextMatch=lookaheadMatch.index+lookaheadMatch[0].length}}while(gotMatch);return styles},monospacedByLineHelper:function(w){var lookaheadRegExp=new RegExp(this.lookahead,"mg");lookaheadRegExp.lastIndex=w.matchStart;var lookaheadMatch=lookaheadRegExp.exec(w.source);if(lookaheadMatch&&lookaheadMatch.index==w.matchStart){var text=lookaheadMatch[1];if(navigator.userAgent.indexOf("msie")!=-1&&navigator.userAgent.indexOf("opera")==-1){text=text.replace(/\n/g,"\r")}var e=insertElement(w.output,"pre",null,null,text);w.nextMatch=lookaheadMatch.index+lookaheadMatch[0].length}}};Wikifier.formatters=[{name:"table",match:"^\\|(?:[^\\n]*)\\|(?:[fhc]?)$",lookahead:"^\\|([^\\n]*)\\|([fhc]?)$",rowTerminator:"\\|(?:[fhc]?)$\\n?",cellPattern:"(?:\\|([^\\n\\|]*)\\|)|(\\|[fhc]?$\\n?)",cellTerminator:"(?:\\x20*)\\|",rowTypes:{"c":"caption","h":"thead","":"tbody","f":"tfoot"},handler:function(w){var rowContainer,rowElement,lookaheadMatch,matched,table=insertElement(w.output,"table"),lookaheadRegExp=new RegExp(this.lookahead,"mg"),currRowType=null,nextRowType,prevColumns=[],rowCount=0;w.nextMatch=w.matchStart;do{lookaheadRegExp.lastIndex=w.nextMatch;lookaheadMatch=lookaheadRegExp.exec(w.source),matched=lookaheadMatch&&lookaheadMatch.index==w.nextMatch;if(matched){nextRowType=lookaheadMatch[2];if(nextRowType!=currRowType){rowContainer=insertElement(table,this.rowTypes[nextRowType])}currRowType=nextRowType;if(currRowType=="c"){if(rowCount==0){rowContainer.setAttribute("align","top")}else{rowContainer.setAttribute("align","bottom")}w.nextMatch=w.nextMatch+1;w.subWikify(rowContainer,this.rowTerminator)}else{rowElement=insertElement(rowContainer,"tr");this.rowHandler(w,rowElement,prevColumns)}rowCount++}}while(matched)},rowHandler:function(w,e,prevColumns){var cellMatch,matched,col=0,currColCount=1,cellRegExp=new RegExp(this.cellPattern,"mg");do{cellRegExp.lastIndex=w.nextMatch;cellMatch=cellRegExp.exec(w.source);matched=cellMatch&&cellMatch.index==w.nextMatch;if(matched){if(cellMatch[1]=="~"){var last=prevColumns[col];if(last){last.rowCount++;last.element.setAttribute("rowSpan",last.rowCount);last.element.setAttribute("rowspan",last.rowCount);last.element.valign="center"}w.nextMatch=cellMatch.index+cellMatch[0].length-1}else{if(cellMatch[1]==">"){currColCount++;w.nextMatch=cellMatch.index+cellMatch[0].length-1}else{if(cellMatch[2]){w.nextMatch=cellMatch.index+cellMatch[0].length;break}else{var spaceLeft=false,spaceRight=false,lastColCount,lastColElement,styles,cell,t;w.nextMatch++;styles=Wikifier.formatHelpers.inlineCssHelper(w);while(w.source.substr(w.nextMatch,1)==" "){spaceLeft=true;w.nextMatch++}if(w.source.substr(w.nextMatch,1)=="!"){cell=insertElement(e,"th");w.nextMatch++}else{cell=insertElement(e,"td")}prevColumns[col]={rowCount:1,element:cell};lastColCount=1;lastColElement=cell;if(currColCount>1){cell.setAttribute("colSpan",currColCount);cell.setAttribute("colspan",currColCount);currColCount=1}for(t=0;t<styles.length;t++){cell.style[styles[t].style]=styles[t].value}w.subWikify(cell,this.cellTerminator);if(w.matchText.substr(w.matchText.length-2,1)==" "){spaceRight=true}if(spaceLeft&&spaceRight){cell.align="center"}else{if(spaceLeft){cell.align="right"}else{if(spaceRight){cell.align="left"}}}w.nextMatch=w.nextMatch-1}}}col++}}while(matched)}},{name:"rule",match:"^----$\\n?",handler:function(w){insertElement(w.output,"hr")}},{name:"emdash",match:"--",handler:function(a){insertElement(a.output,"span",null,"char "+String.fromCharCode(8212),String.fromCharCode(8212))}},{name:"heading",match:"^!{1,5}",terminator:"\\n",handler:function(w){var e=insertElement(w.output,"h"+w.matchLength);w.subWikify(e,this.terminator)}},{name:"monospacedByLine",match:"^\\{\\{\\{\\n",lookahead:"^\\{\\{\\{\\n((?:^[^\\n]*\\n)+?)(^\\}\\}\\}$\\n?)",handler:Wikifier.formatHelpers.monospacedByLineHelper},{name:"monospacedByLineForPlugin",match:"^//\\{\\{\\{\\n",lookahead:"^//\\{\\{\\{\\n\\n*((?:^[^\\n]*\\n)+?)(\\n*^//\\}\\}\\}$\\n?)",handler:Wikifier.formatHelpers.monospacedByLineHelper},{name:"wikifyCommentForPlugin",match:"^/\\*\\*\\*\\n",terminator:"^\\*\\*\\*/\\n",handler:function(w){w.subWikify(w.output,this.terminator)}},{name:"quoteByBlock",match:"^<<<\\n",terminator:"^<<<\\n",handler:function(w){var e=insertElement(w.output,"blockquote");w.subWikify(e,this.terminator)}},{name:"quoteByLine",match:"^>+",terminator:"\\n",element:"blockquote",handler:function(w){var lookaheadRegExp=new RegExp(this.match,"mg");var placeStack=[w.output];var currLevel=0;var newLevel=w.matchLength;var t;do{if(newLevel>currLevel){for(t=currLevel;t<newLevel;t++){placeStack.push(insertElement(placeStack[placeStack.length-1],this.element))}}else{if(newLevel<currLevel){for(t=currLevel;t>newLevel;t--){placeStack.pop()}}}currLevel=newLevel;w.subWikify(placeStack[placeStack.length-1],this.terminator);lookaheadRegExp.lastIndex=w.nextMatch;var lookaheadMatch=lookaheadRegExp.exec(w.source);var matched=lookaheadMatch&&lookaheadMatch.index==w.nextMatch;if(matched){newLevel=lookaheadMatch[0].length;w.nextMatch+=lookaheadMatch[0].length;insertElement(placeStack[placeStack.length-1],"br")}}while(matched)}},{name:"list",match:"^(?:(?:\\*+)|(?:#+))",lookahead:"^(?:(\\*+)|(#+))",terminator:"\\n",outerElement:"ul",itemElement:"li",handler:function(w){var lookaheadRegExp=new RegExp(this.lookahead,"mg");w.nextMatch=w.matchStart;var placeStack=[w.output];var currType=null,newType;var currLevel=0,newLevel;var t;do{lookaheadRegExp.lastIndex=w.nextMatch;var lookaheadMatch=lookaheadRegExp.exec(w.source);var matched=lookaheadMatch&&lookaheadMatch.index==w.nextMatch;if(matched){if(lookaheadMatch[1]){newType="ul"}if(lookaheadMatch[2]){newType="ol"}newLevel=lookaheadMatch[0].length;w.nextMatch+=lookaheadMatch[0].length;if(newLevel>currLevel){for(t=currLevel;t<newLevel;t++){placeStack.push(insertElement(placeStack[placeStack.length-1],newType))}}else{if(newLevel<currLevel){for(t=currLevel;t>newLevel;t--){placeStack.pop()}}else{if(newLevel==currLevel&&newType!=currType){placeStack.pop();placeStack.push(insertElement(placeStack[placeStack.length-1],newType))}}}currLevel=newLevel;currType=newType;var e=insertElement(placeStack[placeStack.length-1],"li");w.subWikify(e,this.terminator)}}while(matched)}},(Wikifier.urlFormatter={name:"urlLink",match:"(?:http|https|mailto|javascript|ftp|data):[^\\s'\"]+(?:/|\\b)",handler:function(w){var e=Wikifier.createExternalLink(w.output,w.matchText);w.outputText(e,w.matchStart,w.nextMatch)}}),(Wikifier.linkFormatter={name:"prettyLink",match:"\\[\\[",lookahead:"\\[\\[([^\\|\\]]*?)(?:\\|(.*?))?\\](?:\\[(.*?)])?\\]",makeInternalOrExternal:function(out,title,callback,type){if(title&&!tale.has(title)&&(title.match(Wikifier.urlFormatter.match,"g")||~title.search(/[\.\\\/#]/))){return Wikifier.createExternalLink(out,title,callback,type)}else{return Wikifier.createInternalLink(out,title,callback,type)}},makeCallback:function(out,code,callback){return function(){macros.set.run(out,Wikifier.parse(code));typeof callback=="function"&&callback.call(this)}},makeLink:function(out,match,callback2,type){var link,title,callback;if(match[3]){callback=this.makeCallback(out,match[3],callback2)}else{typeof callback2=="function"&&(callback=callback2)}title=Wikifier.parsePassageTitle(match[2]||match[1]);link=this.makeInternalOrExternal(out,title,callback,type);setPageElement(link,null,match[2]?match[1]:title);return link},handler:function(w){var lookaheadRegExp=new RegExp(this.lookahead,"mg");lookaheadRegExp.lastIndex=w.matchStart;var lookaheadMatch=lookaheadRegExp.exec(w.source);if(lookaheadMatch&&lookaheadMatch.index==w.matchStart){this.makeLink(w.output,lookaheadMatch);w.nextMatch=lookaheadMatch.index+lookaheadMatch[0].length}}}),(Wikifier.imageFormatter={name:"image",match:"\\[(?:[<]{0,1})(?:[>]{0,1})[Ii][Mm][Gg]\\[",lookahead:"\\[([<]?)(>?)img\\[(?:([^\\|\\]]+)\\|)?([^\\[\\]\\|]+)\\](?:\\[([^\\]]*)\\]?)?(\\])",handler:function(w){var lookaheadRegExp=new RegExp(this.lookahead,"mig");lookaheadRegExp.lastIndex=w.matchStart;var lookaheadMatch=lookaheadRegExp.exec(w.source);if(lookaheadMatch&&lookaheadMatch.index==w.matchStart){var e=w.output,title=Wikifier.parsePassageTitle(lookaheadMatch[5]);if(title){e=Wikifier.linkFormatter.makeInternalOrExternal(w.output,title)}var img=insertElement(e,"img");if(lookaheadMatch[1]){img.align="left"}else{if(lookaheadMatch[2]){img.align="right"}}if(lookaheadMatch[3]){img.title=lookaheadMatch[3]}img.src=lookaheadMatch[4];var imgPassages=tale.lookup("tags","Twine.image");for(var j=0;j<imgPassages.length;j++){if(imgPassages[j].title==lookaheadMatch[4]){img.src=imgPassages[j].text;break}}w.nextMatch=lookaheadMatch.index+lookaheadMatch[0].length}}}),{name:"macro",match:"<<",lookahead:"<<([^>\\s]+)(?:\\s*)((?:[^>]|>(?!>))*)>>",handler:function(w){var lookaheadRegExp=new RegExp(this.lookahead,"mg");lookaheadRegExp.lastIndex=w.matchStart;var lookaheadMatch=lookaheadRegExp.exec(w.source.replace(/\u200c/g,"\n"));if(lookaheadMatch&&lookaheadMatch.index==w.matchStart&&lookaheadMatch[1]){var params=lookaheadMatch[2].readMacroParams();w.nextMatch=lookaheadMatch.index+lookaheadMatch[0].length;var name=lookaheadMatch[1];try{var macro=macros[name];if(macro&&macro.handler){macro.handler(w.output,name,params,w)}else{if(name[0]=="$"){macros.print.handler(w.output,name,[name].concat(params),w)}else{if(tale.has(name)){macros.display.handler(w.output,name,[name].concat(params),w)}else{throwError(w.output,"Macro not found: "+name,w.fullMatch())}}}}catch(e){throwError(w.output,"Error executing macro "+name+": "+e.toString(),w.fullMatch())}}}},{name:"html",match:"<html>",lookahead:"<html>((?:.|\\n)*?)</html>",handler:function(w){var lookaheadRegExp=new RegExp(this.lookahead,"mg");lookaheadRegExp.lastIndex=w.matchStart;var lookaheadMatch=lookaheadRegExp.exec(w.source);if(lookaheadMatch&&lookaheadMatch.index==w.matchStart){var e=insertElement(w.output,"span");e.innerHTML=lookaheadMatch[1];w.nextMatch=lookaheadMatch.index+lookaheadMatch[0].length}}},{name:"commentByBlock",match:"/%",lookahead:"/%((?:.|\\n)*?)%/",handler:function(w){var lookaheadRegExp=new RegExp(this.lookahead,"mg");lookaheadRegExp.lastIndex=w.matchStart;var lookaheadMatch=lookaheadRegExp.exec(w.source);if(lookaheadMatch&&lookaheadMatch.index==w.matchStart){w.nextMatch=lookaheadMatch.index+lookaheadMatch[0].length}}},{name:"boldByChar",match:"''",terminator:"''",element:"strong",handler:Wikifier.formatHelpers.charFormatHelper},{name:"strikeByChar",match:"==",terminator:"==",element:"strike",handler:Wikifier.formatHelpers.charFormatHelper},{name:"underlineByChar",match:"__",terminator:"__",element:"u",handler:Wikifier.formatHelpers.charFormatHelper},{name:"italicByChar",match:"//",terminator:"//",element:"em",handler:Wikifier.formatHelpers.charFormatHelper},{name:"subscriptByChar",match:"~~",terminator:"~~",element:"sub",handler:Wikifier.formatHelpers.charFormatHelper},{name:"superscriptByChar",match:"\\^\\^",terminator:"\\^\\^",element:"sup",handler:Wikifier.formatHelpers.charFormatHelper},{name:"monospacedByChar",match:"\\{\\{\\{",lookahead:"\\{\\{\\{((?:.|\\n)*?)\\}\\}\\}",handler:function(w){var lookaheadRegExp=new RegExp(this.lookahead,"mg");lookaheadRegExp.lastIndex=w.matchStart;var lookaheadMatch=lookaheadRegExp.exec(w.source);if(lookaheadMatch&&lookaheadMatch.index==w.matchStart){var e=insertElement(w.output,"code",null,null,lookaheadMatch[1]);w.nextMatch=lookaheadMatch.index+lookaheadMatch[0].length}}},{name:"styleByChar",match:"@@",terminator:"@@",lookahead:"(?:([^\\(@]+)\\(([^\\)]+)(?:\\):))|(?:([^:@]+):([^;]+);)",handler:function(w){var e=insertElement(w.output,"span",null,null,null);var styles=Wikifier.formatHelpers.inlineCssHelper(w);if(styles.length==0){e.className="marked"}else{for(var t=0;t<styles.length;t++){e.style[styles[t].style]=styles[t].value}}w.subWikify(e,this.terminator)}},{name:"lineBreak",match:"\\n",handler:function(w){insertElement(w.output,"br")}},{name:"continuedLine",match:"\\\\\\s*?\\n",handler:function(a){a.nextMatch=a.matchStart+2}},{name:"htmltag",match:"<\\w+(?:(?:\\s+\\w+(?:\\s*=\\s*(?:\".*?\"|'.*?'|[^'\">\\s]+))?)+\\s*|\\s*)\\/?>",tagname:"<(\\w+)",voids:["area","base","br","col","embed","hr","img","input","link","meta","param","source","track","wbr"],tableElems:["table","thead","tbody","tfoot","th","tr","td","colgroup","col","caption","figcaption"],cleanupTables:function(e){var i,name,elems=[].slice.call(e.children);for(i=0;i<elems.length;i++){if(elems[i].tagName){name=elems[i].tagName.toLowerCase();if(this.tableElems.indexOf(name)==-1){elems[i].outerHTML=""}else{if(["col","caption","figcaption","td","th"].indexOf(name)==-1){this.cleanupTables.call(this,elems[i])}}}}},handler:function(a){var e,isvoid,lookaheadRegExp,lookaheadMatch,lookahead,re=new RegExp(this.tagname).exec(a.matchText),tn=re&&re[1];if(tn&&tn.toLowerCase()!="html"){lookahead="<\\/\\s*"+tn+"\\s*>";isvoid=(this.voids.indexOf(tn.toLowerCase())!=-1);lookaheadRegExp=new RegExp(lookahead,"mg");lookaheadRegExp.lastIndex=a.matchStart;lookaheadMatch=lookaheadRegExp.exec(a.source);if(lookaheadMatch||isvoid){e=document.createElement(a.output.tagName);e.innerHTML=a.matchText;while(e.firstChild){e=e.firstChild}if(!isvoid){a.subWikify(e,lookahead)}if(e.tagName.toLowerCase()=="table"){this.cleanupTables.call(this,e)}a.output.appendChild(e)}else{throwError(a.output,"HTML tag '"+tn+"' wasn't closed.",a.matchText)}}}},{name:"char",match:".",handler:function(a){insertElement(a.output,"span",null,"char "+(a.matchText==" "?"space":a.matchText=="\t"?"tab":a.matchText),a.matchText)}}];Wikifier.parsePassageTitle=function(title){if(title&&!tale.has(title)){try{title=(eval(this.parse(title))||title)+""}catch(e){}}return title};Wikifier.linkFunction=function(title,el,callback){return function(){if(state.rewindTo){var passage=findPassageParent(el);if(passage&&passage.parentNode.lastChild!=passage){state.rewindTo(passage,true)}}state.display(title,el,null,callback)}};Wikifier.createInternalLink=function(place,title,callback,type){var tag=(type=="button"?"button":"a"),suffix=(type=="button"?"Button":"Link"),el=insertElement(place,tag,title);if(tale.has(title)){el.className="internal"+suffix;if(visited(title)){el.className+=" visited"+suffix}}else{el.className="broken"+suffix}el.onclick=Wikifier.linkFunction(title,el,callback);if(place){place.appendChild(el)}return el};Wikifier.createExternalLink=function(place,url,callback,type){var tag=(type=="button"?"button":"a"),el=insertElement(place,tag);el.href=url;el.className="external"+(type=="button"?"Button":"Link");el.target="_blank";if(typeof callback=="function"){el.onclick=callback}if(place){place.appendChild(el)}return el};if(!((new RegExp("[\u0150\u0170]","g")).test("\u0150"))){Wikifier.textPrimitives={upperLetter:"[A-Z\u00c0-\u00de]",lowerLetter:"[a-z\u00df-\u00ff_0-9\\-]",anyLetter:"[A-Za-z\u00c0-\u00de\u00df-\u00ff_0-9\\-]"}}else{Wikifier.textPrimitives={upperLetter:"[A-Z\u00c0-\u00de\u0150\u0170]",lowerLetter:"[a-z\u00df-\u00ff_0-9\\-\u0151\u0171]",anyLetter:"[A-Za-z\u00c0-\u00de\u00df-\u00ff_0-9\\-\u0150\u0170\u0151\u0171]"}}Wikifier.textPrimitives.variable="\\$((?:"+Wikifier.textPrimitives.anyLetter.replace("\\-","\\.")+"*"+Wikifier.textPrimitives.anyLetter.replace("0-9\\-","\\.")+"+"+Wikifier.textPrimitives.anyLetter.replace("\\-","\\.")+"*)+)";function visited(e){var ret=0,i=0;if(!state){return 0}e=e||state.history[0].passage.title;if(arguments.length>1){for(ret=state.history.length;i<arguments.length;i++){ret=Math.min(ret,visited(arguments[i]))}}else{for(;i<state.history.length&&state.history[i].passage;i++){if(e==state.history[i].passage.title){ret++}}}return ret}function visitedTag(){var i,j,k,ret=0;if(!state){return 0}for(i=0;i<state.history.length&&state.history[i].passage;i++){for(j=0;j<state.history.length&&state.history[i].passage;i++){for(k=0;k<arguments.length||void ret++;k++){if(state.history[i].passage.tags.indexOf(arguments[k])==-1){break}}}}return ret}function turns(){return state.history.length-1}function passage(){return state.history[0].passage.title}function tags(e){var ret=[],i=0;if(!state){return 0}e=e||state.history[0].passage.title;if(arguments.length>1){for(i=arguments.length-1;i>=1;i--){ret=ret.concat(tags(arguments[i]))}}ret=ret.concat(tale.get(e).tags);return ret}function previous(){if(state&&state.history[1]){for(var d=1;d<state.history.length&&state.history[d].passage;d++){if(state.history[d].passage.title!=state.history[0].passage.title){return state.history[d].passage.title}}}return""}function either(){return arguments[~~(Math.random()*arguments.length)]}function parameter(n){n=n||0;if(macros.display.parameters[n]){return macros.display.parameters[n]}return 0}function scriptEval(s){try{eval(s.text)}catch(e){alert("There is a technical problem with this story ("+s.title+": "+e.message+")."+softErrorMessage)}}var softErrorMessage=" You may be able to continue playing, but parts of the story may not work properly.";window.onerror=function(e){alert("Sorry to interrupt, but this story's code has got itself in a mess ("+e+")."+softErrorMessage);window.onerror=null};var $;function main(){$=window.$||function(a){return(typeof a=="string"?document.getElementById(a):a)};var imgs,scripts,macro,style,styleText="",i,passages=document.getElementById("passages");function sanityCheck(thing){if(!sanityCheck.display){if(History.prototype.display.length<4&&!~History.prototype.display.toString().indexOf("arguments")){alert("NOTE: The "+thing+" contains a function that patches History.prototype.display, but takes the wrong number of arguments."+softErrorMessage)}sanityCheck.display=true}}if(!window.JSON||!document.querySelector){return(passages.innerHTML="This story requires a newer web browser. Sorry.")}else{passages.innerHTML=""}tale=window.tale=new Tale();if(~document.documentElement.className.indexOf("lt-ie9")){imgs=tale.lookup("tags","Twine.image");for(i=0;i<imgs.length;i++){if(imgs[i].text.length>=32768){alert("NOTE: This story's HTML file contains embedded images that may be too large for this browser to display."+softErrorMessage);break}}}scripts=tale.lookup("tags","script");for(i=0;i<scripts.length;i++){scriptEval(scripts[i]);sanityCheck('script passage "'+scripts[i].title+'"')}state=window.state=new History();for(i in macros){macro=macros[i];if(typeof macro.init=="function"){macro.init();sanityCheck('init() of the custom macro "'+i+'"')}}style=document.getElementById("storyCSS");for(i in tale.passages){i=tale.passages[i];if(i.tags+""=="stylesheet"){styleText+=alterCSS(i.text)}else{if(i.tags.length==2&&i.tags.indexOf("transition")>-1&&i.tags.indexOf("stylesheet")>-1){setTransitionCSS(i.text)}}}style.styleSheet?(style.styleSheet.cssText=styleText):(style.innerHTML=styleText);state.init()};
+
+var hasPushState=!!window.history&&(typeof window.history.pushState=="function");Tale.prototype.canBookmark=function(){return this.canUndo()&&(this.storysettings.lookup("bookmark")||!hasPushState)};History.prototype.init=function(){var a=this;if(!this.restore()){this.display("Start",null)}if(!hasPushState){this.hash=window.location.hash;this.interval=window.setInterval(function(){a.watchHash()},250)}};hasPushState&&(History.prototype.pushState=function(replace,uri){window.history[replace?"replaceState":"pushState"]({id:this.id,length:this.history.length},document.title,uri)});History.prototype.display=function(title,source,type,callback){var e,bookmarkhref,c=tale.get(title),p=document.getElementById("passages");if(c==null){return}if(type!="back"){this.saveVariables(c,source,callback);if(hasPushState&&tale.canUndo()){try{sessionStorage.setItem("history"+this.id,JSON.stringify(this.history));this.pushState(this.history.length<=2&&window.history.state=="")}catch(e){alert("Your browser couldn't save the state of the game.\n"+"You may continue playing, but it will no longer be possible to undo moves from here on in.");tale.storysettings.undo="off"}}}bookmarkhref=this.save();e=c.render();if(type!="quietly"){if(hasTransition){for(var i=0;i<p.childNodes.length;i+=1){var q=p.childNodes[i];q.classList.add("transition-out");setTimeout((function(a){return function(){if(a.parentNode){a.parentNode.removeChild(a)}}}(q)),1000)}e.classList.add("transition-in");setTimeout(function(){e.classList.remove("transition-in")},1);e.style.visibility="visible";p.appendChild(e)}else{removeChildren(p);p.appendChild(e);fade(e,{fade:"in"})}tale.setPageElements()}else{p.appendChild(e);e.style.visibility="visible"}if(tale.canUndo()){if(!hasPushState&&type!="back"){this.hash=bookmarkhref;window.location.hash=this.hash}else{if(tale.canBookmark()){var bookmark=document.getElementById("bookmark");bookmark&&(bookmark.href=bookmarkhref)}}}window.scroll(0,0);return e};History.prototype.watchHash=function(){if(window.location.hash!=this.hash){if(window.location.hash&&(window.location.hash!="#")){this.history=[{passage:null,variables:{}}];removeChildren(document.getElementById("passages"));if(!this.restore()){alert("The passage you had previously visited could not be found.")}}else{window.location.reload()}this.hash=window.location.hash}};History.prototype.loadLinkVars=function(){for(var c in this.history[0].linkVars){this.history[0].variables[c]=clone(this.history[0].linkVars[c])}};Passage.prototype.render=function(){var b=insertElement(null,"div","passage"+this.title,"passage");b.style.visibility="hidden";this.setTags(b);this.setCSS();insertElement(b,"div","","header");var a=insertElement(b,"div","","body content");for(var i in prerender){(typeof prerender[i]=="function")&&prerender[i].call(this,a)}new Wikifier(a,this.processText());insertElement(b,"div","","footer");for(i in postrender){(typeof postrender[i]=="function")&&postrender[i].call(this,a)}return b};Passage.prototype.excerpt=function(){var b=this.text.replace(/<<.*?>>/g,"");b=b.replace(/!.*?\n/g,"");b=b.replace(/[\[\]\/]/g,"");var a=b.split("\n");while(a.length&&a[0].length==0){a.shift()}var c="";if(a.length==0||a[0].length==0){c=this.title}else{c=a[0].substr(0,30)+"..."}return c};Passage.transitionCache="";Passage.prototype.setCSS=function(){var trans=false,text="",tags=this.tags||[],c=document.getElementById("tagCSS"),c2=document.getElementById("transitionCSS");if(c&&c.getAttribute("data-tags")!=tags.join(" ")){tale.forEachStylesheet(tags,function(passage){if(~passage.tags.indexOf("transition")){if(!Passage.transitionCache&&c2){Passage.transitionCache=c2.innerHTML}setTransitionCSS(passage.text);trans=true}else{text+=alterCSS(passage.text)}});if(!trans&&Passage.transitionCache&&c2){setTransitionCSS(Passage.transitionCache);trans=false;Passage.transitionCache=""}c.styleSheet?(c.styleSheet.cssText=text):(c.innerHTML=text);c.setAttribute("data-tags",tags.join(" "))}};var Interface={init:function(){var snapback=document.getElementById("snapback"),restart=document.getElementById("restart"),bookmark=document.getElementById("bookmark");main();if(snapback){if(!tale.lookup("tags","bookmark").length){snapback.parentNode.removeChild(snapback)}else{snapback.onclick=Interface.showSnapback}}if(bookmark&&(!tale.canBookmark()||!hasPushState)){bookmark.parentNode.removeChild(bookmark)}restart&&(restart.onclick=Interface.restart)},restart:function(){if(confirm("Are you sure you want to restart this story?")){state.restart()}},showSnapback:function(a){Interface.hideAllMenus();Interface.buildSnapback();Interface.showMenu(a,document.getElementById("snapbackMenu"))},buildSnapback:function(){var b,c=false,menuelem=document.getElementById("snapbackMenu");while(menuelem.hasChildNodes()){menuelem.removeChild(menuelem.firstChild)}for(var a=state.history.length-1;a>=0;a--){if(state.history[a].passage&&state.history[a].passage.tags.indexOf("bookmark")!=-1){b=document.createElement("div");b.pos=a;b.onclick=function(){var p=this.pos;var n=state.history[p].passage.title;while(p>=0){if(state.history.length>1){state.history.shift()}p--}state.display(n)};b.innerHTML=state.history[a].passage.excerpt();menuelem.appendChild(b);c=true}}if(!c){b=document.createElement("div");b.innerHTML="<i>No passages available</i>";document.getElementById("snapbackMenu").appendChild(b)}},hideAllMenus:function(){document.getElementById("snapbackMenu").style.display="none"},showMenu:function(b,a){if(!b){b=window.event}var c={x:0,y:0};if(b.pageX||b.pageY){c.x=b.pageX;c.y=b.pageY}else{if(b.clientX||b.clientY){c.x=b.clientX+document.body.scrollLeft+document.documentElement.scrollLeft;c.y=b.clientY+document.body.scrollTop+document.documentElement.scrollTop}}a.style.top=c.y+"px";a.style.left=c.x+"px";a.style.display="block";document.onclick=Interface.hideAllMenus;b.cancelBubble=true;if(b.stopPropagation){b.stopPropagation()}}};window.onload=Interface.init;macros.back.onclick=function(back,steps){var title;if(back){if(tale.canUndo()){window.history.go(-steps);return}while(steps-->=0&&state.history.length>1){title=state.history[0].passage.title;state.history.shift()}state.loadLinkVars();state.saveVariables(tale.get(title));state.display(title,null,"back")}else{state.display(state.history[steps].passage.title)}};window.onpopstate=function(e){var title,hist,steps,s=e&&e.state;if(s&&s.id&&s.length!=null){hist=JSON.parse(sessionStorage.getItem("history"+s.id)),steps=hist.length-s.length}if(hist!=null&&steps!=null){state.history=hist;while(steps-->=0&&state.history.length>1){title=state.history[0].passage.title;state.history.shift()}state.loadLinkVars();state.saveVariables(tale.get(title));state.display(title,null,"back")}};
+
+testplay = "";
+
+}());
+</script>
+<script title="modules">
+
+
+</script>
+<style id="baseCSS">
+body {
+	background-color: #000;
+	color: #fff;
+	font-family: Verdana,sans-serif;
+	font-size: 62.5%;
+	margin: 4em 15% 5% 5em;
+}
+#sidebar {
+	position: absolute;
+	width: 12em;
+	left: 7.5em;
+	list-style: none;
+	margin: 0;
+	padding: 0 1em 0 0;
+	font: bold 1.1em Verdana,sans-serif;
+}
+#sidebar li {
+	color: #333;
+	text-align: right;
+	background-repeat: no-repeat;
+	margin-bottom: 1em;
+	line-height: 1.4em !important;
+	list-style: none;
+}
+#sidebar li:hover {
+	color: #fff;
+	cursor: pointer;
+}
+#sidebar li a {
+	color: #333;
+	text-decoration: none;
+}
+#sidebar li a:hover, #sidebar #title a:hover {
+	color: #fff;
+	text-decoration: none;
+}
+#sidebar #title {
+	color: #999;
+	font-size: 150%;
+	cursor: auto;
+}
+#sidebar #title a {
+	color: #999;
+}
+#sidebar #storySubtitle {
+	font-size: 75%;
+	display: block;
+}
+#storyAuthor {
+	font-size: 50%;
+}
+#sidebar #storyMenu {
+	display: none;
+	line-height: 2.5em;
+	margin-bottom: .5em;
+	color: #999;
+	cursor: auto;
+	text-align:right !important;
+}
+#sidebar #title:hover {
+	color: #999;
+}
+#sidebar #credits {
+	padding-top: 2em;
+	font-weight: normal;
+	font-size: 80%;
+	cursor: auto;
+}
+#sidebar #credits:hover {
+	color: #333;
+}
+#sidebar #credits a {
+	text-decoration: none;
+}
+.menu {
+	position: absolute;
+	display: none;
+	background-color: #343434;
+	color: #fff;
+	opacity: .9;
+	border: 1px solid #fff;
+	text-align: left;
+	font: 1.1em Verdana;
+	line-height: 2em;
+}
+.menu div {
+	padding: 0 .4em;
+}
+.menu div:hover {
+	cursor: pointer;
+	background-color: #fff;
+	color: #343434;
+}
+#passages {
+	margin-left: 18.2em;
+	border-left: 1px solid #333;
+	padding-left: 1.5em;
+	position:relative;
+}
+.passage {
+	font-size: 1.2em;
+	line-height: 175%;
+	margin-bottom: 2em;
+	text-align: left;
+}
+.passage ul {
+	padding-top: 1.3em;
+}
+.passage li {
+	margin-right: 6em;
+}
+.passage center {
+	max-width:50%;
+	margin:auto;
+}
+.passage a {
+	color: #4d6ad8;
+	font-weight: bold;
+	text-decoration: none;
+}
+a.internalLink, a.externalLink, a.back, a.return {
+	cursor: pointer;
+}
+.passage a:hover {
+	color: #8ea6ff;
+	text-decoration: underline;
+}
+a.brokenLink {
+	background-color: red;
+	text-decoration: none;
+	color: #000;
+}
+.disabled {
+	font-weight: bold;
+	color: #333;
+}
+.marked {
+	background-color: red;
+	color: #000;
+	margin-right: 12px;
+	padding: 3px;
+}
+.marked[title] {
+	cursor: help;
+}
+.passage ul {
+	margin-left: .5em;
+	padding-left: 1.5em;
+}
+.passage ol {
+	margin-left: .5em;
+	padding-left: 1.5em;
+}
+.passage table {
+	border-collapse: collapse;
+	font-size: 100%;
+	margin: .8em 1.0em;
+}
+.passage th,.passage td,.passage tr,.passage caption {
+	padding: 3px;
+}
+.passage hr {
+	height: 1px;
+}
+input, button {
+	background-color: #000;
+	color:#fff;
+	font-size: 1.2em;
+}
+button {
+	border: 2px outset #333;
+	border-radius:0.5em;
+	padding: 0.2em 0.8em;
+}
+button:active {
+	border-style:solid;
+}
+input[type=text] {
+	border: 2px solid #333;
+	width: 20%;
+}
+input[type=text]:hover {
+	border-color: #fff;
+}
+#storeArea {
+	display: none;
+}
+#noscript {
+	margin-left: 18.2em;
+	font-size: 1.2em;
+	font-weight: bold;
+}
+img {
+	vertical-align:bottom;
+}
+</style>
+<style id="transitionCSS">
+.transition-in {
+	opacity:0;
+	position:absolute;
+}
+.passage:not(.transition-out) {
+	transition: 1s;
+	-webkit-transition: 1s;
+}
+.transition-out {
+	opacity:0 !important;
+	position:absolute;
+}
+</style>
+<style id="storyCSS">a { color:rgb(255,0,115) !important }
+body { background-color:rgb(15,15,15) !important }
+body { color:rgb(245,245,245) !important }
+.passage { font-size:125% !important }
+.passage { text-align:right !important }
+.passage { max-width:70%; margin:auto !important }
+#passages { border-left:0 }</style>
+<style id="tagCSS" data-tags=""></style>
+</head>
+<body data-tags="">
+<ul id="sidebar">
+<li id="title" class="storyElement"><span id="storyTitle" class="storyElement"><span class="char d">d</span><span class="char a">a</span><span class="char y">y</span><span class="char m">m</span><span class="char a">a</span><span class="char r">r</span><span class="char e">e</span><span class="char space"> </span><span class="char #">#</span><span class="char 1">1</span><span class="char :">:</span><span class="char space"> </span><span class="char &quot;">"</span><span class="char r">r</span><span class="char i">i</span><span class="char t">t</span><span class="char u">u</span><span class="char a">a</span><span class="char l">l</span><span class="char &quot;">"</span></span><span id="storySubtitle" class="storyElement"></span><span id="titleSeparator"><br></span><span id="storyAuthor" class="storyElement"><span class="char b">b</span><span class="char y">y</span><span class="char space"> </span><span><a href="http://kittyhorrorshow.wordpress.com/" target="_blank">Kitty Horrorshow</a></span></span></li>
+<li id="storyMenu" class="storyElement"></li>
+
+<li id="restart">Restart</li>
+<li><a id="bookmark" title="Permanent link to this passage" href="#.a">Bookmark</a></li>
+<li id="credits">
+This story was created with <a href="https://twinery.org/">Twine</a> and is powered by <a href="http://tiddlywiki.com/">TiddlyWiki</a>
+</li>
+</ul>
+<div id="snapbackMenu" class="menu"></div>
+<div id="passages"><div id="passageStart" class="passage" style="visibility: visible;"><div class="header"></div><div class="body content"><span class="char s">s</span><span class="char l">l</span><span class="char e">e</span><span class="char a">a</span><span class="char t">t</span><span class="char e">e</span><span class="char r">r</span><span class="char -">-</span><span class="char k">k</span><span class="char i">i</span><span class="char n">n</span><span class="char n">n</span><span class="char e">e</span><span class="char y">y</span><span class="char space"> </span><span class="char m">m</span><span class="char a">a</span><span class="char k">k</span><span class="char e">e</span><span class="char s">s</span><span class="char space"> </span><span class="char f">f</span><span class="char o">o</span><span class="char r">r</span><span class="char space"> </span><span class="char p">p</span><span class="char r">r</span><span class="char e">e</span><span class="char t">t</span><span class="char t">t</span><span class="char y">y</span><span class="char space"> </span><span class="char g">g</span><span class="char o">o</span><span class="char o">o</span><span class="char d">d</span><span class="char space"> </span><span class="char r">r</span><span class="char i">i</span><span class="char t">t</span><span class="char u">u</span><span class="char a">a</span><span class="char l">l</span><span class="char space"> </span><span class="char m">m</span><span class="char u">u</span><span class="char s">s</span><span class="char i">i</span><span class="char c">c</span><span class="char .">.</span><span class="char space"> </span><span class="char space"> </span><span class="char y">y</span><span class="char o">o</span><span class="char u">u</span><span class="char '">'</span><span class="char v">v</span><span class="char e">e</span><span class="char space"> </span><span class="char h">h</span><span class="char a">a</span><span class="char d">d</span><span class="char space"> </span><span class="char g">g</span><span class="char o">o</span><span class="char o">o</span><span class="char d">d</span><span class="char space"> </span><span class="char s">s</span><span class="char u">u</span><span class="char c">c</span><span class="char c">c</span><span class="char e">e</span><span class="char s">s</span><span class="char s">s</span><span class="char space"> </span><span class="char i">i</span><span class="char n">n</span><span class="char space"> </span><span class="char t">t</span><span class="char h">h</span><span class="char e">e</span><span class="char space"> </span><span class="char p">p</span><span class="char a">a</span><span class="char s">s</span><span class="char t">t</span><span class="char ,">,</span><span class="char space"> </span><span class="char a">a</span><span class="char n">n</span><span class="char y">y</span><span class="char w">w</span><span class="char a">a</span><span class="char y">y</span><span class="char .">.</span><br><br><span class="char y">y</span><span class="char o">o</span><span class="char u">u</span><span class="char space"> </span><span class="char w">w</span><span class="char i">i</span><span class="char s">s</span><span class="char h">h</span><span class="char space"> </span><span class="char y">y</span><span class="char o">o</span><span class="char u">u</span><span class="char space"> </span><span class="char w">w</span><span class="char e">e</span><span class="char r">r</span><span class="char e">e</span><span class="char space"> </span><span class="char d">d</span><span class="char r">r</span><span class="char i">i</span><span class="char n">n</span><span class="char k">k</span><span class="char i">i</span><span class="char n">n</span><span class="char g">g</span><span class="char space"> </span><span class="char r">r</span><span class="char e">e</span><span class="char d">d</span><span class="char space"> </span><span class="char w">w</span><span class="char i">i</span><span class="char n">n</span><span class="char e">e</span><span class="char ,">,</span><span class="char space"> </span><span class="char n">n</span><span class="char o">o</span><span class="char t">t</span><span class="char space"> </span><span class="char w">w</span><span class="char h">h</span><span class="char i">i</span><span class="char t">t</span><span class="char e">e</span><span class="char .">.</span><span class="char space"> </span><span class="char space"> </span><span class="char i">i</span><span class="char t">t</span><span class="char '">'</span><span class="char s">s</span><span class="char space"> </span><span class="char m">m</span><span class="char o">o</span><span class="char r">r</span><span class="char e">e</span><span class="char space"> </span><span class="char s">s</span><span class="char y">y</span><span class="char m">m</span><span class="char b">b</span><span class="char o">o</span><span class="char l">l</span><span class="char i">i</span><span class="char c">c</span><span class="char ,">,</span><span class="char space"> </span><span class="char a">a</span><span class="char n">n</span><span class="char d">d</span><span class="char space"> </span><span class="char y">y</span><span class="char o">o</span><span class="char u">u</span><span class="char '">'</span><span class="char r">r</span><span class="char e">e</span><span class="char space"> </span><span class="char n">n</span><span class="char o">o</span><span class="char t">t</span><span class="char space"> </span><span class="char f">f</span><span class="char e">e</span><span class="char e">e</span><span class="char l">l</span><span class="char i">i</span><span class="char n">n</span><span class="char g">g</span><span class="char space"> </span><span class="char v">v</span><span class="char e">e</span><span class="char r">r</span><span class="char y">y</span><span class="char space"> </span><span class="char s">s</span><span class="char e">e</span><span class="char x">x</span><span class="char y">y</span><span class="char .">.</span><span class="char space"> </span><span class="char space"> </span><span class="char b">b</span><span class="char u">u</span><span class="char t">t</span><span class="char space"> </span><span class="char t">t</span><span class="char h">h</span><span class="char e">e</span><span class="char space"> </span><span class="char r">r</span><span class="char e">e</span><span class="char d">d</span><span class="char space"> </span><span class="char s">s</span><span class="char h">h</span><span class="char i">i</span><span class="char t">t</span><span class="char space"> </span><span class="char m">m</span><span class="char a">a</span><span class="char k">k</span><span class="char e">e</span><span class="char s">s</span><span class="char space"> </span><span class="char y">y</span><span class="char o">o</span><span class="char u">u</span><span class="char r">r</span><span class="char space"> </span><span class="char m">m</span><span class="char o">o</span><span class="char u">u</span><span class="char t">t</span><span class="char h">h</span><span class="char space"> </span><span class="char f">f</span><span class="char e">e</span><span class="char e">e</span><span class="char l">l</span><span class="char space"> </span><span class="char d">d</span><span class="char r">r</span><span class="char y">y</span><span class="char space"> </span><span class="char a">a</span><span class="char n">n</span><span class="char d">d</span><span class="char space"> </span><span class="char g">g</span><span class="char i">i</span><span class="char v">v</span><span class="char e">e</span><span class="char s">s</span><span class="char space"> </span><span class="char y">y</span><span class="char o">o</span><span class="char u">u</span><span class="char space"> </span><span class="char a">a</span><span class="char space"> </span><a id="headache" class="internalLink"><span class="char h">h</span><span class="char e">e</span><span class="char a">a</span><span class="char d">d</span><span class="char a">a</span><span class="char c">c</span><span class="char h">h</span><span class="char e">e</span></a><span class="char .">.</span></div><div class="footer"></div></div></div>
+<div id="storeArea"><div tiddler="envious" tags="" modified="201406222217" created="201406222216" twine-position="1970,290" modifier="twee">'hateful'
+ is a better word.  the process of writing is agonizing to you, but you 
+do it because you know nothing else.  meanwhile this fuckhead sat down 
+at a typewriter every god damned day of his life and churned out 
+something wonderful.  you're lucky if you can produce something once a 
+month.  with you, creation is a race against yourself, finish before you
+ convince yourself to [[give up]].</div><div tiddler="dagger" tags="" modified="201406231447" created="201406222250" twine-position="1130,1410" modifier="twee">of
+ course, this is a bit of a rarity.  one of those 'magically right' 
+gifts that dark sorceresses just happen to receive now and again.  
+probably there were better things to do about finding a human femur by a
+ creekside than just stuffing it into a bag and taking it home.  calling
+ the cops, for instance.  but you had grander things in mind.  human 
+litigation is so laughably 'small picture.'\n\nit's the first thing you 
+ever carved by hand, and it's still [[sharp enough to bleed 
+anything|that's what we're going for]].\n\n&lt;&lt;set $knife = 
+3&gt;&gt;</div><div tiddler="the haunting of hill house" tags="" modified="201406222326" created="201406222119" twine-position="1830,150" modifier="twee">when
+ you first moved into your house in Savannah, you stood in what would 
+become your room and smiled because of the vertigo you felt.  "the floor
+ is tilted," you said and your new roommate nodded.  it gave you an odd 
+thrill, the thought of a house so old and so heavy that it was [[sinking
+ into the earth]].</div><div tiddler="jewel" tags="" modified="201406231506" created="201406231451" twine-position="1410,570" modifier="twee">your
+ relationship with the occult began in freshman year of high school.  
+the books you read on the subject were cute but gimmicky, geared 
+primarily toward aspiring wiccans.  but they taught you some important 
+[[fundamentals]].</div><div tiddler="best intentions" tags="" modified="201406222114" created="201406222113" twine-position="1270,150" modifier="twee">when
+ you were 18 you started keeping your second diary.  your first serious 
+girlfriend stole it from under your bed and read it.  by now she'd 
+already begun the year-long deliberate process of systematically 
+stripping away every shred of your self-worth.  she took notes, used 
+what she learned to humiliate you and justify cheating on you.  
+[[several times]].</div><div tiddler="truly believe" tags="" modified="201406222348" created="201406222343" twine-position="570,570" modifier="twee">"[[i'm
+ sick of this.  i'm so fucking sick of this.  i'm not happy with myself.
+  i'm not happy with anything.  i just want to be happy.  fuck, is that 
+so much to ask?  i want to feel beautiful, i want to feel meaningful, i 
+want to matter, i want to feel right in my own skin.  i want a body to 
+match my soul.  give me the power to change myself.  who the fuck is it 
+hurting if all i want is to change myself to be perfect in my own eyes? 
+ this is all i want, i just want to feel okay, i just want to feel okay,
+ i just want to feel okay|ritual complete]]"</div><div tiddler="ten years old" tags="" modified="201406222118" created="201406222116" twine-position="1550,150" modifier="twee">your
+ room is full of books.  one large bookshelf, many dusty piles of 
+paperbacks.  you used to collect books back when reading was important 
+to you.  back when the world the authors wrote about was one that you 
+felt you had anything to do with.\n\nyou need one that's personally 
+important.\n\n[[shadowland]]\n[[the haunting of hill 
+house]]\n[[farenheit 451]]</div><div tiddler="kitchen knife" tags="" modified="201406231447" created="201406222250" twine-position="850,1410" modifier="twee">the
+ same one you carried with you in your schoolbag.  you have an intimate 
+relationship with this knife.  you understand its weight and its 
+balance.  sometimes, when you were bored and alone in your apartment, 
+you would dance with it, throwing it up in the air, twirling it, 
+flickering it through your hands.  you dropped it sometimes, but you've 
+never once cut yourself with it.  pretty fucking graceful, you must 
+say.\n\n[[you smile as you slide it out of the drawer of your computer 
+desk|that's what we're going for]].\n\n&lt;&lt;set $knife = 1&gt;&gt;</div><div tiddler="schoolbag" tags="" modified="201406222250" created="201406222246" twine-position="990,1270" modifier="twee">any
+ good ritualist keeps a selection of personal ritual knives.  different 
+materials represent different forms of projective energy.  the knife 
+must suit the objective.\n\n[[there's the kitchen knife that you keep in
+ your computer desk|kitchen knife]], then there's [[the egyptian kryss 
+you keep in a small stone chest|kryss]], and of course [[the dagger 
+carved from a human femur that you carry around in your 
+satchel|dagger]].</div><div tiddler="needs must" tags="" modified="201406222340" created="201406221911" twine-position="290,710" modifier="twee">you
+ knew plenty of people throughout your high-school career who cut 
+themselves.  enough of them that you came to the conclusion that it was 
+either frighteningly common, or you simply attracted bloodletters the 
+way a siren attracts horny sailors.\n\nyou learned that there were two 
+predominant kinds of cutters: those who wanted to punish themselves for 
+some perceived shame, or those who wanted to experience some kind of 
+[[release]].\n\n&lt;&lt;set $gotBlood = true&gt;&gt;</div><div tiddler="Start" tags="" modified="201406222125" created="201406221854" twine-position="290,150" modifier="twee">sleater-kinney
+ makes for pretty good ritual music.  you've had good success in the 
+past, anyway.\n\nyou wish you were drinking red wine, not white.  it's 
+more symbolic, and you're not feeling very sexy.  but the red shit makes
+ your mouth feel dry and gives you a [[headache]].</div><div tiddler="SEWER" tags="" modified="201406231505" created="201406231459" twine-position="1550,990" modifier="twee">a
+ nickname given to you by a pompous red-faced stereotype because it 
+sounds vaguely like your last name, and used loudly, publicly and 
+gratuitously to prevent you from raising questions or pointing out false
+ statements in front of his audience.  a schoolyard bully tactic in the 
+hands of an educator.\n\n[[you don't like people very much|you don't get
+ the chance, though]]</div><div tiddler="lip" tags="" modified="201406231446" created="201406222317" twine-position="150,1130" modifier="twee">the
+ sensual choice.  the lip bleeds nicely, clustered with so many tiny 
+veins.  relatively painless, too.  the lips are the most beautiful part 
+of the human body, to your mind.  they are the only part of your current
+ body that you find beautiful, sensual, feminine.  you pinch your bottom
+ lip in your fingers and draw a straight line down the center with your 
+knife, [[collecting the blood|that's what we're going for]] in a 
+shotglass.\n\n&lt;&lt;set $blood = 1&gt;&gt;</div><div tiddler="ritual complete" tags="" modified="201406222349" created="201406222345" twine-position="570,710" modifier="twee">the
+ ritual is working.\n\nthe candles you have lit around yourself begin to
+ glow green, their flames flickering wildly, expanding.\n\nyour nude 
+body begins to [[change]].</div><div tiddler="step 4" tags="" modified="201406231820" created="201406231509" twine-position="990,2250" modifier="twee">&lt;&lt;if
+ $knife eq 1&gt;&gt;your fingers lengthen, become pointed and keen.  you
+ know that if you dragged them down a surface they would leave deep 
+gouges at the slightest touch.  you can feel your muscles learning new 
+movements though you are paralyzed by what is happening to you.  you are
+ becoming swift, graceful, a spring-loaded dancer waiting to spin and 
+glide.  [[waiting to move|final]].&lt;&lt;else&gt;&gt;&lt;&lt;if $knife 
+eq 2&gt;&gt;a voice calls from some fantastic cosmic depth.  its name is
+ Hermes Trismegistus, Apollo, Thoth.  you shut your eyes and are shown a
+ vision of a night sky stretching back thousands of years, and your head
+ becomes a crow's head.  thousands of years ago, people are worshipping 
+you as the [[goddess of witches|final]].&lt;&lt;else&gt;&gt;&lt;&lt;if 
+$knife eq 3&gt;&gt;ram horns appear on your skull, curling backward, 
+hardening.  you become aware of every bone buried beneath the earth for 
+thousands of miles around you.  they are singing, waiting to be worked 
+into new things and given life and motion by your will.  you are tapped 
+into their song.  they ache to be [[shaped by your 
+hand|final]].&lt;&lt;endif&gt;&gt;&lt;&lt;endif&gt;&gt;&lt;&lt;endif&gt;&gt;</div><div tiddler="thigh" tags="" modified="201406231920" created="201406222317" twine-position="430,1130" modifier="twee">you
+ knew several girls who cut themselves on the thigh.  usually they 
+belonged to the "i cut myself because i deserve to feel pain" camp.  
+ashamed of themselves, typically because of some onus placed on them by 
+their guardians, they sought release but feared lest anyone should 
+discover their habit.  the thigh is most easily concealed.  you ponder 
+the coincidence that the most 'shameful' cutting location is also that 
+which lies closest to the genitals.\n\n[[you part your legs, cut, bleed 
+into a shallow dish|that's what we're going for]].\n\n&lt;&lt;set $blood
+ = 3&gt;&gt;</div><div tiddler="several times" tags="" modified="201406222116" created="201406222114" twine-position="1410,150" modifier="twee">you
+ never feel safe.  you never feel truly private.  the only writing you 
+do that people seem to seek out is that which you don't want anyone 
+reading.\n\neven at your most confessional, you self-censor.  even when 
+you hide behind second-person pronouns you never reveal as much as you'd
+ like.  it's a horrific, explosive feeling.  the gag in your mouth is 
+[[ten years old]].</div><div tiddler="darkness" tags="" modified="201406231832" created="201406231828" twine-position="990,2530" modifier="twee">as
+ whole portions of you begin to separate and burn away into smoke, you 
+have time to reflect that, at the very least, there were moments where 
+you loved yourself.  the ritual was a success in that way.  you were 
+simply not meant to exist as what you became.\n\nbut there were [[a few 
+minutes there]]...</div><div tiddler="purple" tags="" modified="201406231447" created="201406222228" twine-position="1830,710" modifier="twee">a
+ small shard of amethyst, your birth-stone.  you hold it in your 
+palm.\n\nmysticism.  power.  the universe.  totality.  loneliness.  
+beauty.  nightmares.\n\n[[sounds about right|got the 
+jewel]]\n\n&lt;&lt;set $jewel = 2&gt;&gt;</div><div tiddler="interesting" tags="" modified="201406231516" created="201406231515" twine-position="150,850" modifier="twee">(read: [[disgusting|release]])</div><div tiddler="you don't get the chance, though" tags="" modified="201406231504" created="201406231456" twine-position="1410,990" modifier="twee">"oh
+ hey, everyone, I forgot, [[SEWER]] is our resident authority on 
+magic."\n\nhe plucks the book on elemental magic off of the stack of 
+folders by your feet and holds it up for the class to see.\n\n"magic is 
+wizards and princesses casting spells in a forest.  sorry, SEWER, i 
+forgot.  please don't curse me, okay?"\n\nyears later you learn that he 
+was eventually fired for punching a student in the face.  turns out, 
+[[THAT'S magic]].</div><div tiddler="shadowland" tags="" modified="201406222221" created="201406222119" twine-position="1830,10" modifier="twee">you
+ open up the chest you keep your tarot deck in.  a first edition 
+paperback of this book is one of the objects inside it.  back when you 
+lived in the midwest you pirated an audiobook of this.  you lived two 
+hours away from your best friends, and you were lonely, so you made 
+weekend trips to Boone to spend the weekend with them and play D&amp;D. 
+ [[this is what you listened to]].</div><div tiddler="book" tags="" modified="201406222211" created="201406221908" twine-position="1130,150" modifier="twee">when
+ you were 14 you started keeping your first diary.  your mom stole it 
+from under your bed one day when you were at school and read it.  then 
+suddenly you were in therapy.  she says she had the [[best 
+intentions]].\n\n&lt;&lt;set $gotBook = true&gt;&gt;</div><div tiddler="black" tags="" modified="201406231447" created="201406222228" twine-position="1830,850" modifier="twee">a
+ sliver of obsidian.  one large, smooth face atop a hundred thousand 
+smaller, rougher faces.  you lift it up to the streetlight beyond your 
+fence.\n\ndeath.  wisdom.  finality.  cleansing.  control.  entropy.  
+insecurity.  night.\n\n[[how fitting|got the jewel]]\n\n&lt;&lt;set 
+$jewel = 3&gt;&gt;</div><div tiddler="a few minutes there" tags="" modified="201406231853" created="201406231829" twine-position="1130,2530" modifier="twee">//"Imagination,
+ in effect, is like the soul's eye; therein forms are outlined and 
+preserved; thereby we behold the reflections of the invisible world; it 
+is the glass of visions and the apparatus of magical life."\n\nEliphas 
+Levi, The Dogma and Ritual of Ceremonial Magic//</div><div tiddler="StoryTitle" tags="" modified="201406231606" created="201406221854" twine-position="10,10" modifier="twee">daymare #1: "ritual"</div><div tiddler="shaking your hand" tags="" modified="201406222247" created="201406222243" twine-position="990,990" modifier="twee">he's
+ vomiting apologies.\n\n"fuck man I'm so sorry, I don't know what I was 
+thinking yesterday, I'm an idiot, you didn't deserve that, I hope we can
+ be cool, don't worry about me, you're cool bro, totally my bad."\n\nyou
+ later learn that Ian, someone you had spoken to only once or twice, saw
+ what had happened.  he told his friends.  they cornered pink-shirt when
+ he was alone, threatened to beat the ever-living shit out of him if he 
+ever [[did it again]].</div><div tiddler="off topic" tags="" modified="201406222317" created="201406222316" twine-position="290,990" modifier="twee">like
+ most things occult, the location at which you choose to bleed yourself 
+is symbolic.  for this particular ritual operation, you feel that your 
+best three options are:\n\n[[lip]]\n[[wrist]]\n[[thigh]]</div><div tiddler="final" tags="" modified="201406231823" created="201406231820" twine-position="990,2390" modifier="twee">so
+ many wondrous secrets.  you have become something so entirely 
+different, so unimaginably powerful.  but your transformation continues,
+ does not stop.  the walls of your house begin to peel away from each 
+other, and in the spaces revealed are dark, ageless things.  your skin 
+withers, divides.  your body rises.  the room becomes wreathed in 
+chromatic fire, hot as a blue sun, and it [[washes over you]].</div><div tiddler="knife" tags="" modified="201406231511" created="201406221908" twine-position="990,570" modifier="twee">because
+ Valley High was oppressive enough to make you want to kill yourself, 
+you transferred out to an alternative school.  it was small.  everyone 
+knew each other.  all cliques were represented; preps, jocks, gangsters,
+ goths, hipsters, users.  but everyone knew they were in it together, 
+everyone had been shouldered out of someplace else for shitty reasons, 
+so everyone got along.  everyone knew each other.  the outspoken, 
+creative kids were revered, which means you did [[pretty well for 
+yourself]].\n\n&lt;&lt;set $gotKnife = true&gt;&gt;</div><div tiddler="headache" tags="" modified="201406221858" created="201406221856" twine-position="430,150" modifier="twee">each
+ time you look down at your body is like a sudden twist in the guts, one
+ of those "son of a bitch" moments of self-loathing that takes an hour 
+to stop thinking about.  black magic's pretty much the only way to get 
+your body into the shape you want it, so [[that's what we're going 
+for]].</div><div tiddler="styles" tags="stylesheet" modified="201406231917" created="201406231912" twine-position="10,290" modifier="twee">a
+ { color:rgb(255,0,115) !important }\nbody { 
+background-color:rgb(15,15,15) !important }\nbody { 
+color:rgb(245,245,245) !important }\n.passage { font-size:125% 
+!important }\n.passage { text-align:right !important }\n.passage { 
+max-width:70%; margin:auto !important }\n#passages { border-left:0 }</div><div tiddler="fundamentals" tags="" modified="201406231502" created="201406231452" twine-position="1410,710" modifier="twee">your
+ science teacher is a loud-mouthed alpha-male mouth-breather, the sort 
+who shamelessly gives good grades to the football players regardless of 
+their actual results.  one day he's standing at the front of the class 
+giving a speech about how if he doesn't understand something, it's 
+magic.\n\nhe pulls his cell phone out of his pocket.  "like this thing. 
+ really advanced technology, right?  i can make calls to anywhere in the
+ world.  i have no idea how it works.  that's what 'magic' 
+is."\n\nstupidly, you [[shake your head]].</div><div tiddler="digging with your hands" tags="" modified="201406222228" created="201406222227" twine-position="1690,570" modifier="twee">a
+ small hinged box, painted black.  it's important to keep gems buried, 
+since they're attuned to the earth and all.  each color represents 
+something.  Crowley would have specific definitions for each one, but he
+ was an egomaniacal fuckface pervert, so fuck him.  they mean what you 
+think they mean at the time.\n\n[[green]]\n[[purple]]\n[[black]]</div><div tiddler="kryss" tags="" modified="201406240033" created="201406222250" twine-position="990,1410" modifier="twee">you
+ bought this at an egyptian gift store that used to exist in the city 
+you grew up in.  the inside was painted black and constantly smelled of 
+sandalwood incense.  the owner was a bookish older man who would take 
+any opportunity to ramble about egyptian mythology, and you drank him 
+up.  his eyes would widen and sparkle as he rambled on about the Emerald
+ Tablets of Thoth.  you were much too young to buy this knife, but he 
+sold it to you anyway.\n\nyou wonder whatever happened to that guy as 
+you [[pick up the kryss|that's what we're going for]]\n\n&lt;&lt;set 
+$knife = 2&gt;&gt;</div><div tiddler="sinking into the earth" tags="" modified="201406231450" created="201406222159" twine-position="1970,150" modifier="twee">miss
+ jackson is responsible for your fascination with houses, particularly 
+the idea of them as sentient beings, maintaining relationships with the 
+humans that inhabit them.  you would like to haunt a house when you 
+die.\n\nyou plan to get an abbreviation of the first paragraph of this 
+story tattooed on your forearm.  it is the kind of paragraph you could 
+spend an entire career aspiring to write.\n\n(google it)\n\n[[book 
+get|that's what we're going for]]\n\n&lt;&lt;set $book = 2&gt;&gt;</div><div tiddler="step 2" tags="" modified="201406231620" created="201406230002" twine-position="990,1970" modifier="twee">&lt;&lt;if
+ $jewel eq 1&gt;&gt;rich emerald light begins streaming from your eyes 
+and open mouth.  all at once the universe teaches you spells to move 
+through trees, to fly with birds, to turn forests into mazes.  your new 
+skin begins to smell of ozone.  your back opens and great, shining wings
+ emerge and stretch magnificently.  ripples of fast, cold 
+[[pleasure|step 3]] course through you.&lt;&lt;else&gt;&gt;&lt;&lt;if 
+$jewel eq 2&gt;&gt;violet light fills the air of your room.  it pours 
+from your mouth, your eyes.  your ears open to greater secrets, and the 
+universe teaches you to read the lines of the great web, to cause waking
+ dreams and nightmares to whomever you wish, to shut your eyes and be 
+transported anywhere.  a chilling burn begins in the center of your 
+forehead and expands, and a third eye opens there, glowing darkly and 
+seeing all which lies beneath the skin of the [[tangible|step 
+3]].&lt;&lt;else&gt;&gt;&lt;&lt;if $jewel eq 3&gt;&gt;the room darkens. 
+ your new skin begins devouring the light.  shadows pull their way to 
+you from all corners, and they stream from your fingertips like living 
+smoke.  they whisper to you, teaching you new spells, how to slide 
+through walls, how to speak to the dead, how to read thoughts and walk 
+unseen.  a tail, long and serpentine, emerges from the base of your 
+spine, proof to all that you are [[no longer human|step 
+3]].&lt;&lt;endif&gt;&gt;&lt;&lt;endif&gt;&gt;&lt;&lt;endif&gt;&gt;</div><div tiddler="step 3" tags="" modified="201406231812" created="201406231508" twine-position="990,2110" modifier="twee">&lt;&lt;if
+ $blood eq 1&gt;&gt;the wound on your lip spreads apart, skin peeling 
+away, blood running freely down your chin and neck and over your breast.
+  you lick it away.  the taste is sweet, not normal blood, vibrant and 
+charged.  you have [[worlds within you|step 
+4]].&lt;&lt;else&gt;&gt;&lt;&lt;if $blood eq 2&gt;&gt;the wound on your 
+wrist opens itself like a waking eye and within your body are boundless 
+depths of potential.  you see all of your ideas, your unborn creations 
+and works of art buried in the future of your own flesh.  if you were to
+ wave your bleeding arm, a hundred thousand towers would [[spring from 
+the ground|step 4]].&lt;&lt;else&gt;&gt;&lt;&lt;if $blood eq 
+3&gt;&gt;the blood running down the wound on your thigh thickens and 
+coils around your leg, then up your waist, over your arm.  the coil 
+imprints itself into you like a tattoo, visible to all, a vibrant 
+signature of worth and power and prowess, glyphic war-paint.  you have 
+marked yourself and all who see you will [[know who you are|step 
+4]].&lt;&lt;endif&gt;&gt;&lt;&lt;endif&gt;&gt;&lt;&lt;endif&gt;&gt;</div><div tiddler="wrist" tags="" modified="201406231446" created="201406222317" twine-position="290,1130" modifier="twee">the
+ powerful choice.  anyone brave enough to cut their own wrists has a 
+dedication that most people lack.  it makes you cringe and the pain is 
+outstanding, but there's no lack of blood.  you gather up what you can 
+in a shotglass.  you can practically smell the [[fury|that's what we're 
+going for]].\n\n&lt;&lt;set $blood = 2&gt;&gt;</div><div tiddler="blood" tags="" modified="201406222313" created="201406221908" twine-position="290,570" modifier="twee">&lt;&lt;if
+ $gotKnife&gt;&gt;you were never into cutting.  most of your friends 
+were, but you couldn't stand the thought of a blade slicing through your
+ skin.  it's still unpleasant to you, but blood is a necessary component
+ in any serious ritual.  [[needs must]].&lt;&lt;else&gt;&gt;can't really
+ get this one without getting a knife first.\n\n[[back|that's what we're
+ going for]]&lt;&lt;endif&gt;&gt;</div><div tiddler="that's what we're going for" tags="" modified="201406222332" created="201406221858" twine-position="570,150" modifier="twee">you
+ need these things:\n\n&lt;&lt;if 
+$gotBook&gt;&gt;&lt;&lt;else&gt;&gt;[[book]]\n&lt;&lt;endif&gt;&gt;&lt;&lt;if
+ 
+$gotBlood&gt;&gt;&lt;&lt;else&gt;&gt;[[blood]]\n&lt;&lt;endif&gt;&gt;&lt;&lt;if
+ 
+$gotKnife&gt;&gt;&lt;&lt;else&gt;&gt;[[knife]]\n&lt;&lt;endif&gt;&gt;&lt;&lt;if
+ 
+$gotJewel&gt;&gt;&lt;&lt;else&gt;&gt;[[jewel]]\n&lt;&lt;endif&gt;&gt;&lt;&lt;if
+ $gotBook and $gotBlood and $gotKnife and $gotJewel&gt;&gt;[[that's 
+everything]]&lt;&lt;endif&gt;&gt;</div><div tiddler="magic was still a part of your life" tags="" modified="201406231445" created="201406222222" twine-position="2110,10" modifier="twee">not
+ the shit you learned in high-school, though, those novelty books you 
+picked up at Border's.  the real stuff.  the stuff that peels back the 
+skin of reality and sensibility and gets you drunk on the thought of 
+changing the universe.\n\n[[this will do nicely|that's what we're going 
+for]]\n\n&lt;&lt;set $book = 1&gt;&gt;</div><div tiddler="give up" tags="" modified="201406231445" created="201406222217" twine-position="2110,290" modifier="twee">a
+ bird flies because it has wings and the compulsion to fly.  you write 
+because of that same compulsion.  but at your core, you lack passion.  
+so in the end, what good are you?\n\n[[anyway, you've got the book 
+now|that's what we're going for]]\n\n&lt;&lt;set $book = 3&gt;&gt;</div><div tiddler="change" tags="" modified="201406231357" created="201406222349" twine-position="570,850" modifier="twee">your
+ body abandons its previous shape.\n\nyour face, your most hated 
+feature, becomes feminine, soft, beautiful.  your wide eyes and wide 
+grin could kill from a mile away.\n\nthe rest of your body follows suit.
+  flat stomach, pale skin, slender arms, shapely legs, supple 
+breasts.\n\n[[so far so good]]</div><div tiddler="got the jewel" tags="" modified="201406222236" created="201406222235" twine-position="1970,570" modifier="twee">you
+ are not furious enough to ever create anything worthwhile.\n\nthis 
+ritual is going to end badly.  that's okay, though.  you're pretty much 
+banking on it.  you feel like there isn't much to lose.\n\n[[head back 
+inside|that's what we're going for]]</div><div tiddler="shake your head" tags="" modified="201406231503" created="201406231454" twine-position="1410,850" modifier="twee">you've
+ heard the Clarke quote, "any sufficiently advanced technology" and all 
+that.  it makes sense.  unfortunately, this guy is an idiot with no 
+grasp of the quote's actual significance.\n\nyou want to say "no, that's
+ not magic, that's personal ignorance."  you want to say "magic isn't 
+what we don't understand, it's what we're //incapable// of understanding
+ but which affects us anyway."\n\n[[you don't get the chance, though]].</div><div tiddler="did it again" tags="" modified="201406222246" created="201406222245" twine-position="990,1130" modifier="twee">it
+ was a weird thing to learn.  heartbreakingly sweet.  you felt safe and 
+unsafe all at once.\n\nyou never told anyone that the night pink-shirt 
+shoved you, you went home and put a kitchen knife in your [[schoolbag]].</div><div tiddler="washes over you" tags="" modified="201406231905" created="201406231823" twine-position="850,2530" modifier="twee">you
+ are aware that you are dying.  in your celestial foresight, you know 
+that seconds from now your own uncontainable power will wrench you apart
+ and dissolve you.  you will be cinders for a few moments, then ash, 
+then smoke, then finally you will cease to exist.  the pain will be 
+agonizing, indescribable, a universe unto itself.  but then there will 
+follow a clean, comforting [[darkness]].</div><div tiddler="that's everything" tags="" modified="201406222343" created="201406221913" twine-position="570,430" modifier="twee">all
+ of the components of your ritual lay gathered before you.\n\nyou raise 
+your arms and begin speaking words of conviction.\n\nthe words 
+themselves don't matter.  modern magical practice teaches us that the 
+particular words are meaningless; it is not necessary to memorize some 
+convoluted ritual prayer.  the only words that matter are those in which
+ we [[truly believe]].</div><div tiddler="continue to change" tags="" modified="201406231449" created="201406222353" twine-position="990,1830" modifier="twee">&lt;&lt;if
+ $book eq 2&gt;&gt;your skin hardens slowly.  it is agonizing at first, 
+then pleasurable, then agonizing in turns.  gradually your skin turns to
+ wood, flecked with scales of peeling black paint.  you scream aloud.  
+the pain is overwhelming, but you are comforted by the knowledge that 
+[[even larks and katydids are supposed, by some, to dream|step 
+2]].&lt;&lt;else&gt;&gt;&lt;&lt;if $book eq 1&gt;&gt;your skin softens. 
+ you feel as though all that composes you, every thought and sound and 
+love and memory, is dissolving out of your pores.  soon your skin has 
+turned to starlight.  your very existence is a composure of childhood 
+memories and fears.  you are a symphony of regrets and ambitions.  you 
+no longer belong to the physical world.  [[the birds have come home|step
+ 2]].&lt;&lt;else&gt;&gt;&lt;&lt;if $book eq 3&gt;&gt;your eyes widen in
+ a moment of shock as, all at once, your skin lights itself ablaze.  you
+ scream aloud and writhe in the fires of your own biology.  your skin 
+burns and ascends like scraps of paper.  the pain is overwhelming at 
+first, but soon shock takes over and wonder takes it place as you watch 
+pages of yourself, bright and blazing, dance through the air and flutter
+ slowly down towards the floor.  [[you are a burning book, censored for 
+fear of the ideas you would spread|step 
+2]].&lt;&lt;endif&gt;&gt;&lt;&lt;endif&gt;&gt;&lt;&lt;endif&gt;&gt;</div><div tiddler="pretty well for yourself" tags="" modified="201406222242" created="201406222241" twine-position="990,710" modifier="twee">one
+ day, during lunch, you were standing outside with your friend Lars, 
+deciding where to go.  a Valley student, coming to attend night school, 
+pulled up in his daddy's nice car.  sunglasses, pink polo shirt, 
+swagger.  he and his three friends got out and approached you.  he puts 
+his hands on your chest, shoves you.\n\n"you some kinda [[faggot]]?"</div><div tiddler="so far so good" tags="" modified="201406222353" created="201406222351" twine-position="990,1690" modifier="twee">you
+ are exquisite.  your confidence swells.  you wish you could look at 
+yourself in a mirror.  your hair grows long and straight and fringey, 
+just like you've always wanted.  it's all so fucking beautiful.  in your
+ head you hear "would you fuck me?  I'd fuck me" and you laugh out loud,
+ and your voice is so fucking sultry because your vocal cords have 
+shaped themselves that way.\n\na few long, divine moments of 
+self-satisfaction.\n\nbut after those moments, you [[continue to 
+change]].</div><div tiddler="this is what you listened to" tags="" modified="201406230005" created="201406222201" twine-position="1970,10" modifier="twee">it
+ was unabridged, so in other words, long as fuck.  you listened to it on
+ the way there, on the way back, and then in your free time, staring at 
+your ceiling.  you took midnight walks down to the playground tucked 
+behind a wall of middle-class suburban houses, where you laid down on 
+the jungle gym and stared at the stars, listening to a story unfold that
+ taught you that [[magic was still a part of your life]].</div><div tiddler="farenheit 451" tags="" modified="201406222335" created="201406222119" twine-position="1830,290" modifier="twee">bradbury
+ is one of your biggest inspirations.  his prose is mellifluous, 
+musical, poetic, passionate.  his love of writing suffuses every passage
+ he ever wrote.  you are [[envious]].</div><div tiddler="green" tags="" modified="201406231447" created="201406222228" twine-position="1830,570" modifier="twee">you
+ pick up the nice big chunk of peridot and hold it in your fingers.  
+nature.  balance.  acid.  wet leaves.  forests.  placelessness.  poison.
+  lost temples.  slime.\n\n[[this'll work|got the jewel]]\n\n&lt;&lt;set
+ $jewel = 1&gt;&gt;</div><div tiddler="release" tags="" modified="201406231515" created="201406222315" twine-position="290,850" modifier="twee">cutting
+ for sake of dark magic does not make you more virtuous than either 
+camp, but it does make you sad for those who do it.  it's 
+[[interesting]] how shame or mistreatment results, for some people, in 
+aggression and anger that they turn on themselves because they do not 
+want to hurt others, but the telltales of that anger only serve to cause
+ further shame and mistreatment from the people they didn't want to 
+hurt.\n\nbut we're getting [[off topic]].</div><div tiddler="StoryAuthor" tags="" modified="201406221855" created="201406221854" twine-position="10,150" modifier="twee">by &lt;html&gt;&lt;a href="http://kittyhorrorshow.wordpress.com" target="_blank"&gt;Kitty Horrorshow&lt;/a&gt;&lt;/html&gt;</div><div tiddler="faggot" tags="" modified="201406231858" created="201406222242" twine-position="990,850" modifier="twee">his
+ friends shove you as well.  neither you nor Lars make a move.  mostly, 
+you're just confused.  you don't show it, but deep down you're hurt and 
+terrified.  it's your first instance of actual physical abuse for 
+something that is entirely beyond you, something that they see but that 
+you are entirely unaware of.\n\nthe next day, when you're standing in 
+the hall, pink-shirt comes charging up to you and starts [[shaking your 
+hand]].</div><div tiddler="THAT'S magic" tags="" modified="201406231458" created="201406221908" twine-position="1550,570" modifier="twee">there
+ are all kinds of mana.  pretty much any emotion is useful.  tonight 
+we're tapping into a twin wellspring of self-pity and bitterness.  
+practically tonguefucking them.  but you need something to focus them, 
+and a jewel is the best thing.\n\nyou head out into the garden, where 
+the soil is damp with rain, and start [[digging with your 
+hands]].\n\n&lt;&lt;set $gotJewel = true&gt;&gt;</div></div>
+</body></html>
