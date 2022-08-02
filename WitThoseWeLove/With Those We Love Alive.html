@@ -798,8 +798,7 @@ $eye is "Brown"&gt;&gt;Jan&lt;&lt;endif&gt;&gt;&lt;&lt;if $eye is
 "Violet"&gt;&gt;Meli&lt;&lt;endif&gt;&gt;&lt;&lt;if $eye is 
 "Amber"&gt;&gt;Ci&lt;&lt;endif&gt;&gt;&lt;&lt;if $eye is 
 "Heterochromic"&gt;&gt;Hexa&lt;&lt;endif&gt;&gt;&lt;&lt;if $eye is 
-"Nothing here describes my 
-eyes"&gt;&gt;Io&lt;&lt;endif&gt;&gt;&lt;&lt;if $element is 
+"Nothing here describes my eyes"&gt;&gt;Io&lt;&lt;endif&gt;&gt;&lt;&lt;if $element is 
 "Machine"&gt;&gt;vir&lt;&lt;endif&gt;&gt;&lt;&lt;if $element is 
 "Fur"&gt;&gt;das&lt;&lt;endif&gt;&gt;&lt;&lt;if $element is 
 "Mud"&gt;&gt;dor&lt;&lt;endif&gt;&gt;&lt;&lt;if $element is 
@@ -1274,17 +1273,12 @@ opacity: 0;\n  animation: cyc-dissolve 0.8s ease-out;
 -webkit-animation: cyc-dissolve 0.8s ease-out;\n  position: 
 absolute;\n}\n.cyclingLinkInit, .cyclingLinkInit::before {\n  
 animation-iteration-count: 0 !important;\n  
--webkit-animation-iteration-count: 0 !important;\n}\n</div><div tiddler="cycling" tags="script" created="201408222354" modifier="twee" twine-position="430,10">version.extensions.cyclinglinkMacro={major:3,minor:3,revision:0};\nmacros.cyclinglink={handler:function(a,b,c){var
- rl="cyclingLink";\nfunction 
-toggleText(w){w.classList.remove("cyclingLinkInit");\nw.classList.toggle(rl+"Enabled");w.classList.toggle(rl+"Disabled");\nw.style.display=((w.style.display=="none")?"inline":"none")}switch(c[c.length-1]){case"end":var
- end=true;\nc.pop();break;case"out":var out=true;c.pop();break}var 
+-webkit-animation-iteration-count: 0 !important;\n}\n</div><div tiddler="cycling" tags="script" created="201408222354" modifier="twee" twine-position="430,10">version.extensions.cyclinglinkMacro={major:3,minor:3,revision:0};\nmacros.cyclinglink={handler:function(a,b,c){var rl="cyclingLink";\nfunction toggleText(w){w.classList.remove("cyclingLinkInit");\nw.classList.toggle(rl+"Enabled");w.classList.toggle(rl+"Disabled");\nw.style.display=((w.style.display=="none")?"inline":"none")}switch(c[c.length-1]){case"end":var end=true;\nc.pop();break;case"out":var out=true;c.pop();break}var 
 v="";if(c.length&amp;&amp;c[0][0]=="$"){v=c[0].slice(1);\nc.shift()}var 
 h=state.history[0].variables;if(out&amp;&amp;h[v]===""){return\n}var 
-l=Wikifier.createInternalLink(a,null);l.className="internalLink 
-cyclingLink";\nl.setAttribute("data-cycle",0);for(var 
+l=Wikifier.createInternalLink(a,null);l.className="internalLink cyclingLink";\nl.setAttribute("data-cycle",0);for(var 
 i=0;i&lt;c.length;i++){var on=(i==Math.max(c.indexOf(h[v]),0));\nvar 
-d=insertElement(null,"span",null,"cyclingLinkInit 
-cyclingLink"+((on)?"En":"Dis")+"abled");\nif(on){h[v]=c[i];l.setAttribute("data-cycle",i)}else{d.style.display="none"\n}insertText(d,c[i]);if(on&amp;&amp;end&amp;&amp;i==c.length-1){l.parentNode.replaceChild(d,l)\n}else{l.appendChild(d)}}l.onclick=function(){var
+d=insertElement(null,"span",null,"cyclingLinkInit cyclingLink"+((on)?"En":"Dis")+"abled");\nif(on){h[v]=c[i];l.setAttribute("data-cycle",i)}else{d.style.display="none"\n}insertText(d,c[i]);if(on&amp;&amp;end&amp;&amp;i==c.length-1){l.parentNode.replaceChild(d,l)\n}else{l.appendChild(d)}}l.onclick=function(){var
  t=this.childNodes;\nvar u=this.getAttribute("data-cycle")-0;var 
 m=t.length;toggleText(t[u]);\nu=(u+1);if(!(out&amp;&amp;u==m)){u%=m;if(v){h[v]=c[u]}}else{h[v]=""}if((end||out)&amp;&amp;u==m-(end?1:0)){if(end){var
  
@@ -1423,17 +1417,14 @@ shrapnel shrieks, skulldiers leap through the trees, arrows fly, spears
 stab, princesses scream, pink goop melts human flesh.\n\nShe yells 
 [[something|swim]] in your ear.</div><div tiddler="talents" tags="base" created="201409052253" modifier="twee" twine-position="1130,430">An
  artificer.\n\nYou make things.\n\nYou were noticed, perhaps, from your 
-showings, and sometimes victories, in the festivals.\n\n[[And now you 
-are going somewhere]]</div><div tiddler="impulse" tags="base" created="201409120345" modifier="twee" twine-position="2390,1130">The
+showings, and sometimes victories, in the festivals.\n\n[[And now you are going somewhere]]</div><div tiddler="impulse" tags="base" created="201409120345" modifier="twee" twine-position="2390,1130">The
  impulse to say something darts up your throat like fish up a 
 waterfall&lt;&lt;replace "--"&gt;&gt;--and falls [[down]] 
 again.&lt;&lt;endreplace&gt;&gt;</div><div tiddler="Let them be" tags="pink" created="201409220226" modifier="twee" twine-position="3510,150">They
  shrink in terror, trying to press themselves through stone. You back 
-away until you can no longer see them in the shadows.\n\n[[You smell 
-fire|bonfire]]</div><div tiddler="stairs" tags="pink" created="201409252343" modifier="twee" twine-position="2810,150">A
+away until you can no longer see them in the shadows.\n\n[[You smell fire|bonfire]]</div><div tiddler="stairs" tags="pink" created="201409252343" modifier="twee" twine-position="2810,150">A
  princess spore is wriggling painfully up the steps, shuddering after 
-each movement.\n\n&lt;&lt;if $together is false&gt;&gt;[[Let it 
-go]]&lt;&lt;else&gt;&gt;[[Stomp it]]&lt;&lt;endif&gt;&gt;</div><div tiddler="Throneroom" tags="music base" created="201409180339" modifier="twee" twine-position="570,1410">&lt;&lt;if
+each movement.\n\n&lt;&lt;if $together is false&gt;&gt;[[Let it go]]&lt;&lt;else&gt;&gt;[[Stomp it]]&lt;&lt;endif&gt;&gt;</div><div tiddler="Throneroom" tags="music base" created="201409180339" modifier="twee" twine-position="570,1410">&lt;&lt;if
  $weapon_type neq ""&gt;&gt;The [[&lt;&lt;$weapon_type&gt;&gt;|weapon]] 
 of the Skull Empress hangs above the vacant [[throne]], along with her 
 [[portrait]] on the west wall.\n\nHer hounds &lt;&lt;print either("are 
@@ -1441,10 +1432,8 @@ gnawing on heretic bones", "are chained to the throne. They strain at
 the sight of you", "are napping", "growl low and rare", "are restless, 
 narrow black tails whipping back and forth")&gt;&gt;. 
 &lt;&lt;else&gt;&gt;The [[throne]] is vacant. The Empress's [[portrait]]
- covers the west wall.\n\nThe Empress' hounds &lt;&lt;print either("are 
-gnawing on heretic bones", "are chained to the throne. They strain at 
-the sight of you", "are napping", "growl low and rare", "are restless, 
-narrow black tails whipping back and forth")&gt;&gt;. 
+ covers the west wall.\n\nThe Empress' hounds &lt;&lt;print either("are gnawing on heretic bones", "are chained to the throne. They strain at 
+the sight of you", "are napping", "growl low and rare", "are restless, narrow black tails whipping back and forth")&gt;&gt;. 
 &lt;&lt;endif&gt;&gt; \n\n[[Leave|Palace]]&lt;&lt;display 
 "wanderfade"&gt;&gt;</div><div tiddler="One second" tags="base" created="201409270300" modifier="twee" twine-position="3090,1550">She
  places the knife inside the nearest agent, then pulls it out. Blood 
@@ -1466,8 +1455,7 @@ sky.&lt;&lt;endif&gt;&gt;\n\n[[Unlook|telescope]]</div><div tiddler="are you" ta
 had dreamt all the dreams of a lifetime. It felt like an eternity of 
 fire. Like what should have come slowly, gently, unfolding delicately at
  the whirling dance of your years, had instead been accelerated at a 
-ruinous speed, burning &lt;&lt;replace "away."&gt;&gt;away.\n\n[[Lay 
-awake for a long time|interval]] &lt;&lt;set $destination = "Your 
+ruinous speed, burning &lt;&lt;replace "away."&gt;&gt;away.\n\n[[Lay awake for a long time|interval]] &lt;&lt;set $destination = "Your 
 chambers"&gt;&gt;&lt;&lt;endreplace&gt;&gt;</div><div tiddler="talking" tags="drugs" created="201409280009" modifier="twee" twine-position="2250,3510">"tthhiiisisthefirsttimeivefeltnormalsinceiwasakkkkiiid.\nimsorryimamkingthisaboutme.imsorryihaventbeenthereforyou.\nimsrry&lt;&lt;replace
  "foreverything."&gt;&gt;foreverything."\n\nYou trail away. The sky is 
 spinning a glowing vortex of radial star lines. You fall to the ground, 
@@ -1479,19 +1467,16 @@ with [[life]].&lt;&lt;endreplace&gt;&gt;&lt;&lt;endreplace&gt;&gt;</div><div tid
  $day is 3&gt;&gt;\nThey've left cases full of rare 
 materials.\n\n[[You've never worked with anything like 
 this...|design_wearable]]\n&lt;&lt;endif&gt;&gt;\n&lt;&lt;if $day is 
-12&gt;&gt;\nYou gather materials...\n\n[[And think of 
-weapons|weapon_type]]\n&lt;&lt;endif&gt;&gt;\n&lt;&lt;if $day is 
+12&gt;&gt;\nYou gather materials...\n\n[[And think of weapons|weapon_type]]\n&lt;&lt;endif&gt;&gt;\n&lt;&lt;if $day is 
 $final_day&gt;&gt;\nYou sit at the worktable. You have no 
-materials.\n\n[[But you have 
-materials|final]]\n&lt;&lt;endif&gt;&gt;\n&lt;&lt;set $working to 
+materials.\n\n[[But you have materials|final]]\n&lt;&lt;endif&gt;&gt;\n&lt;&lt;set $working to 
 false&gt;&gt;&lt;&lt;if $day is $final_day&gt;&gt;&lt;&lt;fadeoutsound 
 "creep.mp3"&gt;&gt;&lt;&lt;fadeinsound 
 "darkmaking.mp3"&gt;&gt;&lt;&lt;else&gt;&gt;&lt;&lt;fadeoutsound 
 "wandering.mp3"&gt;&gt;&lt;&lt;fadeinsound 
 "make.mp3"&gt;&gt;&lt;&lt;endif&gt;&gt;</div><div tiddler="hotel room" tags="dream" created="201409120240" modifier="twee" twine-position="3650,2530">You
  enter your room. Take off your dress. The day rolls from your body like
- dissipating heat waves. Your wrinkles and folds exhale.\n\n[[Put away 
-the dress|ending]]</div><div tiddler="Break the loop" tags="draw dark" created="201409260235" modifier="twee" twine-position="850,3650">Draw a thought loop.\n\n[[Done|break]]</div><div tiddler="Workshop" tags="music dead base" created="201409081812" modifier="twee" twine-position="570,1270">&lt;&lt;if
+ dissipating heat waves. Your wrinkles and folds exhale.\n\n[[Put away the dress|ending]]</div><div tiddler="Break the loop" tags="draw dark" created="201409260235" modifier="twee" twine-position="850,3650">Draw a thought loop.\n\n[[Done|break]]</div><div tiddler="Workshop" tags="music dead base" created="201409081812" modifier="twee" twine-position="570,1270">&lt;&lt;if
  $dead_person is "workshop"&gt;&gt; A dead person is under the table. 
 &lt;&lt;endif&gt;&gt;Vials of [[melter]]. Magnifying lense. Meltless 
 gloves. Scarred &lt;&lt;if $day neq 3 and $day neq 12 and $day neq 
@@ -1500,8 +1485,7 @@ $final_day&gt;&gt;&lt;&lt;if $telescope_make lt
  \n\n&lt;&lt;if $working is true&gt;&gt;[[Get to 
 work|work]]&lt;&lt;endif&gt;&gt;\n\n[[Return|Palace]]&lt;&lt;display 
 "wanderfade"&gt;&gt;</div><div tiddler="her bedroom" tags="music base" created="201409271559" modifier="twee" twine-position="1690,4070">Sitting
- on her bed, watching her put on [[nail polish]].\n\n[[So pretty...|do 
-you]]&lt;&lt;fadeoutsound "wandering.mp3"&gt;&gt;&lt;&lt;fadeinsound 
+ on her bed, watching her put on [[nail polish]].\n\n[[So pretty...|do you]]&lt;&lt;fadeoutsound "wandering.mp3"&gt;&gt;&lt;&lt;fadeinsound 
 "friend.mp3"&gt;&gt;</div><div tiddler="weapon_type" tags="base" created="201408310041" modifier="twee" twine-position="850,3930">a
  &lt;&lt;cyclinglink $weapon_type "dagger" "whip" "bow"&gt;&gt;\n\nmade 
 of\n\n&lt;&lt;cyclinglink $weapon_material_1 "the bones of a rival 
@@ -1533,8 +1517,7 @@ you.&lt;&lt;endif&gt;&gt;\n\n[[Return to the palace|Palace]]</div><div tiddler="
 custom.</div><div tiddler="Court" tags="base" created="201409101403" modifier="twee" twine-position="1690,1130">[[Visitors]] from beyond the city.&lt;&lt;fadeoutsound "wandering.mp3"&gt;&gt;</div><div tiddler="hand_finished" tags="empress" created="201409170028" modifier="twee" twine-position="2530,2250">A hand of &lt;&lt;$hand_material&gt;&gt;, &lt;&lt;$hand_flourish&gt;&gt;.\n\nThe agent takes it away.\n\n[[Okay|Workshop]]</div><div tiddler="Lake" tags="dead base" created="201409011157" modifier="twee" twine-position="710,1410">Dead
  brown leaves cover inky black lake.&lt;&lt;if $dead_person is "lake" 
 and $day neq 1&gt;&gt; A dead person is staring from below the 
-water.&lt;&lt;endif&gt;&gt;\n\n[[Do your 
-meditations]]\n\n[[Return|Garden]]</div><div tiddler="agent" tags="base" created="201409150228" modifier="twee" twine-position="3370,1130">Dark, utile clothing. Blue eyes. Asymmetric brown hair. Broken nose.\n\n[[Glance back|fantasies]]</div><div tiddler="shame" tags="music base" created="201409120316" modifier="twee" twine-position="1550,1830">When
+water.&lt;&lt;endif&gt;&gt;\n\n[[Do your meditations]]\n\n[[Return|Garden]]</div><div tiddler="agent" tags="base" created="201409150228" modifier="twee" twine-position="3370,1130">Dark, utile clothing. Blue eyes. Asymmetric brown hair. Broken nose.\n\n[[Glance back|fantasies]]</div><div tiddler="shame" tags="music base" created="201409120316" modifier="twee" twine-position="1550,1830">When
  you left, you were both so angry. So ugly with &lt;&lt;replace 
 "bitterness."&gt;&gt;bitterness.\n\nIt 
 [[drowns]].&lt;&lt;endreplace&gt;&gt;&lt;&lt;fadeoutsound 
@@ -1549,8 +1532,7 @@ you:\n\n"The Empress's larval stage is almost complete. We invite you to
 scars on her face, like faded borders in a land overrun by 
 sand.\n\n"What they did to me on the outside, they did to you on the 
 inside.\n\n"We are the same. &lt;&lt;replace "Separated from the 
-world."&gt;&gt;Separated from the world.\n\n[[Chasm people|are 
-you]]."&lt;&lt;endreplace&gt;&gt;</div><div tiddler="Your chambers" tags="music base" created="201408310153" modifier="twee" twine-position="850,1270">&lt;&lt;if
+world."&gt;&gt;Separated from the world.\n\n[[Chasm people|are you]]."&lt;&lt;endreplace&gt;&gt;</div><div tiddler="Your chambers" tags="music base" created="201408310153" modifier="twee" twine-position="850,1270">&lt;&lt;if
  $day neq 3 and $day neq 12 and $day neq $final_day&gt;&gt;A 
 [[chest|Chest]] under your bed.&lt;&lt;endif&gt;&gt;\n\n&lt;&lt;if $day 
 is 3 and $wearable_message is false&gt;&gt;&lt;&lt;set $wearable_message
@@ -1908,14 +1890,7 @@ you."\n\nThe drop [[falls through your body]].</div><div tiddler="premonth" tags
  carved of stone from this century, others the husks of machines from 
 beyond your reckoning.\n\nIt is easier for the gardeners to call the 
 machines statues. But they were no aesthetic object.\n\n[[Look 
-away|Garden]]</div><div tiddler="The mob rushes to the courtyard" tags="pink" created="201409260015" modifier="twee" twine-position="2670,150">You spot something pink crawling up the [[balcony stairs|stairs]].</div><div tiddler="timed goto" tags="script" created="201306162253" modifier="twee" twine-position="570,10">version.extensions.timedgotoMacro={major:1,minor:1,revision:0};macros["goto"]=macros["timedgoto"]={timer:null,handler:function(a,b,c,d){\nfunction
- cssTimeUnit(s){if(typeof 
-s=="string"){if(s.slice(-2).toLowerCase()=="ms"){return 
-Number(s.slice(0,-2))||0;\n}else{if(s.slice(-1).toLowerCase()=="s"){return
- Number(s.slice(0,-1))*1000||0;}}}throwError(a,s+" isn't a CSS time 
-unit");\nreturn 0;}var 
-t,d,m,s;t=c[c.length-1];d=d.fullArgs();m=0;if(b!="goto"){d=d.slice(0,d.lastIndexOf(t));\nm=cssTimeUnit(t);}d=eval(Wikifier.parse(d));if(d+""){if(this.timer){clearTimeout(this.timer);\n}s=state.history[0].passage.title;this.timer=setTimeout(function(){if(state.history[0].passage.title==s){state.display(d,a);\n}},m);}}};\n</div><div tiddler="weapon" tags="base" created="201409270506" modifier="twee" twine-position="430,1550">Made of &lt;&lt;$weapon_material_1&gt;&gt; and &lt;&lt;$weapon_material_2&gt;&gt;.\n\n[[You feel little pride|Throneroom]]</div><div tiddler="interval" tags="interstice base" created="201409111201" modifier="twee" twine-position="1270,990">&lt;&lt;timedgoto
- $destination 3s&gt;&gt;\n&lt;&lt;fadeoutsound "creep.mp3" 
+away|Garden]]</div><div tiddler="The mob rushes to the courtyard" tags="pink" created="201409260015" modifier="twee" twine-position="2670,150">You spot something pink crawling up the [[balcony stairs|stairs]].</div><div tiddler="timed goto" tags="script" created="201306162253" modifier="twee" twine-position="570,10">version.extensions.timedgotoMacro={major:1,minor:1,revision:0};macros["goto"]=macros["timedgoto"]={timer:null,handler:function(a,b,c,d){\nfunction cssTimeUnit(s){if(typeof s=="string"){if(s.slice(-2).toLowerCase()=="ms"){return Number(s.slice(0,-2))||0;\n}else{if(s.slice(-1).toLowerCase()=="s"){return Number(s.slice(0,-1))*1000||0;}}}throwError(a,s+" isn't a CSS time unit");\nreturn 0;}var t,d,m,s;t=c[c.length-1];d=d.fullArgs();m=0;if(b!="goto"){d=d.slice(0,d.lastIndexOf(t));\nm=cssTimeUnit(t);}d=eval(Wikifier.parse(d));if(d+""){if(this.timer){clearTimeout(this.timer);\n}s=state.history[0].passage.title;this.timer=setTimeout(function(){if(state.history[0].passage.title==s){state.display(d,a);\n}},m);}}};\n</div><div tiddler="weapon" tags="base" created="201409270506" modifier="twee" twine-position="430,1550">Made of &lt;&lt;$weapon_material_1&gt;&gt; and &lt;&lt;$weapon_material_2&gt;&gt;.\n\n[[You feel little pride|Throneroom]]</div><div tiddler="interval" tags="interstice base" created="201409111201" modifier="twee" twine-position="1270,990">&lt;&lt;timedgoto $destination 3s&gt;&gt;\n&lt;&lt;fadeoutsound "creep.mp3" 
 &gt;&gt;\n&lt;&lt;fadeoutsound "letter.mp3" 
 &gt;&gt;\n&lt;&lt;fadeoutsound "make.mp3" &gt;&gt;\n&lt;&lt;fadeoutsound
  "wandering.mp3" &gt;&gt;\n&lt;&lt;fadeoutsound "scene.mp3" 
