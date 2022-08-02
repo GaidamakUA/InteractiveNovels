@@ -542,10 +542,8 @@ you hear metal hissing.&lt;&lt;endif&gt;&gt;&lt;&lt;if $prox eq
 ceiling.&lt;&lt;endif&gt;&gt;&lt;&lt;if $prox eq 3&gt;&gt;Sudden 
 silence.&lt;&lt;endif&gt;&gt;&lt;&lt;if $prox eq 4&gt;&gt;The hissing is
  very close.&lt;&lt;endif&gt;&gt;&lt;&lt;if $prox gte 5&gt;&gt;Coils 
-drop from the ceiling and lash around your chest&lt;&lt;timedgoto 
-"surgery time" 4s&gt;&gt;&lt;&lt;endif&gt;&gt;</div><div tiddler="baby" tags="" created="201212142348" modifier="twee" twine-position="570,710">&lt;&lt;set
- $floor += 1&gt;&gt;&lt;&lt;if $floor gte 5&gt;&gt;&lt;&lt;timedgoto 
-"death" 1s&gt;&gt;&lt;&lt;else&gt;&gt;//Lightyears of drinking my 
+drop from the ceiling and lash around your chest&lt;&lt;timedgoto "surgery time" 4s&gt;&gt;&lt;&lt;endif&gt;&gt;</div><div tiddler="baby" tags="" created="201212142348" modifier="twee" twine-position="570,710">&lt;&lt;set
+ $floor += 1&gt;&gt;&lt;&lt;if $floor gte 5&gt;&gt;&lt;&lt;timedgoto "death" 1s&gt;&gt;&lt;&lt;else&gt;&gt;//Lightyears of drinking my 
 strength. Drinking my body. Drinking my milk.\n\nBad 
 baby.//\n\n[[flail]]  [[scream]]  [[breathe]]&lt;&lt;endif&gt;&gt;</div><div tiddler="kill" tags="" created="201212160649" modifier="twee" twine-position="4070,2950">You
  tear the fire extinguisher from the wall and bash her cable until the 
@@ -708,8 +706,7 @@ only other survivor I've found help me set up this barricade I've sealed
 you're here. I was so worried you're the only other survivor I've found 
 help me set up this barricade I've sealed all the doors on the huh huh 
 huh huh 
-hahaahahahhhahahahhHUHHUHUHUHAHAHAHAHAHAHAHAHAHAHAHAHAHHHAHAHAHAHAHHAHA&lt;&lt;timedgoto
- "navdoor" 2s&gt;&gt;&lt;&lt;endif&gt;&gt;&lt;&lt;if $nav is 
+hahaahahahhhahahahhHUHHUHUHUHAHAHAHAHAHAHAHAHAHAHAHAHAHHHAHAHAHAHAHHAHA&lt;&lt;timedgoto "navdoor" 2s&gt;&gt;&lt;&lt;endif&gt;&gt;&lt;&lt;if $nav is 
 7&gt;&gt;//Thank god you're here I was so worried you're the only other 
 survivor I've found help me set up this barricade I've sealed all the 
 doors on the huh huh huh huh 
@@ -734,8 +731,7 @@ bursts open and you slide along the floor.\n\nA cruel, sweet,
 synthesized voice pours from the walls,&lt;&lt;timedgoto "burst" 
 1.5s&gt;&gt;&lt;&lt;endif&gt;&gt;&lt;&lt;if $burst eq 3&gt;&gt;The pod 
 bursts open and you slide along the floor.\n\nA cruel, sweet, 
-synthesized voice pours from the walls, ceiling,&lt;&lt;timedgoto 
-"burst" 1.5s&gt;&gt;&lt;&lt;endif&gt;&gt;&lt;&lt;if $burst eq 
+synthesized voice pours from the walls, ceiling,&lt;&lt;timedgoto "burst" 1.5s&gt;&gt;&lt;&lt;endif&gt;&gt;&lt;&lt;if $burst eq 
 4&gt;&gt;The pod bursts open and you slide along the floor.\n\nA cruel, 
 sweet, synthesized voice pours from the walls, ceiling, vibrates through
  the floor into your eardrums.&lt;&lt;timedgoto "burst" 
@@ -1135,12 +1131,7 @@ erupt around their mouth.&lt;&lt;endif&gt;&gt;\n\n&lt;&lt;display
 "proximity"&gt;&gt;\n\n[[Disable surgery turret|surgical 
 arms]]\n\n[[Run]]\n\n</div><div tiddler="run down the shaft" tags="" created="201212151938" modifier="twee" twine-position="1410,1690">sprint\n\nthe
  walkway grating rattles under your feet\n\nthe floor feels less like 
-floor and more like falling\n\n&lt;&lt;timedgoto "spikepit" 7s&gt;&gt;</div><div tiddler="timed goto" tags="script" created="201306162253" modifier="twee" twine-position="710,10">version.extensions.timedgotoMacro={major:1,minor:1,revision:0};macros["goto"]=macros["timedgoto"]={timer:null,handler:function(a,b,c,d){\nfunction
- cssTimeUnit(s){if(typeof 
-s=="string"){if(s.slice(-2).toLowerCase()=="ms"){return 
-Number(s.slice(0,-2))||0;\n}else{if(s.slice(-1).toLowerCase()=="s"){return
- Number(s.slice(0,-1))*1000||0;}}}throwError(a,s+" isn't a CSS time 
-unit");\nreturn 0;}var 
+floor and more like falling\n\n&lt;&lt;timedgoto "spikepit" 7s&gt;&gt;</div><div tiddler="timed goto" tags="script" created="201306162253" modifier="twee" twine-position="710,10">version.extensions.timedgotoMacro={major:1,minor:1,revision:0};macros["goto"]=macros["timedgoto"]={timer:null,handler:function(a,b,c,d){\nfunction cssTimeUnit(s){if(typeof s=="string"){if(s.slice(-2).toLowerCase()=="ms"){return Number(s.slice(0,-2))||0;\n}else{if(s.slice(-1).toLowerCase()=="s"){return Number(s.slice(0,-1))*1000||0;}}}throwError(a,s+" isn't a CSS time unit");\nreturn 0;}var 
 t,d,m,s;t=c[c.length-1];d=d.fullArgs();m=0;if(b!="goto"){d=d.slice(0,d.lastIndexOf(t));\nm=cssTimeUnit(t);}d=eval(Wikifier.parse(d));if(d+""){if(this.timer){clearTimeout(this.timer);\n}s=state.history[0].passage.title;this.timer=setTimeout(function(){if(state.history[0].passage.title==s){state.display(d,a);\n}},m);}}};\n</div><div tiddler="scream" tags="" created="201212142244" modifier="twee" twine-position="290,990">&lt;&lt;display "baby"&gt;&gt;\n\n&lt;&lt;if $floor lt 5&gt;&gt;Fluid pours from your mouth.&lt;&lt;endif&gt;&gt;</div><div tiddler="machinery" tags="" created="201212160445" modifier="twee" twine-position="4490,1130">&lt;&lt;set
  $machinery = $machinery + 1&gt;&gt;&lt;&lt;if $machinery eq 
 1&gt;&gt;Your fingers are clawing at the hole in your head but something
